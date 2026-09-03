@@ -1403,44 +1403,40 @@
     /* =========================================================
        3. LISTADO DE PROYECTOS (TÍTULO GRANDE + AÑO Y COORDENADAS)
        ========================================================= */
-    function renderWorkList() {
+function renderWorkList() {
       const container = document.getElementById('projects-list-container');
+      const bioContainer = document.getElementById('work-side-bio');
       if (!container) return;
 
       const keys = Object.keys(projects).sort((a, b) => {
         return parseInt(projects[b].year || '0', 10) - parseInt(projects[a].year || '0', 10);
       });
 
-      const filteredKeys = keys.filter(k => {
+      // 1. Render de las 3 columnas: Coordenadas — Título — Tipología
+      container.innerHTML = keys.map(k => {
         const p = projects[k];
-        const matchesCat = (currentFilter === 'all') || (Array.isArray(p.categories) && p.categories.includes(currentFilter));
-        const titleText = getText(p.title, currentLang).toLowerCase();
-        const yearText = String(p.year || '');
-        const coordsText = getCoordinatesOnly(p).toLowerCase();
-        const matchesSearch = !currentSearch || titleText.includes(currentSearch) || yearText.includes(currentSearch) || coordsText.includes(currentSearch);
-        return matchesCat && matchesSearch;
-      });
-
-      if (filteredKeys.length === 0) {
-        container.innerHTML = `<div style="padding: 32px 0; color: var(--muted); font-size: 15px;">${currentLang === 'es' ? 'no se encontraron proyectos' : 'no projects found'}</div>`;
-        return;
-      }
-
-      container.innerHTML = filteredKeys.map(k => {
-        const p = projects[k];
+        if (!p) return '';
         const title = getText(p.title, currentLang);
-        const year = p.year || '';
         const coords = getCoordinatesOnly(p);
+        const typology = getTypology(p, currentLang);
 
         return `
           <div class="project-item" onmouseenter="showHoverImage('${k}', event)" onmouseleave="hideHoverImage()">
             <a href="#${k}" onclick="openProject('${k}', event)">
+              <span class="project-coords">${coords}</span>
               <span class="project-title">${title}</span>
-              <span class="project-meta">${year} · ${coords}</span>
+              <span class="project-typology">${typology}</span>
             </a>
           </div>
         `;
       }).join('');
+
+      // 2. Render de la bio editorial en la columna derecha
+      if (bioContainer && tallerData) {
+        bioContainer.innerHTML = `
+          <p>${formatTallerParagraphs(getText(tallerData.manifesto_1, currentLang))}</p>
+        `;
+      }
     }
 
     /* =========================================================
