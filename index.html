@@ -40,7 +40,6 @@
       --text: #000000;
       --muted: #767676;
       --accent: #d97a47;
-      --blue: #d97a47;
       --font: "ABC Diatype", "Geist", "Suisse Intl", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --pad-x: 24px;
       --pad-top: 22px;
@@ -51,7 +50,6 @@
       --text: #f4f4f4;
       --muted: #888888;
       --accent: #d97a47;
-      --blue: #d97a47;
     }
 
     @media (min-width: 768px) {
@@ -602,7 +600,11 @@
 
     <!-- VISTA TALLER -->
     <section id="view-taller" style="display: none;">
-      <div id="taller-bio-text" class="info-bio"></div>
+      <div class="info-bio">
+        <div id="taller-manifesto-1"></div>
+        <div style="height: 18px;"></div>
+        <div id="taller-manifesto-2"></div>
+      </div>
       <div>
         <div class="info-section-title" id="lbl-distinctions">Concursos & Distinciones</div>
         <ul id="taller-distinctions-list" class="info-list"></ul>
@@ -654,13 +656,19 @@
       { id: 'territorio', es: 'Territorio', en: 'Territory' },
       { id: 'paisaje', es: 'Paisaje', en: 'Landscape' },
       { id: 'urbanismo', es: 'Urbanismo', en: 'Urbanism' },
-      { id: 'patrimonio', es: 'Patrimonio', en: 'Heritage' },
-      { id: 'vivienda', es: 'Vivienda', en: 'Housing' },
+      { id: 'espacio-publico', es: 'Espacio Público', en: 'Public Space' },
       { id: 'infraestructura', es: 'Infraestructura', en: 'Infrastructure' },
+      { id: 'patrimonio', es: 'Patrimonio', en: 'Heritage' },
+      { id: 'museografia', es: 'Museografía', en: 'Museography' },
+      { id: 'civico-cultural', es: 'Cívico y Cultural', en: 'Civic & Cultural' },
+      { id: 'educativo-institucional', es: 'Educativo e Institucional', en: 'Educational & Institutional' },
+      { id: 'vivienda', es: 'Vivienda', en: 'Housing' },
+      { id: 'interiores', es: 'Interiores', en: 'Interiors' },
+      { id: 'pabellones', es: 'Pabellones', en: 'Pavilions' },
+      { id: 'escenografia', es: 'Escenografía', en: 'Scenography' },
       { id: 'efimero', es: 'Efímero', en: 'Ephemeral' },
       { id: 'investigacion', es: 'Investigación', en: 'Research' },
-      { id: 'interiores', es: 'Interiores', en: 'Interiors' },
-      { id: 'arquitectura', es: 'Arquitectura', en: 'Architecture' }
+      { id: 'editorial', es: 'Editorial', en: 'Editorial' }
     ];
 
     const DEFAULT_PROJECTS = {
@@ -1171,9 +1179,10 @@
     let currentTheme = 'light';
     let currentView = 'projects';
     let currentProjectId = null;
-    let projects = DEFAULT_PROJECTS;
+    let projectsData = DEFAULT_PROJECTS;
     let tallerData = DEFAULT_TALLER;
     let contactData = DEFAULT_CONTACT;
+    let projectKeys = Object.keys(projectsData);
 
     function getText(obj, lang) {
       if (!obj) return '';
@@ -1181,21 +1190,72 @@
       return obj[lang] || obj['es'] || obj['en'] || '';
     }
 
-    function getCoordinatesOnly(p) {
-      if (!p || !p.location) return '';
-      if (p.location.includes('·')) {
-        return p.location.split('·').trim();
-      }
-      return p.location.trim();
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
     }
 
-    function getTypology(p, lang) {
+    function slugify(text) {
+      if (!text) return '';
+      return text
+        .toString()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)+/g, '');
+    }
+
+    function findProjectKey(id) {
+      if (!id) return null;
+      if (projectsData[id]) return id;
+      const found = Object.keys(projectsData).find(k => {
+        const p = projectsData[k];
+        return p._id === id || p.id === id || p.slug === id || p.slugKey === id;
+      });
+      return found || id;
+    }
+
+    function getCoordinatesOnly(p) {
+      if (!p || !p.location) return '';
+      const locStr = String(p.location);
+      if (locStr.includes('·')) {
+        const parts = locStr.split('·');
+        return parts.length > 1 ? parts.trim() : parts[0].trim();
+      }
+      return locStr.trim();
+    }
+
+    function getFormattedTypology(p, lang) {
+      if (!p) return '';
+      const custom = getText(p.typology, lang);
+      if (custom && custom.trim() !== '') return custom;
+
       const cats = Array.isArray(p.categories) ? p.categories : (p.category ? [p.category] : []);
-      if (!cats.length) return '';
-      return cats.map(cId => {
-        const found = ALL_TYPOLOGIES.find(t => t.id === cId);
+      if (cats.length === 0) return '';
+
+      const titles = cats.map(cId => {
+        const found = ALL_TYPOLOGIES.find(t => t.id.toLowerCase() === String(cId).toLowerCase());
         return found ? found[lang] : cId;
-      }).join(', ');
+      });
+
+      return titles.join(' / ');
+    }
+
+    function formatTallerParagraphs(rawText) {
+      if (!rawText) return '';
+      if (rawText.includes('<p>') || rawText.includes('<div>')) return rawText;
+      return rawText
+        .split(new RegExp('\\n\\s*\\n'))
+        .map(p => p.trim())
+        .filter(p => p.length > 0)
+        .map(p => '<p>' + p + '</p>')
+        .join('');
     }
 
     /* 1. RENDER LISTADO DE PROYECTOS (CENTRADO, TÍTULO + AÑO + COORDENADAS) */
@@ -1203,12 +1263,15 @@
       const container = document.getElementById('projects-list-container');
       if (!container) return;
 
-      const keys = Object.keys(projects).sort((a, b) => {
-        return parseInt(projects[b].year || '0', 10) - parseInt(projects[a].year || '0', 10);
+      const keys = projectKeys.slice().sort((a, b) => {
+        const pA = projectsData[a] || {};
+        const pB = projectsData[b] || {};
+        return parseInt(pB.year || '0', 10) - parseInt(pA.year || '0', 10);
       });
 
       container.innerHTML = keys.map(k => {
-        const p = projects[k];
+        const p = projectsData[k];
+        if (!p) return '';
         const title = getText(p.title, currentLang);
         const year = p.year || '';
         const coords = getCoordinatesOnly(p);
@@ -1217,7 +1280,7 @@
           <div class="project-item" onmouseenter="showHoverImage('${k}', event)" onmouseleave="hideHoverImage()">
             <a href="#${k}" onclick="openProject('${k}', event)">
               <span class="project-title">${title}</span>
-              <span class="project-meta">${year} · ${coords}</span>
+              <span class="project-meta">${year}${coords ? ` · ${coords}` : ''}</span>
             </a>
           </div>
         `;
@@ -1226,9 +1289,18 @@
 
     /* 2. HOVER FLOTANTE EN SECO (RANDOM POS & SIZE) */
     function showHoverImage(key, e) {
-      const p = projects[key];
+      const resolvedKey = findProjectKey(key);
+      const p = projectsData[resolvedKey];
       if (!p) return;
-      const imgUrl = (p.images && p.images[0]) || p.homeImage || '';
+
+      let imgUrl = p.homeImage || '';
+      if (!imgUrl && p.gallery && p.gallery.length > 0) {
+        const first = p.gallery.find(item => typeof item === 'string' || (item && item.url));
+        if (first) imgUrl = typeof first === 'string' ? first : first.url;
+      }
+      if (!imgUrl && p.images && p.images.length > 0) {
+        imgUrl = p.images[0];
+      }
       if (!imgUrl) return;
 
       const hoverBox = document.getElementById('hover-floating-image');
@@ -1261,12 +1333,13 @@
     function openProject(key, e) {
       if (e) e.preventDefault();
       hideHoverImage();
-      const p = projects[key];
+      const resolvedKey = findProjectKey(key);
+      const p = projectsData[resolvedKey];
       if (!p) return;
 
-      currentProjectId = key;
+      currentProjectId = resolvedKey;
       currentView = 'project';
-      window.location.hash = key;
+      window.location.hash = resolvedKey;
 
       const views = ['projects', 'taller', 'contact', 'home'];
       views.forEach(v => {
@@ -1278,7 +1351,7 @@
       projView.style.display = 'block';
 
       const textSec = document.getElementById('detail-text-section');
-      if (textSec) {
+      if (textSec && typeof textSec.getBoundingClientRect === 'function') {
         textSec.style.opacity = '1';
         textSec.style.pointerEvents = 'auto';
       }
@@ -1296,8 +1369,8 @@
       const metaItems = [
         { label: currentLang === 'es' ? 'Año' : 'Year', value: p.year },
         { label: currentLang === 'es' ? 'Ubicación' : 'Location', value: p.location },
-        { label: currentLang === 'es' ? 'Tipología' : 'Typology', value: getTypology(p, currentLang) },
-        { label: currentLang === 'es' ? 'Área' : 'Area', value: p.m2 ? (String(p.m2).includes('m') || String(p.m2).includes('sq') ? p.m2 : p.m2 + ' m²') : '' },
+        { label: currentLang === 'es' ? 'Tipología' : 'Typology', value: getFormattedTypology(p, currentLang) },
+        { label: currentLang === 'es' ? 'Área' : 'Area', value: p.m2 ? (String(p.m2).includes('m') || String(p.m2).includes('sq') ? p.m2 : `${p.m2} m²`) : '' },
         { label: currentLang === 'es' ? 'Equipo' : 'Team', value: p.team },
         { label: currentLang === 'es' ? 'Programa' : 'Program', value: p.program },
         { label: currentLang === 'es' ? 'Tutor' : 'Tutor', value: p.tutor },
@@ -1307,11 +1380,11 @@
       ];
 
       metaContainer.innerHTML = metaItems
-        .filter(m => m.value && String(m.value).trim() !== '')
+        .filter(m => m.value !== undefined && m.value !== null && String(m.value).trim() !== '')
         .map(m => `
           <div class="meta-entry">
-            <span class="meta-entry-label">${m.label}</span>
-            <span class="meta-entry-value">${m.value}</span>
+            <span class="meta-entry-label">${escapeHtml(m.label)}</span>
+            <span class="meta-entry-value">${escapeHtml(String(m.value))}</span>
           </div>
         `).join('');
 
@@ -1319,55 +1392,94 @@
       const summaryText = getText(p.summary, currentLang);
       const fullText = getText(p.full, currentLang);
       narrativeContainer.innerHTML = `
-        ${summaryText ? `<p style="font-size: 17px; margin-bottom: 20px;">${summaryText}</p>` : ''}
-        ${fullText || ''}
+        ${summaryText ? `<p style="font-size: 17px; margin-bottom: 20px;">${escapeHtml(summaryText)}</p>` : ''}
+        ${fullText ? `<div>${fullText}</div>` : ''}
       `;
 
       const galleryContainer = document.getElementById('detail-gallery');
-      const imgs = p.images || [];
-      galleryContainer.innerHTML = imgs.map((url, i) => `
-        <div class="image-stream-item">
-          <img src="${url}" alt="${fullTitle} [${i + 1}]" loading="lazy" />
-        </div>
-      `).join('');
+      const rawGallery = (p.gallery && p.gallery.length > 0) ? p.gallery : (p.images || []);
+      
+      let htmlOutput = [];
+      rawGallery.forEach((item, idx) => {
+        if (typeof item === 'string') {
+          htmlOutput.push(`
+            <div class="image-stream-item">
+              <img src="${item}" alt="${escapeHtml(fullTitle)} [${idx + 1}]" loading="lazy" />
+            </div>
+          `);
+        } else if (item && (item._type === 'explanatoryText' || ('text_es' in item && !item.url))) {
+          const txt = (currentLang === 'es' ? (item.text_es || item.text_en) : (item.text_en || item.text_es)) || '';
+          if (txt) {
+            htmlOutput.push(`
+              <div class="detail-description">
+                <p>${escapeHtml(txt)}</p>
+              </div>
+            `);
+          }
+        } else if (item && item.url) {
+          const cap = (currentLang === 'es' ? (item.caption_es || item.caption_en) : (item.caption_en || item.caption_es)) || '';
+          htmlOutput.push(`
+            <div class="image-stream-item">
+              <img src="${item.url}" alt="${escapeHtml(fullTitle)} [${idx + 1}]" loading="lazy" />
+              ${cap ? `<div style="font-size: 13px; color: var(--muted); margin-top: 8px;">${escapeHtml(cap)}</div>` : ''}
+            </div>
+          `);
+        }
+      });
 
+      galleryContainer.innerHTML = htmlOutput.join('');
       window.scrollTo({ top: 0, behavior: 'instant' });
       handleScrollUpdates();
     }
 
     /* 4. TALLER */
     function renderTaller() {
-      const m1 = getText(tallerData.manifesto_1, currentLang);
-      const m2 = getText(tallerData.manifesto_2, currentLang);
-      document.getElementById('taller-bio-text').innerHTML = `${m1}<div style="height: 20px;"></div>${m2}`;
-      
+      const m1 = document.getElementById('taller-manifesto-1');
+      const m2 = document.getElementById('taller-manifesto-2');
+      const distTitle = document.getElementById('lbl-distinctions');
       const distList = document.getElementById('taller-distinctions-list');
-      if (distList && tallerData.distinctions) {
-        distList.innerHTML = tallerData.distinctions.map(d => {
-          const t = typeof d === 'string' ? d : getText(d, currentLang);
-          return `<li style="margin-bottom: 8px;">${t}</li>`;
-        }).join('');
+
+      if (m1) m1.innerHTML = formatTallerParagraphs(getText(tallerData.manifesto_1, currentLang));
+      if (m2) m2.innerHTML = formatTallerParagraphs(getText(tallerData.manifesto_2, currentLang));
+
+      if (distTitle) {
+        const customTitle = getText(tallerData.distinctions_title, currentLang);
+        distTitle.innerText = customTitle || (currentLang === 'es' ? 'Concursos & Distinciones' : 'Competitions & Honors');
       }
 
-      const lblDist = document.getElementById('lbl-distinctions');
-      if (lblDist) {
-        lblDist.innerText = currentLang === 'es' ? 'Concursos & Distinciones' : 'Competitions & Honors';
+      if (distList) {
+        if (Array.isArray(tallerData.distinctions) && tallerData.distinctions.length > 0) {
+          distList.innerHTML = tallerData.distinctions.map(d => `<li style="margin-bottom: 8px;">${typeof d === 'string' ? d : getText(d, currentLang)}</li>`).join('');
+          if (distTitle) distTitle.style.display = 'block';
+        } else {
+          distList.innerHTML = '';
+          if (distTitle) distTitle.style.display = 'none';
+        }
       }
     }
 
     /* 5. CONTACTO */
     function renderContact() {
-      const intro = getText(contactData.intro, currentLang);
-      document.getElementById('contact-intro-text').innerText = intro;
-
+      const intro = document.getElementById('contact-intro-text');
       const pLink = document.getElementById('link-contact-projects');
       const prLink = document.getElementById('link-contact-press');
       const cLink = document.getElementById('link-contact-careers');
 
-      if (contactData.emails) {
-        if (pLink) { pLink.href = `mailto:${contactData.emails.projects}`; pLink.innerText = contactData.emails.projects; }
-        if (prLink) { prLink.href = `mailto:${contactData.emails.press}`; prLink.innerText = contactData.emails.press; }
-        if (cLink) { cLink.href = `mailto:${contactData.emails.careers}`; cLink.innerText = contactData.emails.careers; }
+      if (intro) intro.innerText = getText(contactData.intro, currentLang);
+
+      if (contactData && contactData.emails) {
+        if (pLink && contactData.emails.projects) {
+          pLink.href = `mailto:${contactData.emails.projects}`;
+          pLink.innerText = contactData.emails.projects;
+        }
+        if (prLink && contactData.emails.press) {
+          prLink.href = `mailto:${contactData.emails.press}`;
+          prLink.innerText = contactData.emails.press;
+        }
+        if (cLink && contactData.emails.careers) {
+          cLink.href = `mailto:${contactData.emails.careers}`;
+          cLink.innerText = contactData.emails.careers;
+        }
       }
 
       document.getElementById('lbl-proj-contact').innerText = currentLang === 'es' ? 'Proyectos' : 'Projects';
@@ -1380,7 +1492,7 @@
       const container = document.getElementById('scatter-canvas-el');
       if (!container) return;
 
-      const keys = Object.keys(projects);
+      const keys = projectKeys.slice();
       const isMobile = window.innerWidth < 768;
       const count = isMobile ? 8 : 14;
 
@@ -1392,7 +1504,7 @@
 
       for (let i = 0; i < count; i++) {
         const k = keys[i % keys.length];
-        const p = projects[k];
+        const p = projectsData[k];
         if (!p) continue;
         const img = p.homeImage || (p.images && p.images[0] ? p.images[0] : '');
         if (!img) continue;
@@ -1507,12 +1619,12 @@
     /* SCROLL & CONTRASTE */
     function handleScrollUpdates() {
       const nav = document.getElementById('header-nav');
-      if (!nav) return;
+      if (!nav || typeof nav.getBoundingClientRect !== 'function') return;
 
       const navRect = nav.getBoundingClientRect();
 
       const textSec = document.getElementById('detail-text-section');
-      if (textSec && currentView === 'project') {
+      if (textSec && currentView === 'project' && typeof textSec.getBoundingClientRect === 'function') {
         const rect = textSec.getBoundingClientRect();
         if (rect.bottom < 140) {
           textSec.style.opacity = '0';
@@ -1559,7 +1671,7 @@
         navigateTo('contact');
       } else if (hash === 'home') {
         navigateTo('home');
-      } else if (projects[hash]) {
+      } else if (findProjectKey(hash)) {
         openProject(hash);
       }
     });
@@ -1571,18 +1683,31 @@
       handleScrollUpdates();
     });
 
-    /* SINCRONIZACIÓN SANITY CMS (PROYECTOS + TALLER + CONTACTO) */
-    async function fetchSanity() {
+    /* SINCRONIZACIÓN SANITY CMS (PROYECTOS + TALLER + CONTACTO EXACTA DE V1) */
+    async function fetchSanityData() {
       if (!SANITY_CONFIG.projectId) return;
-      const q = encodeURIComponent(`{
+      const query = encodeURIComponent(`{
         "projects": *[_type == "project"] | order(orderNumber asc, _createdAt desc) {
-          _id, "slug": slug.current,
-          "title": { "es": coalesce(title_es, title.es, title, "Sin título"), "en": coalesce(title_en, title.en, title, "Untitled") },
-          categories, location, team, year, m2, program, tutor, distinction, client, photography,
+          _id, "id": _id,
+          "slug": slug.current,
+          selectedWork,
+          "categories": categories,
+          "homeImage": homeImage.asset->url,
+          "title": { "es": coalesce(title_es, title.es, title, orderNumber, "Sin título"), "en": coalesce(title_en, title.en, title, orderNumber, "Untitled") },
+          "typology": { "es": coalesce(typology_es, typology.es, ""), "en": coalesce(typology_en, typology.en, "") },
+          location, team, year, m2, program, tutor, distinction, client, photography,
           "summary": { "es": coalesce(summary_es, summary.es, ""), "en": coalesce(summary_en, summary.en, "") },
           "full": { "es": coalesce(full_es, full.es, ""), "en": coalesce(full_en, full.en, "") },
-          "images": images[].asset->url,
-          "homeImage": homeImage.asset->url
+          "gallery": gallery[] {
+            _type,
+            "url": asset->url,
+            layout,
+            caption_es,
+            caption_en,
+            text_es,
+            text_en
+          },
+          "images": images[].asset->url
         },
         "taller": *[_type == "taller"][0] {
           "manifesto_1": { "es": coalesce(manifesto_1_es, manifesto_1.es, ""), "en": coalesce(manifesto_1_en, manifesto_1.en, "") },
@@ -1596,47 +1721,53 @@
         }
       }`);
 
+      const url = `https://${SANITY_CONFIG.projectId}.api.sanity.io/v${SANITY_CONFIG.apiVersion}/data/query/${SANITY_CONFIG.dataset}?query=${query}`;
+
       try {
-        const res = await fetch(`https://${SANITY_CONFIG.projectId}.api.sanity.io/v${SANITY_CONFIG.apiVersion}/data/query/${SANITY_CONFIG.dataset}?query=${q}`);
-        const data = await res.json();
-        if (data && data.result) {
-          if (data.result.projects && data.result.projects.length) {
-            const map = {};
-            data.result.projects.forEach(p => {
-              const k = p.slug || p._id;
-              map[k] = p;
+        const res = await fetch(url);
+        const json = await res.json();
+        if (json && json.result) {
+          if (json.result.projects && json.result.projects.length > 0) {
+            const newProjects = {};
+            json.result.projects.forEach((p, idx) => {
+              const rawTitle = (p.title && (p.title.es || p.title)) || '';
+              const cleanSlug = p.slug || slugify(rawTitle) || p.id || p._id || `proj-${idx}`;
+              p.slugKey = cleanSlug;
+              newProjects[cleanSlug] = p;
             });
-            projects = map;
+            projectsData = newProjects;
+            projectKeys = Object.keys(projectsData);
           }
-          if (data.result.taller && data.result.taller.manifesto_1) {
-            tallerData = data.result.taller;
+          if (json.result.taller && (json.result.taller.manifesto_1 || json.result.taller.distinctions)) {
+            tallerData = json.result.taller;
           }
-          if (data.result.contact && data.result.contact.emails) {
-            contactData = data.result.contact;
+          if (json.result.contact && (json.result.contact.intro || json.result.contact.emails)) {
+            contactData = json.result.contact;
           }
 
           renderProjectsList();
           renderTaller();
           renderContact();
           if (currentView === 'home') renderHomeScatter();
-          if (currentView === 'project' && currentProjectId && projects[currentProjectId]) {
+          if (currentView === 'project' && currentProjectId) {
             openProject(currentProjectId);
           }
         }
-      } catch (e) {
+      } catch (err) {
         console.log('Sanity fallback local activo.');
       }
     }
 
     /* INICIALIZACIÓN */
-    (function init() {
+    (async function init() {
       renderProjectsList();
       renderTaller();
       renderContact();
-      fetchSanity();
+
+      await fetchSanityData();
 
       const hash = window.location.hash.replace('#', '');
-      if (hash && hash !== 'home' && hash !== 'projects' && hash !== 'work' && hash !== 'taller' && hash !== 'contact' && projects[hash]) {
+      if (hash && hash !== 'home' && hash !== 'projects' && hash !== 'work' && hash !== 'taller' && hash !== 'contact' && findProjectKey(hash)) {
         openProject(hash);
       } else if (hash === 'taller') {
         navigateTo('taller');
