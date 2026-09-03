@@ -1746,7 +1746,7 @@ function navigateTo(target, e) {
       handleScrollUpdates();
     }
 
-    function setLang(lang) {
+function setLang(lang) {
       currentLang = lang;
       
       const btnEs = document.getElementById('btn-lang-es');
@@ -1762,9 +1762,9 @@ function navigateTo(target, e) {
       const nWork = document.getElementById('nav-work');
       const nInfo = document.getElementById('nav-info');
       const nContact = document.getElementById('nav-contact');
-      if (nWork) nWork.innerText = lang === 'es' ? 'work' : 'work';
-      if (nInfo) nInfo.innerText = lang === 'es' ? '+ taller' : '+ office';
-      if (nContact) nContact.innerText = lang === 'es' ? 'contacto' : 'contact';
+      if (nWork) nWork.innerText = lang === 'es' ? 'Work' : 'Work';
+      if (nInfo) nInfo.innerText = lang === 'es' ? '+ Taller' : '+ Studio';
+      if (nContact) nContact.innerText = lang === 'es' ? 'Contacto' : 'Contact';
 
       renderFilters();
       renderWorkList();
