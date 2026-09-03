@@ -289,145 +289,93 @@
       opacity: 0.88;
     }
 
-    /* =========================================================
-       2. LISTADO DE PROYECTOS (WORK) + FILTROS & BUSCADOR
+/* =========================================================
+       2. LISTADO DE PROYECTOS (ESTILO GIRODENGO: 2 COLUMNAS)
        ========================================================= */
     #view-work {
-      max-width: 1180px;
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: end;
     }
 
-    /* BARRA MINIMALISTA DE FILTROS Y BÚSQUEDA */
-    .filter-search-bar {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-bottom: 40px;
-    }
-
-    @media (min-width: 768px) {
-      .filter-search-bar {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: baseline;
-        margin-bottom: 52px;
+    @media (min-width: 1024px) {
+      #view-work {
+        grid-template-columns: 1.6fr 1fr;
+        gap: 64px;
       }
     }
 
-    .search-input-wrapper {
-      position: relative;
-      display: inline-flex;
-      align-items: baseline;
-    }
-
-    #project-search-input {
-      background: transparent;
-      border: 0;
-      outline: 0;
-      font-family: inherit;
-      font-size: 14px;
-      color: var(--text);
-      padding: 2px 0;
-      width: 180px;
-      letter-spacing: -0.01em;
-    }
-
-    #project-search-input::placeholder {
-      color: var(--muted);
-      opacity: 0.8;
-    }
-
-    .typology-filter-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px 20px;
-      font-size: 13.5px;
-      color: var(--muted);
-    }
-
-    .typology-filter-group button {
-      transition: color 0.1s ease;
-      text-transform: lowercase;
-    }
-
-    .typology-filter-group button.active {
-      color: var(--text) !important;
-      font-weight: 500;
-    }
-
-    .typology-filter-group button:hover {
-      color: var(--accent) !important;
-    }
-
-    /* FILA DE PROYECTO (TÍTULO GRANDE + AÑO Y COORDENADAS) */
+    /* FILA TABULAR: COORDENADAS — TÍTULO — TIPOLOGÍA */
     .project-item {
       display: block;
-      margin-bottom: 12px;
+      width: 100%;
       cursor: pointer;
-    }
-
-    @media (min-width: 768px) {
-      .project-item {
-        margin-bottom: 16px;
-      }
+      line-height: 1.45;
     }
 
     .project-item a {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
+      display: grid;
+      grid-template-columns: 140px 1fr auto;
+      align-items: baseline;
+      gap: 16px;
       width: 100%;
+      padding: 3px 0;
       color: var(--text);
-      transition: color 0.08s ease;
+      font-size: 14.5px;
+      transition: color 0.1s ease;
     }
 
-    @media (min-width: 640px) {
+    @media (max-width: 640px) {
       .project-item a {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: baseline;
-        gap: 24px;
+        grid-template-columns: 1fr;
+        gap: 2px;
+        padding: 8px 0;
       }
+    }
+
+    .project-coords {
+      font-size: 13px;
+      color: var(--muted);
+      white-space: nowrap;
+      letter-spacing: -0.01em;
     }
 
     .project-title {
-      font-size: 24px;
-      font-weight: 500;
-      letter-spacing: -0.025em;
-      line-height: 1.22;
-      transition: color 0.08s ease;
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: -0.015em;
     }
 
-    @media (min-width: 768px) {
-      .project-title {
-        font-size: 32px;
-        line-height: 1.2;
-      }
-    }
-
-    @media (min-width: 1200px) {
-      .project-title {
-        font-size: 36px;
-      }
-    }
-
-    .project-meta {
-      font-size: 13px;
+    .project-typology {
+      font-size: 13.5px;
       color: var(--muted);
-      letter-spacing: -0.01em;
+      text-align: right;
       white-space: nowrap;
-      transition: color 0.08s ease;
-      flex-shrink: 0;
+      letter-spacing: -0.01em;
     }
 
-    @media (min-width: 768px) {
-      .project-meta {
-        font-size: 14px;
-      }
-    }
-
+    .project-item:hover a,
     .project-item:hover .project-title,
-    .project-item:hover .project-meta {
+    .project-item:hover .project-coords,
+    .project-item:hover .project-typology {
       color: var(--accent) !important;
+    }
+
+    /* COLUMNA DERECHA: BIO EDITORIAL */
+    .side-studio-bio {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text);
+      max-width: 440px;
+      padding-bottom: 6px;
+    }
+
+    .side-studio-bio p {
+      margin-bottom: 14px;
     }
 
     /* IMAGEN FLOTANTE EN HOVER: EN SECO, RANDOM POS & RANDOM SIZE */
