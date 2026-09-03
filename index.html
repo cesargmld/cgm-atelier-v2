@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>CGM ATELIER — César González Maldonado</title>
+  <title>Cgm Atelier — </title>
   <meta name="description" content="CGM Atelier — Práctica de arquitectura y territorio. Monterrey, México." />
 
-  <!-- Tipografía Geist (Google Fonts) -->
+  <!-- Declaración de fuentes: ABC Diatype (local y web fallback) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     @font-face {
       font-family: 'ABC Diatype';
-      src: local('ABC Diatype Regular'), local('ABCDiatype-Regular'), local('Diatype Regular'),
+      src: local('ABC Diatype Regular'), local('ABCDiatype-Regular'), local('ABC Diatype'), local('ABCDiatype'),
+           url('./fonts/ABC Diatype.woff2') format('woff2'),
            url('./fonts/ABCDiatype-Regular.woff2') format('woff2'),
-           url('./fonts/ABCDiatype-Regular.woff') format('woff'),
-           url('./fonts/ABCDiatype-Regular.otf') format('opentype');
+           url('./fonts/ABCDiatype.woff2') format('woff2');
       font-weight: 400;
       font-style: normal;
       font-display: swap;
@@ -25,21 +25,29 @@
 
     @font-face {
       font-family: 'ABC Diatype';
-      src: local('ABC Diatype Medium'), local('ABCDiatype-Medium'), local('Diatype Medium'),
-           url('./fonts/ABCDiatype-Medium.woff2') format('woff2'),
-           url('./fonts/ABCDiatype-Medium.woff') format('woff'),
-           url('./fonts/ABCDiatype-Medium.otf') format('opentype');
+      src: local('ABC Diatype Medium'), local('ABCDiatype-Medium'),
+           url('./fonts/ABC Diatype.woff2') format('woff2'),
+           url('./fonts/ABCDiatype-Medium.woff2') format('woff2');
       font-weight: 500;
       font-style: normal;
       font-display: swap;
     }
 
+    @font-face {
+      font-family: 'ABC Diatype';
+      src: local('ABC Diatype Bold'), local('ABCDiatype-Bold'),
+           url('./fonts/ABCDiatype-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
     :root {
-      --bg: #f2f2f2;
+      --bg: #ffffff;
       --text: #000000;
-      --muted: #767676;
-      --accent: #d97a47;
+      --muted: #888888;
       --blue: #d97a47;
+      --accent: #d97a47;
       --font: "ABC Diatype", "Geist", "Suisse Intl", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --pad-x: 24px;
       --pad-top: 22px;
@@ -47,15 +55,15 @@
 
     html.dark {
       --bg: #0c0c0c;
-      --text: #f4f4f4;
-      --muted: #888888;
-      --accent: #d97a47;
+      --text: #f5f5f5;
+      --muted: #808080;
       --blue: #d97a47;
+      --accent: #d97a47;
     }
 
     @media (min-width: 768px) {
       :root {
-        --pad-x: 44px;
+        --pad-x: 40px;
         --pad-top: 28px;
       }
     }
@@ -66,6 +74,8 @@
       box-sizing: border-box;
       border: 0;
       outline: 0;
+      text-shadow: none !important;
+      box-shadow: none !important;
     }
 
     ::selection {
@@ -77,14 +87,15 @@
       background-color: var(--bg);
       color: var(--text);
       font-family: var(--font);
-      font-size: 15px;
+      font-size: 16px;
+      font-weight: 400;
       line-height: 1.5;
       letter-spacing: -0.015em;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       min-height: 100vh;
       overflow-x: hidden;
-      transition: background-color 0.25s ease, color 0.25s ease;
+      transition: background-color 0.2s ease, color 0.2s ease;
     }
 
     a, button {
@@ -99,14 +110,14 @@
     }
 
     a:hover, button:hover {
-      color: #d97a47 !important;
+      color: var(--accent) !important;
     }
 
     .active, a.active, button.active {
-      color: #d97a47 !important;
+      color: var(--accent) !important;
     }
 
-    /* CABECERA FIJA FLOTANTE TRANSPARENTE */
+    /* CABECERA FIJA SUPERIOR */
     nav#header-nav {
       position: fixed;
       top: 0;
@@ -119,46 +130,45 @@
       align-items: baseline;
       background: transparent;
       pointer-events: none;
-      transition: color 0.15s ease;
+      transition: color 0.15s ease, filter 0.15s ease;
     }
 
     nav#header-nav * {
       pointer-events: auto;
     }
 
+    /* Adaptación del menú cuando pasa sobre una imagen: escala de grises y texto blanco sin sombras */
     nav#header-nav.is-over-image,
     nav#header-nav.is-over-image a,
     nav#header-nav.is-over-image button {
       color: #ffffff !important;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
+      filter: grayscale(100%);
     }
 
     nav#header-nav.is-over-image a:hover,
     nav#header-nav.is-over-image button:hover {
-      color: #d97a47 !important;
+      color: var(--accent) !important;
+      filter: none;
     }
 
     .brand-title {
-      font-size: 20px;
-      font-weight: 400;
-      letter-spacing: -0.02em;
-    }
-
-    .brand-title:hover {
-      color: #d97a47 !important;
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -0.025em;
     }
 
     @media (min-width: 768px) {
       .brand-title {
-        font-size: 22px;
+        font-size: 24px;
       }
     }
 
     .nav-links {
       display: flex;
-      align-items: center;
+      align-items: baseline;
       gap: 18px;
-      font-size: 15px;
+      font-size: 16px;
+      font-weight: 500;
     }
 
     @media (min-width: 768px) {
@@ -167,43 +177,64 @@
       }
     }
 
-    /* Selector de idioma ES/EN */
+    /* CONTROLES ABAJO A LA DERECHA (ES/EN Y MODO DE COLOR) */
+    #bottom-controls {
+      position: fixed;
+      bottom: 24px;
+      right: var(--pad-x);
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      pointer-events: auto;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.15s ease, filter 0.15s ease;
+    }
+
+    #bottom-controls.is-over-image,
+    #bottom-controls.is-over-image button {
+      color: #ffffff !important;
+      filter: grayscale(100%);
+    }
+
+    #bottom-controls.is-over-image button:hover {
+      color: var(--accent) !important;
+      filter: none;
+    }
+
     .lang-switcher {
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      font-size: 12px;
-      letter-spacing: 0.04em;
     }
 
     .lang-btn {
       color: var(--muted);
-      font-weight: 400;
     }
 
     .lang-btn.active {
       color: var(--text) !important;
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .lang-btn:hover {
-      color: #d97a47 !important;
+      color: var(--accent) !important;
     }
 
-    /* Botón de tema original v1 */
     .theme-icon-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 2px;
+      padding: 3px;
       color: var(--muted);
     }
 
     .theme-icon-btn:hover {
-      color: #d97a47 !important;
+      color: var(--accent) !important;
     }
 
-    /* CONTENEDOR PRINCIPAL */
+    /* CONTENEDOR PRINCIPAL CON ESPACIO SUPERIOR AMPLIO */
     main#content {
       padding-top: 130px;
       padding-left: var(--pad-x);
@@ -212,9 +243,6 @@
       max-width: 1400px;
       margin: 0 auto;
       position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
     }
 
     @media (min-width: 768px) {
@@ -224,7 +252,7 @@
     }
 
     /* =========================================================
-       1. PORTADA DISPERSA EN ZONAS RANDOM (#VIEW-HOME)
+       1. PORTADA DISPERSA EN ZONAS RANDOM Y SEPARADAS
        ========================================================= */
     #view-home {
       cursor: pointer;
@@ -262,24 +290,84 @@
     }
 
     /* =========================================================
-       2. LISTADO DE PROYECTOS (#VIEW-WORK) - CENTRADO, SIN FILTROS
+       2. LISTADO DE PROYECTOS (WORK) + FILTROS & BUSCADOR
        ========================================================= */
     #view-work {
-      max-width: 980px;
-      width: 100%;
-      margin: 0 auto;
+      max-width: 1180px;
     }
 
+    /* BARRA MINIMALISTA DE FILTROS Y BÚSQUEDA */
+    .filter-search-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+
+    @media (min-width: 768px) {
+      .filter-search-bar {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 52px;
+      }
+    }
+
+    .search-input-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: baseline;
+    }
+
+    #project-search-input {
+      background: transparent;
+      border: 0;
+      outline: 0;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--text);
+      padding: 2px 0;
+      width: 180px;
+      letter-spacing: -0.01em;
+    }
+
+    #project-search-input::placeholder {
+      color: var(--muted);
+      opacity: 0.8;
+    }
+
+    .typology-filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      font-size: 13.5px;
+      color: var(--muted);
+    }
+
+    .typology-filter-group button {
+      transition: color 0.1s ease;
+      text-transform: lowercase;
+    }
+
+    .typology-filter-group button.active {
+      color: var(--text) !important;
+      font-weight: 500;
+    }
+
+    .typology-filter-group button:hover {
+      color: var(--accent) !important;
+    }
+
+    /* FILA DE PROYECTO (TÍTULO GRANDE + AÑO Y COORDENADAS) */
     .project-item {
       display: block;
-      width: 100%;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       cursor: pointer;
     }
 
     @media (min-width: 768px) {
       .project-item {
-        margin-bottom: 20px;
+        margin-bottom: 16px;
       }
     }
 
@@ -297,13 +385,13 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: baseline;
-        gap: 32px;
+        gap: 24px;
       }
     }
 
     .project-title {
       font-size: 24px;
-      font-weight: 400;
+      font-weight: 500;
       letter-spacing: -0.025em;
       line-height: 1.22;
       transition: color 0.08s ease;
@@ -311,21 +399,21 @@
 
     @media (min-width: 768px) {
       .project-title {
-        font-size: 30px;
+        font-size: 32px;
         line-height: 1.2;
       }
     }
 
     @media (min-width: 1200px) {
       .project-title {
-        font-size: 34px;
+        font-size: 36px;
       }
     }
 
     .project-meta {
       font-size: 13px;
       color: var(--muted);
-      letter-spacing: 0;
+      letter-spacing: -0.01em;
       white-space: nowrap;
       transition: color 0.08s ease;
       flex-shrink: 0;
@@ -339,10 +427,10 @@
 
     .project-item:hover .project-title,
     .project-item:hover .project-meta {
-      color: #d97a47 !important;
+      color: var(--accent) !important;
     }
 
-    /* IMAGEN FLOTANTE EN HOVER */
+    /* IMAGEN FLOTANTE EN HOVER: EN SECO, RANDOM POS & RANDOM SIZE */
     #hover-floating-image {
       position: fixed;
       pointer-events: none;
@@ -363,12 +451,10 @@
     }
 
     /* =========================================================
-       3. EXPEDIENTE DE PROYECTO (#VIEW-PROJECT)
+       3. EXPEDIENTE DE PROYECTO (PROJECT DETAIL)
        ========================================================= */
     #view-project {
-      max-width: 1040px;
-      width: 100%;
-      margin: 0 auto;
+      max-width: 1080px;
     }
 
     #detail-text-section {
@@ -378,7 +464,7 @@
 
     .detail-hero-title {
       font-size: 32px;
-      font-weight: 400;
+      font-weight: 500;
       line-height: 1.15;
       letter-spacing: -0.025em;
       margin-bottom: 8px;
@@ -387,7 +473,7 @@
 
     @media (min-width: 768px) {
       .detail-hero-title {
-        font-size: 44px;
+        font-size: 46px;
       }
     }
 
@@ -459,12 +545,10 @@
     }
 
     /* =========================================================
-       4. TALLER (#VIEW-TALLER)
+       4. TALLER / INFO (+)
        ========================================================= */
-    #view-taller {
+    #view-info {
       max-width: 820px;
-      width: 100%;
-      margin: 0 auto;
     }
 
     .info-bio {
@@ -486,27 +570,29 @@
       margin-bottom: 20px;
     }
 
+    .info-bio strong {
+      font-weight: 500;
+      color: var(--text);
+    }
+
     .info-section-title {
       font-size: 13px;
       color: var(--muted);
-      margin-bottom: 14px;
-      letter-spacing: 0.02em;
+      margin-bottom: 12px;
     }
 
     .info-list {
       list-style: none;
       margin-bottom: 44px;
       font-size: 15px;
-      line-height: 1.65;
+      line-height: 1.6;
     }
 
     /* =========================================================
-       5. CONTACTO (#VIEW-CONTACT)
+       5. CONTACTO
        ========================================================= */
     #view-contact {
       max-width: 820px;
-      width: 100%;
-      margin: 0 auto;
     }
 
     .contact-intro {
@@ -537,11 +623,10 @@
 
     .contact-channel-item a {
       color: var(--text);
-      font-size: 16px;
     }
 
     .contact-channel-item a:hover {
-      color: #d97a47 !important;
+      color: var(--accent) !important;
     }
 
     .hidden { display: none !important; }
@@ -554,42 +639,55 @@
 </head>
 <body>
 
-  <!-- CABECERA FIJA SUPERIOR -->
+  <!-- CABECERA FIJA SUPERIOR LIMPIA (SOLO LOGO, WORK, + TALLER, CONTACTO) -->
   <nav id="header-nav">
     <div>
       <a href="#home" onclick="navigateTo('home', event)" id="nav-brand" class="brand-title">CGM Atelier</a>
     </div>
 
     <div class="nav-links">
-      <a href="#work" onclick="navigateTo('work', event)" id="nav-work">Work</a>
-      <a href="#taller" onclick="navigateTo('taller', event)" id="nav-taller">Taller</a>
-      <a href="#contact" onclick="navigateTo('contact', event)" id="nav-contact">Contacto</a>
-
-      <!-- Selector de Idioma ES / EN -->
-      <div class="lang-switcher">
-        <button onclick="setLang('es')" id="btn-lang-es" class="lang-btn active">ES</button>
-        <span style="color: var(--muted);">/</span>
-        <button onclick="setLang('en')" id="btn-lang-en" class="lang-btn">EN</button>
-      </div>
-
-      <!-- Botón de Tema Original v1 -->
-      <button onclick="toggleTheme()" id="btn-theme" title="Cambiar tema" class="theme-icon-btn">
-        <svg id="icon-circle" class="w-3.5 h-3.5 stroke-current fill-none block" style="width: 13px; height: 13px;" viewBox="0 0 24 24" stroke-width="1.6"><circle cx="12" cy="12" r="9" /></svg>
-        <svg id="icon-half" class="w-3.5 h-3.5 stroke-current fill-none hidden" style="width: 13px; height: 13px;" viewBox="0 0 24 24" stroke-width="1.6"><circle cx="12" cy="12" r="9" /><path fill="#d97a47" d="M12 3a9 9 0 0 0 0 18V3z" /></svg>
-      </button>
+      <a href="#work" onclick="navigateTo('work', event)" id="nav-work">work</a>
+      <a href="#info" onclick="navigateTo('info', event)" id="nav-info">+ taller</a>
+      <a href="#contact" onclick="navigateTo('contact', event)" id="nav-contact">contacto</a>
     </div>
   </nav>
+
+  <!-- CONTROLES INFERIORES DERECHOS: ES/EN Y MODO DE COLOR -->
+  <div id="bottom-controls">
+    <div class="lang-switcher">
+      <button onclick="setLang('es')" id="btn-lang-es" class="lang-btn active">ES</button>
+      <span style="color: var(--muted); opacity: 0.5;">/</span>
+      <button onclick="setLang('en')" id="btn-lang-en" class="lang-btn">EN</button>
+    </div>
+
+    <button onclick="toggleTheme()" id="btn-theme" title="Cambiar tema" class="theme-icon-btn">
+      <svg id="icon-circle" class="w-3.5 h-3.5 stroke-current fill-none block" style="width: 13px; height: 13px;" viewBox="0 0 24 24" stroke-width="1.6"><circle cx="12" cy="12" r="9" /></svg>
+      <svg id="icon-half" class="w-3.5 h-3.5 stroke-current fill-none hidden" style="width: 13px; height: 13px;" viewBox="0 0 24 24" stroke-width="1.6"><circle cx="12" cy="12" r="9" /><path fill="#d97a47" d="M12 3a9 9 0 0 0 0 18V3z" /></svg>
+    </button>
+  </div>
 
   <!-- CONTENIDO PRINCIPAL -->
   <main id="content">
     
-    <!-- VISTA 1: PORTADA DISPERSA EN ZONAS RANDOM (CLIC ENTRA A WORK) -->
+    <!-- VISTA 1: PORTADA DISPERSA EN ZONAS RANDOM -->
     <section id="view-home" onclick="navigateTo('work', event)">
       <div class="scatter-canvas" id="scatter-canvas-el"></div>
     </section>
 
-    <!-- VISTA 2: LISTADO DE PROYECTOS (WORK) - CENTRADO Y LIMPIO -->
+    <!-- VISTA 2: LISTADO DE PROYECTOS (WORK) -->
     <section id="view-work" style="display: none;">
+      
+      <!-- Barra minimalista de búsqueda y filtros -->
+      <div class="filter-search-bar">
+        <div class="search-input-wrapper">
+          <input type="text" id="project-search-input" oninput="handleSearchInput(this.value)" placeholder="buscar proyecto..." autocomplete="off" />
+        </div>
+        <div class="typology-filter-group" id="typology-filter-container">
+          <!-- Inyectado dinámicamente -->
+        </div>
+      </div>
+
+      <!-- Contenedor del listado -->
       <div id="projects-list-container"></div>
     </section>
 
@@ -604,23 +702,18 @@
       <div id="detail-gallery" class="image-stream"></div>
     </article>
 
-    <!-- VISTA 4: TALLER -->
-    <section id="view-taller" style="display: none;">
-      <div class="info-bio">
-        <div id="taller-manifesto-1"></div>
-        <div style="height: 18px;"></div>
-        <div id="taller-manifesto-2"></div>
-      </div>
+    <!-- VISTA 4: INFORMACIÓN / TALLER (+ TALLER) -->
+    <section id="view-info" style="display: none;">
+      <div id="info-bio-text" class="info-bio"></div>
       <div>
-        <div class="info-section-title" id="lbl-distinctions">Concursos & Distinciones</div>
-        <ul id="taller-distinctions-list" class="info-list"></ul>
+        <div class="info-section-title" id="lbl-distinctions">reconocimientos & concursos</div>
+        <ul id="info-distinctions-list" class="info-list"></ul>
       </div>
     </section>
 
     <!-- VISTA 5: CONTACTO -->
     <section id="view-contact" style="display: none;">
       <p id="contact-intro-text" class="contact-intro"></p>
-      
       <div class="contact-channels">
         <div class="contact-channel-item">
           <span class="contact-channel-label" id="lbl-proj-contact">Proyectos</span>
@@ -657,541 +750,528 @@
       { id: 'territorio', es: 'Territorio', en: 'Territory' },
       { id: 'paisaje', es: 'Paisaje', en: 'Landscape' },
       { id: 'urbanismo', es: 'Urbanismo', en: 'Urbanism' },
-      { id: 'espacio-publico', es: 'Espacio Público', en: 'Public Space' },
-      { id: 'infraestructura', es: 'Infraestructura', en: 'Infrastructure' },
       { id: 'patrimonio', es: 'Patrimonio', en: 'Heritage' },
-      { id: 'museografia', es: 'Museografía', en: 'Museography' },
-      { id: 'civico-cultural', es: 'Cívico y Cultural', en: 'Civic & Cultural' },
-      { id: 'educativo-institucional', es: 'Educativo e Institucional', en: 'Educational & Institutional' },
       { id: 'vivienda', es: 'Vivienda', en: 'Housing' },
-      { id: 'interiores', es: 'Interiores', en: 'Interiors' },
-      { id: 'pabellones', es: 'Pabellones', en: 'Pavilions' },
-      { id: 'escenografia', es: 'Escenografía', en: 'Scenography' },
+      { id: 'infraestructura', es: 'Infraestructura', en: 'Infrastructure' },
       { id: 'efimero', es: 'Efímero', en: 'Ephemeral' },
       { id: 'investigacion', es: 'Investigación', en: 'Research' },
-      { id: 'editorial', es: 'Editorial', en: 'Editorial' }
+      { id: 'interiores', es: 'Interiores', en: 'Interiors' },
+      { id: 'arquitectura', es: 'Arquitectura', en: 'Architecture' }
     ];
 
     const DEFAULT_PROJECTS = {
-      "atacama": {
-        "selectedWork": true,
-        "categories": [
-          "territorio",
-          "investigacion"
-        ],
-        "title": {
-          "es": "La Paradoja de la Electromovilidad",
-          "en": "The Paradox of Electromobility"
-        },
-        "location": "Salar de Atacama, Chile · 23°51′42″S 68°14′05″W",
-        "team": "Cesar Gonzalez",
-        "year": "2024",
-        "summary": {
-          "es": "Investigación territorial que cartografía la escala extractiva del litio en la cuenca del Salar de Atacama.",
-          "en": "Territorial research investigation interrogating the footprint of lithium extraction."
-        },
-        "full": {
-          "es": "<p>Dispositivos de sedimentación mineral y refugios tectónicos de piedra volcánica que registran la memoria del sitio.</p>",
-          "en": "<p>Mineral sedimentation devices and volcanic shelters recording site memory.</p>"
-        },
-        "images": [
-          "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1600&q=85",
-          "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=80",
-          "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80",
-          "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1000&q=80",
-          "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80",
-          "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1000&q=80"
-        ]
-      },
-      "fruto-mora": {
-        "selectedWork": true,
-        "categories": [
-          "paisaje"
-        ],
-        "title": {
-          "es": "Fruto de la Mora",
-          "en": "Fruto de la Mora"
-        },
-        "location": "Michoacán, México · 19°25′11″N 102°03′28″W",
-        "team": "Cesar Gonzalez",
-        "year": "2023",
-        "summary": {
-          "es": "Intervención de paisaje productivo e infraestructura agrícola para captación e infiltración pluvial.",
-          "en": "Productive landscape and agricultural infrastructure for rainwater harvesting."
-        },
-        "full": {
-          "es": "<p>Bancales de piedra basáltica extraída in situ y pérgolas para resguardo térmico de cuadrillas.</p>",
-          "en": "<p>Basalt stone retaining walls and local timber shade trellises.</p>"
-        },
-        "images": [
-          "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=85",
-          "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1000&q=80",
-          "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80"
-        ]
-      },
-      "intervencion-central": {
-        "selectedWork": false,
-        "categories": [
-          "infraestructura",
-          "urbanismo"
-        ],
-        "title": {
-          "es": "Intervención Central",
-          "en": "Central Suture"
-        },
-        "location": "General Escobedo, N.L. · 25°48′30″N 100°19′15″W",
-        "team": "Cesar Gonzalez",
-        "year": "2022",
-        "summary": {
-          "es": "Sutura metropolitana de bordes urbanos fracturados por barreras industriales.",
-          "en": "Metropolitan suture bridging urban edges severed by highway arteries."
-        },
-        "full": {
-          "es": "<p>Plataformas peatonales permeables, microbosques nativos y cubiertas modulares de concreto.</p>",
-          "en": "<p>Permeable pedestrian concourses and board-formed concrete canopy structures.</p>"
-        },
-        "images": [
-          "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1600&q=85",
-          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80",
-          "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80"
-        ]
-      },
-      "nodo-la-via": {
-        "selectedWork": false,
-        "categories": [
-          "arquitectura",
-          "urbanismo"
-        ],
-        "title": {
-          "es": "Nodo La Vía",
-          "en": "La Vía Transit Hub"
-        },
-        "location": "Monterrey, N.L. · 25°40′33″N 100°18′45″W",
-        "team": "Cesar Gonzalez",
-        "year": "2023",
-        "summary": {
-          "es": "Densificación vertical y permeabilidad peatonal a cota cero en diálogo con el tejido ferroviario.",
-          "en": "Vertical densification and ground-level civic porosity engaging railway matrix."
-        },
-        "full": {
-          "es": "<p>Pórticos profundos y patios de sombra que liberan el 60% de desplante a uso público.</p>",
-          "en": "<p>Monumental shaded porticos releasing 60% of ground footprint to public life.</p>"
-        },
-        "images": [
-          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=85",
-          "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80",
-          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80"
-        ]
-      },
-      "castell-santa-pau": {
-        "selectedWork": true,
-        "categories": [
-          "patrimonio"
-        ],
-        "title": {
-          "es": "Castell de Santa Pau",
-          "en": "Santa Pau Castle"
-        },
-        "location": "Santa Pau, Girona · 42°08′41″N 2°34′12″E",
-        "team": "Cesar Gonzalez",
-        "year": "2021",
-        "summary": {
-          "es": "Consolidación estructural y rehabilitación sensible de una ruina medieval en la Garrotxa.",
-          "en": "Structural consolidation and rehabilitation of a medieval castle ruin."
-        },
-        "full": {
-          "es": "<p>Adiciones contemporáneas de acero corten y madera laminada despegadas de la mampostería volcánica.</p>",
-          "en": "<p>Contemporary weathering steel insertions detached from historic volcanic walls.</p>"
-        },
-        "images": [
-          "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1600&q=85",
-          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80",
-          "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1000&q=80"
-        ]
-      },
-      "casa-injerto": {
-        "selectedWork": true,
-        "categories": [
-          "vivienda",
-          "interiores"
-        ],
-        "title": {
-          "es": "Casa Injerto",
-          "en": "Casa Injerto"
-        },
-        "location": "San Pedro Garza García · 25°39′20″N 100°21′35″W",
-        "team": "Cesar Gonzalez",
-        "year": "2024",
-        "summary": {
-          "es": "Residencia unifamiliar concebida como un refugio de penumbra y contención térmica.",
-          "en": "Single-family sanctuary of deep shadow and thermal mass in an extreme climate."
-        },
-        "full": {
-          "es": "<p>Masa de concreto pigmentado con arenas locales y patios íntimos con fuentes de agua calma.</p>",
-          "en": "<p>Pigmented concrete infused with regional aggregates and private tranquil courtyards.</p>"
-        },
-        "images": [
-          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85",
-          "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80",
-          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80"
-        ]
-      },
-      "torre-ixco": {
-        "categories": [
-          "vivienda",
-          "urbanismo"
-        ],
-        "title": {
-          "es": "Torre Ixco",
-          "en": "Torre Ixco"
-        },
-        "location": "Monterrey, N.L. · 25°39′50″N 100°20′40″W",
-        "team": "Cesar Gonzalez",
-        "year": "2025",
-        "summary": {
-          "es": "Edificio en altura corporativo y residencial estructurado con exoesqueleto de concreto.",
-          "en": "High-density tower structured around an expressive concrete exoskeleton."
-        },
-        "full": {
-          "es": "<p>Piel de celosías cerámicas extruidas que reduce la ganancia solar directa en un 42%.</p>",
-          "en": "<p>Extruded terracotta louvers diminishing direct solar heat gain by 42%.</p>"
-        },
-        "images": [
-          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=85",
-          "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80",
-          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80"
-        ]
-      },
-      "pabellon-mexico": {
-        "selectedWork": true,
-        "categories": [
-          "efimero",
-          "escenografia",
-          "patrimonio"
-        ],
-        "title": {
-          "es": "Pabellón de México — Bienal 2027",
-          "en": "Mexico Pavilion — Venice Biennale 2027"
-        },
-        "location": "Venecia, Italia · 45°25′45″N 12°21′30″E",
-        "team": "Cesar Gonzalez",
-        "year": "2026",
-        "summary": {
-          "es": "Manifiesto espacial para la Bienal de Venecia 2027 con bloques monolíticos de tezontle y pómez.",
-          "en": "Spatial manifesto for the Venice Biennale built from volcanic pumice blocks."
-        },
-        "full": {
-          "es": "<p>Atmósfera de silencio, penumbra y resonancia acústica que explora la gravedad geológica.</p>",
-          "en": "<p>Interior realm of silence, penumbra, and acoustic resonance exploring geological gravity.</p>"
-        },
-        "images": [
-          "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1600&q=85",
-          "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80",
-          "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1000&q=80"
-        ]
-      },
-      "casa-cantera": {
-        "categories": [
-          "vivienda",
-          "interiores"
-        ],
-        "title": {
-          "es": "Casa de Cantera y Sombra",
-          "en": "Quarry & Shadow House"
-        },
-        "location": "Santiago, N.L. · 25°25′40″N 100°09′10″W",
-        "team": "Cesar Gonzalez",
-        "year": "2024",
-        "summary": {
-          "es": "Inserción residencial en ladera boscosa construida con bloques macizos de cantera regional.",
-          "en": "Hillside residential insertion built with massive regional stone blocks."
-        },
-        "full": {
-          "es": "<p>Secuencia de patios que filtran el aire serrano y capturan la luz cenital a través de claraboyas profundas.</p>",
-          "en": "<p>Courtyard sequence filtering mountain breezes and capturing zenithal light.</p>"
-        },
-        "images": [
-          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85",
-          "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80"
-        ]
-      },
-      "mirador-cumbres": {
-        "categories": [
-          "paisaje",
-          "infraestructura"
-        ],
-        "title": {
-          "es": "Mirador del Cañón de la Huasteca",
-          "en": "Huasteca Canyon Lookout"
-        },
-        "location": "Santa Catarina, N.L. · 25°38′12″N 100°28′45″W",
-        "team": "Cesar Gonzalez",
-        "year": "2023",
-        "summary": {
-          "es": "Dispositivo topográfico volado que suspende la experiencia del visitante sobre el vacío calizo.",
-          "en": "Topographical cantilevered device suspending visitor experience over limestone cliffs."
-        },
-        "full": {
-          "es": "<p>Estructura híbrida de acero y roca del sitio que minimiza el anclaje físico en el ecosistema.</p>",
-          "en": "<p>Hybrid steel and local rock structure minimizing ecological footprint.</p>"
-        },
-        "images": [
-          "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=85",
-          "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80"
-        ]
-      },
-      "nave-fundidora": {
-        "selectedWork": true,
-        "categories": [
-          "patrimonio",
-          "arquitectura"
-        ],
-        "title": {
-          "es": "Rehabilitación Nave Maestranza",
-          "en": "Maestranza Industrial Rehabilitation"
-        },
-        "location": "Monterrey, N.L. · 25°40′48″N 100°17′20″W",
-        "team": "Cesar Gonzalez",
-        "year": "2022",
-        "summary": {
-          "es": "Recuperación de estructura siderúrgica de inicios del siglo XX como espacio de creación contemporánea.",
-          "en": "Recovery of early 20th century steelworks structure as contemporary art space."
-        },
-        "full": {
-          "es": "<p>Cajas de madera y vidrio suspendidas dentro de la monumental nave de cerchas remachadas.</p>",
-          "en": "<p>Timber and glass chambers suspended within the monumental riveted truss bay.</p>"
-        },
-        "images": [
-          "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1600&q=85",
-          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80"
-        ]
-      },
-      "claustro-obispado": {
-        "categories": [
-          "vivienda",
-          "urbanismo"
-        ],
-        "title": {
-          "es": "Claustro del Obispado",
-          "en": "Obispado Collective Housing"
-        },
-        "location": "Monterrey, N.L. · 25°40′15″N 100°20′30″W",
-        "team": "Cesar Gonzalez",
-        "year": "2024",
-        "summary": {
-          "es": "Conjunto residencial de media densidad articulado alrededor de un jardín de retención pluvial.",
-          "en": "Medium-density residential project organized around a sunken retention garden."
-        },
-        "full": {
-          "es": "<p>Fachada continua de tabique artesanal y galerías perimetrales que fomentan la vida de barrio.</p>",
-          "en": "<p>Continuous handcrafted brick facade and perimeter loggias fostering neighborhood interaction.</p>"
-        },
-        "images": [
-          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=85",
-          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80"
-        ]
-      },
-      "pabellon-sal": {
-        "selectedWork": true,
-        "categories": [
-          "efimero",
-          "investigacion"
-        ],
-        "title": {
-          "es": "Pabellón de Sal y Ceniza",
-          "en": "Salt & Ash Pavilion"
-        },
-        "location": "Olot, Girona · 42°11′02″N 2°29′18″E",
-        "team": "Cesar Gonzalez",
-        "year": "2026",
-        "summary": {
-          "es": "Dispositivo efímero construido con salmuera cristalizada y ceniza volcánica compactada.",
-          "en": "Ephemeral pavilion built from crystallized brine and compacted volcanic ash."
-        },
-        "full": {
-          "es": "<p>Estructura sensorial que se descompone gradualmente con la humedad del ambiente forestal.</p>",
-          "en": "<p>Sensory structure gradually dissolving with ambient forest humidity.</p>"
-        },
-        "images": [
-          "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1600&q=85",
-          "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80"
-        ]
-      },
-      "parque-topochico": {
-        "categories": [
-          "paisaje",
-          "urbanismo"
-        ],
-        "title": {
-          "es": "Parque Hídrico Topo Chico",
-          "en": "Topo Chico Hydrological Park"
-        },
-        "location": "San Nicolás de los Garza, N.L. · 25°45′10″N 100°17′30″W",
-        "team": "Cesar Gonzalez",
-        "year": "2023",
-        "summary": {
-          "es": "Transformación de un canal de concreto en un corredor biológico y parque inundable.",
-          "en": "Transformation of a concrete drainage canal into a public floodable wetland park."
-        },
-        "full": {
-          "es": "<p>Biofiltros vegetales y senderos de grava que regulan los picos de tormenta metropolitana.</p>",
-          "en": "<p>Vegetated bio-swales and gravel walkways mitigating urban storm surges.</p>"
-        },
-        "images": [
-          "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=85",
-          "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80"
-        ]
-      },
-      "galeria-estuario": {
-        "categories": [
-          "escenografia",
-          "arquitectura"
-        ],
-        "title": {
-          "es": "Galería del Estuario",
-          "en": "Estuary Gallery"
-        },
-        "location": "Baja California Sur · 23°25′10″N 110°13′40″W",
-        "team": "Cesar Gonzalez",
-        "year": "2025",
-        "summary": {
-          "es": "Pabellón escultórico de muros de tierra compactada frente al Océano Pacífico.",
-          "en": "Sculptural rammed-earth art pavilion overlooking the Pacific Ocean."
-        },
-        "full": {
-          "es": "<p>Salas abiertas que enmarcan la línea del horizonte marino y el juego de sombras del desierto.</p>",
-          "en": "<p>Open galleries framing the sea horizon and desert light modulation.</p>"
-        },
-        "images": [
-          "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1600&q=85",
-          "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1000&q=80"
-        ]
-      },
-      "refugio-altiplano": {
-        "categories": [
-          "territorio",
-          "vivienda"
-        ],
-        "title": {
-          "es": "Refugio Mineral del Altiplano",
-          "en": "Altiplano Mineral Shelter"
-        },
-        "location": "San Luis Potosí · 22°45′30″N 101°12′15″W",
-        "team": "Cesar Gonzalez",
-        "year": "2024",
-        "summary": {
-          "es": "Célula habitable autosuficiente construida en piedra caliza extraída a mano en el semidesierto.",
-          "en": "Self-sufficient living capsule built from hand-quarried limestone."
-        },
-        "full": {
-          "es": "<p>Muros de 60 cm de espesor que mantienen un clima interior constante sin climatización activa.</p>",
-          "en": "<p>60cm thick thermal mass walls sustaining interior comfort off-grid.</p>"
-        },
-        "images": [
-          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85",
-          "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80"
-        ]
-      },
-      "estudio-cgm": {
-        "categories": [
-          "interiores",
-          "arquitectura"
-        ],
-        "title": {
-          "es": "Estudio Taller CGM",
-          "en": "CGM Atelier Studio"
-        },
-        "location": "Monterrey, N.L. · 25°40′33″N 100°18′45″W",
-        "team": "Cesar Gonzalez",
-        "year": "2025",
-        "summary": {
-          "es": "Adecuación interior de taller arquitectónico con carpintería en roble blanco y acero negro.",
-          "en": "Interior design of architecture workshop with white oak millwork and blackened steel."
-        },
-        "full": {
-          "es": "<p>Mesa corrida de 8 metros para maquetas y estanterías modulares que organizan muestras de materiales.</p>",
-          "en": "<p>8-meter continuous model bench and modular steel material shelving.</p>"
-        },
-        "images": [
-          "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1600&q=85",
-          "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80"
-        ]
-      },
-      "atlas-agua": {
-        "categories": [
-          "investigacion",
-          "territorio"
-        ],
-        "title": {
-          "es": "Atlas del Agua Subterránea",
-          "en": "Metropolitan Groundwater Atlas"
-        },
-        "location": "Área Metropolitana de Monterrey · 25°40′N 100°18′W",
-        "team": "Cesar Gonzalez",
-        "year": "2024",
-        "summary": {
-          "es": "Estudio hidrológico y cartografía crítica sobre la vulnerabilidad de los acuíferos metropolitanos.",
-          "en": "Hydrological survey and critical cartography on metropolitan aquifer vulnerability."
-        },
-        "full": {
-          "es": "<p>Publicación de mapas analíticos y propuestas de acupuntura urbana para recarga de mantos freáticos.</p>",
-          "en": "<p>Analytical cartography publication proposing urban acupuncture recharge sites.</p>"
-        },
-        "images": [
-          "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1600&q=85",
-          "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80"
-        ]
-      }
-    };
-
+  "atacama": {
+    "selectedWork": true,
+    "categories": [
+      "territorio",
+      "investigacion"
+    ],
+    "title": {
+      "es": "La Paradoja de la Electromovilidad",
+      "en": "The Paradox of Electromobility"
+    },
+    "location": "Salar de Atacama, Chile · 23°51′42″S 68°14′05″W",
+    "team": "Cesar Gonzalez",
+    "year": "2024",
+    "summary": {
+      "es": "Investigación territorial que cartografía la escala extractiva del litio en la cuenca del Salar de Atacama.",
+      "en": "Territorial research investigation interrogating the footprint of lithium extraction."
+    },
+    "full": {
+      "es": "<p>Dispositivos de sedimentación mineral y refugios tectónicos de piedra volcánica que registran la memoria del sitio.</p>",
+      "en": "<p>Mineral sedimentation devices and volcanic shelters recording site memory.</p>"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1600&q=85",
+      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1000&q=80"
+    ]
+  },
+  "fruto-mora": {
+    "selectedWork": true,
+    "categories": [
+      "paisaje"
+    ],
+    "title": {
+      "es": "Fruto de la Mora",
+      "en": "Fruto de la Mora"
+    },
+    "location": "Michoacán, México · 19°25′11″N 102°03′28″W",
+    "team": "Cesar Gonzalez",
+    "year": "2023",
+    "summary": {
+      "es": "Intervención de paisaje productivo e infraestructura agrícola para captación e infiltración pluvial.",
+      "en": "Productive landscape and agricultural infrastructure for rainwater harvesting."
+    },
+    "full": {
+      "es": "<p>Bancales de piedra basáltica extraída in situ y pérgolas para resguardo térmico de cuadrillas.</p>",
+      "en": "<p>Basalt stone retaining walls and local timber shade trellises.</p>"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=85",
+      "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80"
+    ]
+  },
+  "intervencion-central": {
+    "selectedWork": false,
+    "categories": [
+      "infraestructura",
+      "urbanismo"
+    ],
+    "title": {
+      "es": "Intervención Central",
+      "en": "Central Suture"
+    },
+    "location": "General Escobedo, N.L. · 25°48′30″N 100°19′15″W",
+    "team": "Cesar Gonzalez",
+    "year": "2022",
+    "summary": {
+      "es": "Sutura metropolitana de bordes urbanos fracturados por barreras industriales.",
+      "en": "Metropolitan suture bridging urban edges severed by highway arteries."
+    },
+    "full": {
+      "es": "<p>Plataformas peatonales permeables, microbosques nativos y cubiertas modulares de concreto.</p>",
+      "en": "<p>Permeable pedestrian concourses and board-formed concrete canopy structures.</p>"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1600&q=85",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80"
+    ]
+  },
+  "nodo-la-via": {
+    "selectedWork": false,
+    "categories": [
+      "arquitectura",
+      "urbanismo"
+    ],
+    "title": {
+      "es": "Nodo La Vía",
+      "en": "La Vía Transit Hub"
+    },
+    "location": "Monterrey, N.L. · 25°40′33″N 100°18′45″W",
+    "team": "Cesar Gonzalez",
+    "year": "2023",
+    "summary": {
+      "es": "Densificación vertical y permeabilidad peatonal a cota cero en diálogo con el tejido ferroviario.",
+      "en": "Vertical densification and ground-level civic porosity engaging railway matrix."
+    },
+    "full": {
+      "es": "<p>Pórticos profundos y patios de sombra que liberan el 60% de desplante a uso público.</p>",
+      "en": "<p>Monumental shaded porticos releasing 60% of ground footprint to public life.</p>"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=85",
+      "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80"
+    ]
+  },
+  "castell-santa-pau": {
+    "selectedWork": true,
+    "categories": [
+      "patrimonio"
+    ],
+    "title": {
+      "es": "Castell de Santa Pau",
+      "en": "Santa Pau Castle"
+    },
+    "location": "Santa Pau, Girona · 42°08′41″N 2°34′12″E",
+    "team": "Cesar Gonzalez",
+    "year": "2021",
+    "summary": {
+      "es": "Consolidación estructural y rehabilitación sensible de una ruina medieval en la Garrotxa.",
+      "en": "Structural consolidation and rehabilitation of a medieval castle ruin."
+    },
+    "full": {
+      "es": "<p>Adiciones contemporáneas de acero corten y madera laminada despegadas de la mampostería volcánica.</p>",
+      "en": "<p>Contemporary weathering steel insertions detached from historic volcanic walls.</p>"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1600&q=85",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1000&q=80"
+    ]
+  },
+  "casa-injerto": {
+    "selectedWork": true,
+    "categories": [
+      "vivienda",
+      "interiores"
+    ],
+    "title": {
+      "es": "Casa Injerto",
+      "en": "Casa Injerto"
+    },
+    "location": "San Pedro Garza García · 25°39′20″N 100°21′35″W",
+    "team": "Cesar Gonzalez",
+    "year": "2024",
+    "summary": {
+      "es": "Residencia unifamiliar concebida como un refugio de penumbra y contención térmica.",
+      "en": "Single-family sanctuary of deep shadow and thermal mass in an extreme climate."
+    },
+    "full": {
+      "es": "<p>Masa de concreto pigmentado con arenas locales y patios íntimos con fuentes de agua calma.</p>",
+      "en": "<p>Pigmented concrete infused with regional aggregates and private tranquil courtyards.</p>"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85",
+      "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80"
+    ]
+  },
+  "torre-ixco": {
+    "categories": [
+      "vivienda",
+      "urbanismo"
+    ],
+    "title": {
+      "es": "Torre Ixco",
+      "en": "Torre Ixco"
+    },
+    "location": "Monterrey, N.L. · 25°39′50″N 100°20′40″W",
+    "team": "Cesar Gonzalez",
+    "year": "2025",
+    "summary": {
+      "es": "Edificio en altura corporativo y residencial estructurado con exoesqueleto de concreto.",
+      "en": "High-density tower structured around an expressive concrete exoskeleton."
+    },
+    "full": {
+      "es": "<p>Piel de celosías cerámicas extruidas que reduce la ganancia solar directa en un 42%.</p>",
+      "en": "<p>Extruded terracotta louvers diminishing direct solar heat gain by 42%.</p>"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=85",
+      "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80"
+    ]
+  },
+  "pabellon-mexico": {
+    "selectedWork": true,
+    "categories": [
+      "efimero",
+      "escenografia",
+      "patrimonio"
+    ],
+    "title": {
+      "es": "Pabellón de México — Bienal 2027",
+      "en": "Mexico Pavilion — Venice Biennale 2027"
+    },
+    "location": "Venecia, Italia · 45°25′45″N 12°21′30″E",
+    "team": "Cesar Gonzalez",
+    "year": "2026",
+    "summary": {
+      "es": "Manifiesto espacial para la Bienal de Venecia 2027 con bloques monolíticos de tezontle y pómez.",
+      "en": "Spatial manifesto for the Venice Biennale built from volcanic pumice blocks."
+    },
+    "full": {
+      "es": "<p>Atmósfera de silencio, penumbra y resonancia acústica que explora la gravedad geológica.</p>",
+      "en": "<p>Interior realm of silence, penumbra, and acoustic resonance exploring geological gravity.</p>"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1600&q=85",
+      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1000&q=80"
+    ]
+  },
+  "casa-cantera": {
+    "categories": [
+      "vivienda",
+      "interiores"
+    ],
+    "title": {
+      "es": "Casa de Cantera y Sombra",
+      "en": "Quarry & Shadow House"
+    },
+    "location": "Santiago, N.L. · 25°25′40″N 100°09′10″W",
+    "team": "Cesar Gonzalez",
+    "year": "2024",
+    "summary": {
+      "es": "Inserción residencial en ladera boscosa construida con bloques macizos de cantera regional.",
+      "en": "Hillside residential insertion built with massive regional stone blocks."
+    },
+    "full": {
+      "es": "<p>Secuencia de patios que filtran el aire serrano y capturan la luz cenital a través de claraboyas profundas.</p>",
+      "en": "<p>Courtyard sequence filtering mountain breezes and capturing zenithal light.</p>"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85",
+      "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80"
+    ]
+  },
+  "mirador-cumbres": {
+    "categories": [
+      "paisaje",
+      "infraestructura"
+    ],
+    "title": {
+      "es": "Mirador del Cañón de la Huasteca",
+      "en": "Huasteca Canyon Lookout"
+    },
+    "location": "Santa Catarina, N.L. · 25°38′12″N 100°28′45″W",
+    "team": "Cesar Gonzalez",
+    "year": "2023",
+    "summary": {
+      "es": "Dispositivo topográfico volado que suspende la experiencia del visitante sobre el vacío calizo.",
+      "en": "Topographical cantilevered device suspending visitor experience over limestone cliffs."
+    },
+    "full": {
+      "es": "<p>Estructura híbrida de acero y roca del sitio que minimiza el anclaje físico en el ecosistema.</p>",
+      "en": "<p>Hybrid steel and local rock structure minimizing ecological footprint.</p>"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=85",
+      "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80"
+    ]
+  },
+  "nave-fundidora": {
+    "selectedWork": true,
+    "categories": [
+      "patrimonio",
+      "arquitectura"
+    ],
+    "title": {
+      "es": "Rehabilitación Nave Maestranza",
+      "en": "Maestranza Industrial Rehabilitation"
+    },
+    "location": "Monterrey, N.L. · 25°40′48″N 100°17′20″W",
+    "team": "Cesar Gonzalez",
+    "year": "2022",
+    "summary": {
+      "es": "Recuperación de estructura siderúrgica de inicios del siglo XX como espacio de creación contemporánea.",
+      "en": "Recovery of early 20th century steelworks structure as contemporary art space."
+    },
+    "full": {
+      "es": "<p>Cajas de madera y vidrio suspendidas dentro de la monumental nave de cerchas remachadas.</p>",
+      "en": "<p>Timber and glass chambers suspended within the monumental riveted truss bay.</p>"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1600&q=85",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80"
+    ]
+  },
+  "claustro-obispado": {
+    "categories": [
+      "vivienda",
+      "urbanismo"
+    ],
+    "title": {
+      "es": "Claustro del Obispado",
+      "en": "Obispado Collective Housing"
+    },
+    "location": "Monterrey, N.L. · 25°40′15″N 100°20′30″W",
+    "team": "Cesar Gonzalez",
+    "year": "2024",
+    "summary": {
+      "es": "Conjunto residencial de media densidad articulado alrededor de un jardín de retención pluvial.",
+      "en": "Medium-density residential project organized around a sunken retention garden."
+    },
+    "full": {
+      "es": "<p>Fachada continua de tabique artesanal y galerías perimetrales que fomentan la vida de barrio.</p>",
+      "en": "<p>Continuous handcrafted brick facade and perimeter loggias fostering neighborhood interaction.</p>"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=85",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80"
+    ]
+  },
+  "pabellon-sal": {
+    "selectedWork": true,
+    "categories": [
+      "efimero",
+      "investigacion"
+    ],
+    "title": {
+      "es": "Pabellón de Sal y Ceniza",
+      "en": "Salt & Ash Pavilion"
+    },
+    "location": "Olot, Girona · 42°11′02″N 2°29′18″E",
+    "team": "Cesar Gonzalez",
+    "year": "2026",
+    "summary": {
+      "es": "Dispositivo efímero construido con salmuera cristalizada y ceniza volcánica compactada.",
+      "en": "Ephemeral pavilion built from crystallized brine and compacted volcanic ash."
+    },
+    "full": {
+      "es": "<p>Estructura sensorial que se descompone gradualmente con la humedad del ambiente forestal.</p>",
+      "en": "<p>Sensory structure gradually dissolving with ambient forest humidity.</p>"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1600&q=85",
+      "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80"
+    ]
+  },
+  "parque-topochico": {
+    "categories": [
+      "paisaje",
+      "urbanismo"
+    ],
+    "title": {
+      "es": "Parque Hídrico Topo Chico",
+      "en": "Topo Chico Hydrological Park"
+    },
+    "location": "San Nicolás de los Garza, N.L. · 25°45′10″N 100°17′30″W",
+    "team": "Cesar Gonzalez",
+    "year": "2023",
+    "summary": {
+      "es": "Transformación de un canal de concreto en un corredor biológico y parque inundable.",
+      "en": "Transformation of a concrete drainage canal into a public floodable wetland park."
+    },
+    "full": {
+      "es": "<p>Biofiltros vegetales y senderos de grava que regulan los picos de tormenta metropolitana.</p>",
+      "en": "<p>Vegetated bio-swales and gravel walkways mitigating urban storm surges.</p>"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=85",
+      "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80"
+    ]
+  },
+  "galeria-estuario": {
+    "categories": [
+      "escenografia",
+      "arquitectura"
+    ],
+    "title": {
+      "es": "Galería del Estuario",
+      "en": "Estuary Gallery"
+    },
+    "location": "Baja California Sur · 23°25′10″N 110°13′40″W",
+    "team": "Cesar Gonzalez",
+    "year": "2025",
+    "summary": {
+      "es": "Pabellón escultórico de muros de tierra compactada frente al Océano Pacífico.",
+      "en": "Sculptural rammed-earth art pavilion overlooking the Pacific Ocean."
+    },
+    "full": {
+      "es": "<p>Salas abiertas que enmarcan la línea del horizonte marino y el juego de sombras del desierto.</p>",
+      "en": "<p>Open galleries framing the sea horizon and desert light modulation.</p>"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1600&q=85",
+      "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1000&q=80"
+    ]
+  },
+  "refugio-altiplano": {
+    "categories": [
+      "territorio",
+      "vivienda"
+    ],
+    "title": {
+      "es": "Refugio Mineral del Altiplano",
+      "en": "Altiplano Mineral Shelter"
+    },
+    "location": "San Luis Potosí · 22°45′30″N 101°12′15″W",
+    "team": "Cesar Gonzalez",
+    "year": "2024",
+    "summary": {
+      "es": "Célula habitable autosuficiente construida en piedra caliza extraída a mano en el semidesierto.",
+      "en": "Self-sufficient living capsule built from hand-quarried limestone."
+    },
+    "full": {
+      "es": "<p>Muros de 60 cm de espesor que mantienen un clima interior constante sin climatización activa.</p>",
+      "en": "<p>60cm thick thermal mass walls sustaining interior comfort off-grid.</p>"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85",
+      "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80"
+    ]
+  },
+  "estudio-cgm": {
+    "categories": [
+      "interiores",
+      "arquitectura"
+    ],
+    "title": {
+      "es": "Estudio Taller CGM",
+      "en": "CGM Atelier Studio"
+    },
+    "location": "Monterrey, N.L. · 25°40′33″N 100°18′45″W",
+    "team": "Cesar Gonzalez",
+    "year": "2025",
+    "summary": {
+      "es": "Adecuación interior de taller arquitectónico con carpintería en roble blanco y acero negro.",
+      "en": "Interior design of architecture workshop with white oak millwork and blackened steel."
+    },
+    "full": {
+      "es": "<p>Mesa corrida de 8 metros para maquetas y estanterías modulares que organizan muestras de materiales.</p>",
+      "en": "<p>8-meter continuous model bench and modular steel material shelving.</p>"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1600&q=85",
+      "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80"
+    ]
+  },
+  "atlas-agua": {
+    "categories": [
+      "investigacion",
+      "territorio"
+    ],
+    "title": {
+      "es": "Atlas del Agua Subterránea",
+      "en": "Metropolitan Groundwater Atlas"
+    },
+    "location": "Área Metropolitana de Monterrey · 25°40′N 100°18′W",
+    "team": "Cesar Gonzalez",
+    "year": "2024",
+    "summary": {
+      "es": "Estudio hidrológico y cartografía crítica sobre la vulnerabilidad de los acuíferos metropolitanos.",
+      "en": "Hydrological survey and critical cartography on metropolitan aquifer vulnerability."
+    },
+    "full": {
+      "es": "<p>Publicación de mapas analíticos y propuestas de acupuntura urbana para recarga de mantos freáticos.</p>",
+      "en": "<p>Analytical cartography publication proposing urban acupuncture recharge sites.</p>"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1600&q=85",
+      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80"
+    ]
+  }
+};
     const DEFAULT_TALLER = {
-      "manifesto_1": {
-        "es": "<strong class=\"font-semibold text-ink\">Cgm Atelier</strong> es una práctica y empresa de arquitectura, territorio y diseño fundada y dirigida por el arquitecto <strong class=\"font-semibold text-ink\">César González Maldonado</strong>. Con base en Monterrey, México, la oficina desarrolla proyectos de arquitectura de autor, equipamiento cívico, paisaje e intervención patrimonial.",
-        "en": "<strong class=\"font-semibold text-ink\">Cgm Atelier</strong> is an architectural, territorial, and design practice founded and directed by architect <strong class=\"font-semibold text-ink\">César González Maldonado</strong>. Based in Monterrey, Mexico, the office develops author architecture, civic infrastructure, landscape, and heritage interventions."
-      },
-      "manifesto_2": {
-        "es": "La práctica aborda la arquitectura como un proceso de lectura e intervención que desciende desde la comprensión geográfica y el análisis del contexto hasta la resolución precisa del detalle constructivo, la masa, la luz, el silencio y la memoria del sitio.",
-        "en": "The studio views architecture as a continuous process of reading and intervention descending from geographical comprehension and contextual inquiry to the precise resolution of construction details, mass, light, silence, and site memory."
-      },
-      "distinctions_title": {
-        "es": "Concursos & Distinciones",
-        "en": "Competitions & Honors"
-      },
-      "distinctions": [
-        "Pabellón de México — Bienal de Venecia 2027",
-        "Casa Injerto — Domesticidad Monomatérica",
-        "Castell de Santa Pau — Intervención Patrimonial"
-      ]
-    };
-
+  "manifesto_1": {
+    "es": "<strong class=\"font-semibold text-ink\">Cgm Atelier</strong> es una práctica y empresa de arquitectura, territorio y diseño fundada y dirigida por el arquitecto <strong class=\"font-semibold text-ink\">César González Maldonado</strong>. Con base en Monterrey, México, la oficina desarrolla proyectos de arquitectura de autor, equipamiento cívico, paisaje e intervención patrimonial.",
+    "en": "<strong class=\"font-semibold text-ink\">Cgm Atelier</strong> is an architectural, territorial, and design practice founded and directed by architect <strong class=\"font-semibold text-ink\">César González Maldonado</strong>. Based in Monterrey, Mexico, the office develops author architecture, civic infrastructure, landscape, and heritage interventions."
+  },
+  "manifesto_2": {
+    "es": "La práctica aborda la arquitectura como un proceso de lectura e intervención que desciende desde la comprensión geográfica y el análisis del contexto hasta la resolución precisa del detalle constructivo, la masa, la luz, el silencio y la memoria del sitio.",
+    "en": "The studio views architecture as a continuous process of reading and intervention descending from geographical comprehension and contextual inquiry to the precise resolution of construction details, mass, light, silence, and site memory."
+  },
+  "distinctions_title": {
+    "es": "Concursos & Distinciones",
+    "en": "Competitions & Honors"
+  },
+  "distinctions": [
+    "Pabellón de México — Bienal de Venecia 2027",
+    "Casa Injerto — Domesticidad Monomatérica",
+    "Castell de Santa Pau — Intervención Patrimonial"
+  ]
+};
     const DEFAULT_CONTACT = {
-      "intro": {
-        "es": "Para dialogar sobre nuevos proyectos, colaboraciones o publicaciones, puedes escribirnos a través del canal correspondiente:",
-        "en": "To discuss new projects, collaborations, or press inquiries, contact us through the dedicated channel:"
-      },
-      "emails": {
-        "projects": "info@cgmatelier.com",
-        "press": "press@cgmatelier.com",
-        "careers": "vacantes@cgmatelier.com"
-      }
-    };
+  "intro": {
+    "es": "Para dialogar sobre nuevos proyectos, colaboraciones o publicaciones, puedes escribirnos a través del canal correspondiente:",
+    "en": "To discuss new projects, collaborations, or press inquiries, contact us through the dedicated channel:"
+  },
+  "emails": {
+    "projects": "info@cgmatelier.com",
+    "press": "press@cgmatelier.com",
+    "careers": "vacantes@cgmatelier.com"
+  }
+};
 
     let currentLang = 'es';
     let currentTheme = 'light';
     let currentView = 'home';
     let currentProjectId = null;
-    let projectsData = DEFAULT_PROJECTS;
+    let currentFilter = 'all';
+    let currentSearch = '';
+    let projects = DEFAULT_PROJECTS;
     let tallerData = DEFAULT_TALLER;
     let contactData = DEFAULT_CONTACT;
-    let projectKeys = Object.keys(projectsData);
 
-    function getText(obj, lang) {
-      if (!obj) return '';
-      if (typeof obj === 'string') return obj;
-      return obj[lang] || obj['es'] || obj['en'] || '';
-    }
-
-    function escapeHtml(str) {
+        function escapeHtml(str) {
       if (!str) return '';
       return String(str)
         .replace(/&/g, '&amp;')
@@ -1199,6 +1279,45 @@
         .replace(/'/g, '&#39;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
+    }
+
+    function getText(obj, lang) {
+      if (!obj) return '';
+      if (typeof obj === 'string') return obj;
+      return obj[lang] || obj['es'] || obj['en'] || '';
+    }
+
+    function getCoordinatesOnly(p) {
+      if (!p || !p.location) return '';
+      const locStr = typeof p.location === 'object' ? (p.location[currentLang] || p.location.es || p.location.en || '') : String(p.location);
+      if (locStr.includes('·')) {
+        const parts = locStr.split('·');
+        return parts.length > 1 ? parts[1].trim() : parts[0].trim();
+      }
+      return locStr.trim();
+    }
+
+    function getTypology(p, lang) {
+      const custom = getText(p.typology, lang);
+      if (custom && custom.trim() !== '') return custom;
+
+      const cats = Array.isArray(p.categories) ? p.categories : (p.category ? [p.category] : []);
+      if (!cats.length) return '';
+      return cats.map(cId => {
+        const found = ALL_TYPOLOGIES.find(t => t.id === cId);
+        return found ? found[lang] : cId;
+      }).join(', ');
+    }
+
+    function formatTallerParagraphs(rawText) {
+      if (!rawText) return '';
+      if (rawText.includes('<p>') || rawText.includes('<div>')) return rawText;
+      return rawText
+        .split(new RegExp('\\n\\s*\\n'))
+        .map(p => p.trim())
+        .filter(p => p.length > 0)
+        .map(p => '<p>' + p + '</p>')
+        .join('');
     }
 
     function slugify(text) {
@@ -1214,79 +1333,75 @@
 
     function findProjectKey(id) {
       if (!id) return null;
-      if (projectsData[id]) return id;
-      const found = Object.keys(projectsData).find(k => {
-        const p = projectsData[k];
+      if (projects[id]) return id;
+      const found = Object.keys(projects).find(k => {
+        const p = projects[k];
         return p._id === id || p.id === id || p.slug === id || p.slugKey === id;
       });
       return found || id;
     }
 
-    function getCoordinatesOnly(p) {
-      if (!p || !p.location) return '';
-      const locStr = String(p.location);
-      if (locStr.includes('·')) {
-        const parts = locStr.split('·');
-        return parts.length > 1 ? parts.trim() : parts[0].trim();
-      }
-      return locStr.trim();
-    }
-
-    function getFormattedTypology(p, lang) {
+    function getProjectImage(p) {
       if (!p) return '';
-      const custom = getText(p.typology, lang);
-      if (custom && custom.trim() !== '') return custom;
-
-      const cats = Array.isArray(p.categories) ? p.categories : (p.category ? [p.category] : []);
-      if (cats.length === 0) return '';
-
-      const titles = cats.map(cId => {
-        const found = ALL_TYPOLOGIES.find(t => t.id.toLowerCase() === String(cId).toLowerCase());
-        return found ? found[lang] : cId;
-      });
-
-      return titles.join(' / ');
+      if (p.homeImage && typeof p.homeImage === 'string') return p.homeImage;
+      if (p.images && p.images.length > 0 && typeof p.images[0] === 'string') return p.images[0];
+      if (p.gallery && p.gallery.length > 0) {
+        const first = p.gallery.find(item => typeof item === 'string' || (item && item.url));
+        if (first) return typeof first === 'string' ? first : first.url;
+      }
+      return '';
     }
 
-    function formatTallerParagraphs(rawText) {
-      if (!rawText) return '';
-      if (rawText.includes('<p>') || rawText.includes('<div>')) return rawText;
-      return rawText
-        .split(new RegExp('\\n\\s*\\n'))
-        .map(p => p.trim())
-        .filter(p => p.length > 0)
-        .map(p => '<p>' + p + '</p>')
-        .join('');
-    }
-
-    /* 1. PORTADA DISPERSA (#VIEW-HOME) */
+    /* =========================================================
+       1. PORTADA DISPERSA (ZONAS RANDOM, SEPARADAS Y DIFERENTES TAMAÑOS)
+       ========================================================= */
     function renderHomeScatter() {
       const container = document.getElementById('scatter-canvas-el');
       if (!container) return;
 
-      const keys = projectKeys.slice();
+      const pool = [];
+      const seenUrls = new Set();
+      Object.keys(projects).forEach(k => {
+        const p = projects[k];
+        if (!p) return;
+        const candidates = [p.homeImage, ...(Array.isArray(p.images) ? p.images : [])].filter(Boolean);
+        candidates.forEach(url => {
+          if (!seenUrls.has(url)) {
+            seenUrls.add(url);
+            pool.push({ key: k, title: p.title, url });
+          }
+        });
+      });
+
+      for (let i = pool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pool[i], pool[j]] = [pool[j], pool[i]];
+      }
+
       const isMobile = window.innerWidth < 768;
-      const count = isMobile ? 8 : 14;
+      const count = Math.min(pool.length, isMobile ? 8 : 14);
 
       const totalHeight = isMobile ? 2000 : 2800;
       container.style.height = totalHeight + 'px';
 
-      const stepY = totalHeight / count;
+      const stepY = totalHeight / Math.max(count, 1);
       let html = '';
 
+      const availableWidth = Math.max(300, Math.min(window.innerWidth, 1320));
+
       for (let i = 0; i < count; i++) {
-        const k = keys[i % keys.length];
-        const p = projectsData[k];
-        if (!p) continue;
-        const img = p.homeImage || (p.images && p.images[0] ? p.images[0] : '');
+        const entry = pool[i];
+        if (!entry) continue;
+        const img = entry.url;
         if (!img) continue;
+        const p = { title: entry.title };
 
         const width = isMobile
           ? Math.floor(160 + Math.random() * 140)
           : Math.floor(220 + Math.random() * 260);
 
-        const maxLeft = isMobile ? (window.innerWidth - width - 30) : (container.clientWidth - width - 60);
-        const left = Math.max(10, Math.floor(10 + Math.random() * Math.max(20, maxLeft)));
+        const maxLeft = Math.max(20, availableWidth - width - 40);
+        const left = Math.max(10, Math.floor(10 + Math.random() * maxLeft));
         const top = Math.floor(i * stepY + (Math.random() * (stepY * 0.45)));
 
         const aspectRatios = ['3/4', '4/3', '16/10', '1/1', '14/9'];
@@ -1294,7 +1409,7 @@
 
         html += `
           <div class="scatter-item" style="top: ${top}px; left: ${left}px; width: ${width}px; aspect-ratio: ${aspect};">
-            <img src="${img}" alt="${getText(p.title, currentLang)}" loading="lazy" />
+            <img src="${img}" alt="${escapeHtml(getText(p.title, currentLang))}" loading="lazy" />
           </div>
         `;
       }
@@ -1302,20 +1417,69 @@
       container.innerHTML = html;
     }
 
-    /* 2. LISTADO DE PROYECTOS (#VIEW-WORK) - CENTRADO, TÍTULO + AÑO + COORDENADAS */
-    function renderProjectsList() {
+    /* =========================================================
+       2. FILTROS POR TIPOLOGÍA Y BÚSQUEDA
+       ========================================================= */
+    function renderFilters() {
+      const container = document.getElementById('typology-filter-container');
+      if (!container) return;
+
+      const allLabel = currentLang === 'es' ? 'todos' : 'all';
+      let html = `<button onclick="setFilter('all')" class="${currentFilter === 'all' ? 'active' : ''}">${allLabel}</button>`;
+
+      ALL_TYPOLOGIES.forEach(t => {
+        const label = t[currentLang];
+        const isActive = (currentFilter === t.id);
+        html += `<button onclick="setFilter('${t.id}')" class="${isActive ? 'active' : ''}">${label}</button>`;
+      });
+
+      container.innerHTML = html;
+
+      const searchEl = document.getElementById('project-search-input');
+      if (searchEl) {
+        searchEl.placeholder = currentLang === 'es' ? 'buscar proyecto...' : 'search project...';
+      }
+    }
+
+    function setFilter(catId) {
+      currentFilter = catId;
+      renderFilters();
+      renderWorkList();
+    }
+
+    function handleSearchInput(query) {
+      currentSearch = (query || '').trim().toLowerCase();
+      renderWorkList();
+    }
+
+    /* =========================================================
+       3. LISTADO DE PROYECTOS (TÍTULO GRANDE + AÑO Y COORDENADAS)
+       ========================================================= */
+    function renderWorkList() {
       const container = document.getElementById('projects-list-container');
       if (!container) return;
 
-      const keys = projectKeys.slice().sort((a, b) => {
-        const pA = projectsData[a] || {};
-        const pB = projectsData[b] || {};
-        return parseInt(pB.year || '0', 10) - parseInt(pA.year || '0', 10);
+      const keys = Object.keys(projects).sort((a, b) => {
+        return parseInt(projects[b].year || '0', 10) - parseInt(projects[a].year || '0', 10);
       });
 
-      container.innerHTML = keys.map(k => {
-        const p = projectsData[k];
-        if (!p) return '';
+      const filteredKeys = keys.filter(k => {
+        const p = projects[k];
+        const matchesCat = (currentFilter === 'all') || (Array.isArray(p.categories) && p.categories.includes(currentFilter));
+        const titleText = getText(p.title, currentLang).toLowerCase();
+        const yearText = String(p.year || '');
+        const coordsText = getCoordinatesOnly(p).toLowerCase();
+        const matchesSearch = !currentSearch || titleText.includes(currentSearch) || yearText.includes(currentSearch) || coordsText.includes(currentSearch);
+        return matchesCat && matchesSearch;
+      });
+
+      if (filteredKeys.length === 0) {
+        container.innerHTML = `<div style="padding: 32px 0; color: var(--muted); font-size: 15px;">${currentLang === 'es' ? 'no se encontraron proyectos' : 'no projects found'}</div>`;
+        return;
+      }
+
+      container.innerHTML = filteredKeys.map(k => {
+        const p = projects[k];
         const title = getText(p.title, currentLang);
         const year = p.year || '';
         const coords = getCoordinatesOnly(p);
@@ -1324,27 +1488,22 @@
           <div class="project-item" onmouseenter="showHoverImage('${k}', event)" onmouseleave="hideHoverImage()">
             <a href="#${k}" onclick="openProject('${k}', event)">
               <span class="project-title">${title}</span>
-              <span class="project-meta">${year}${coords ? ` · ${coords}` : ''}</span>
+              <span class="project-meta">${year} · ${coords}</span>
             </a>
           </div>
         `;
       }).join('');
     }
 
-    /* 3. HOVER FLOTANTE EN SECO (RANDOM POS & SIZE) */
+    /* =========================================================
+       4. IMAGEN FLOTANTE EN HOVER: EN SECO, RANDOM POS & SIZE
+       ========================================================= */
     function showHoverImage(key, e) {
       const resolvedKey = findProjectKey(key);
-      const p = projectsData[resolvedKey];
+      const p = projects[resolvedKey];
       if (!p) return;
 
-      let imgUrl = p.homeImage || '';
-      if (!imgUrl && p.gallery && p.gallery.length > 0) {
-        const first = p.gallery.find(item => typeof item === 'string' || (item && item.url));
-        if (first) imgUrl = typeof first === 'string' ? first : first.url;
-      }
-      if (!imgUrl && p.images && p.images.length > 0) {
-        imgUrl = p.images[0];
-      }
+      const imgUrl = getProjectImage(p);
       if (!imgUrl) return;
 
       const hoverBox = document.getElementById('hover-floating-image');
@@ -1373,36 +1532,37 @@
       }
     }
 
-    /* 4. EXPEDIENTE DE PROYECTO */
+    /* =========================================================
+       5. EXPEDIENTE DE PROYECTO (PROJECT DETAIL)
+       ========================================================= */
     function openProject(key, e) {
       if (e) e.preventDefault();
       hideHoverImage();
       const resolvedKey = findProjectKey(key);
-      const p = projectsData[resolvedKey];
+      const p = projects[resolvedKey];
       if (!p) return;
 
       currentProjectId = resolvedKey;
       currentView = 'project';
       window.location.hash = resolvedKey;
 
-      const views = ['home', 'work', 'taller', 'contact'];
-      views.forEach(v => {
-        const el = document.getElementById(`view-${v}`);
-        if (el) el.style.display = 'none';
-      });
-
+      document.getElementById('view-home').style.display = 'none';
+      document.getElementById('view-work').style.display = 'none';
+      document.getElementById('view-info').style.display = 'none';
+      document.getElementById('view-contact').style.display = 'none';
+      
       const projView = document.getElementById('view-project');
       projView.style.display = 'block';
 
       const textSec = document.getElementById('detail-text-section');
-      if (textSec && typeof textSec.getBoundingClientRect === 'function') {
+      if (textSec) {
         textSec.style.opacity = '1';
         textSec.style.pointerEvents = 'auto';
       }
 
       document.getElementById('nav-brand').classList.remove('active');
       document.getElementById('nav-work').classList.add('active');
-      document.getElementById('nav-taller').classList.remove('active');
+      document.getElementById('nav-info').classList.remove('active');
       document.getElementById('nav-contact').classList.remove('active');
 
       const fullTitle = getText(p.title, currentLang);
@@ -1411,24 +1571,24 @@
 
       const metaContainer = document.getElementById('detail-meta');
       const metaItems = [
-        { label: currentLang === 'es' ? 'Año' : 'Year', value: p.year },
-        { label: currentLang === 'es' ? 'Ubicación' : 'Location', value: p.location },
-        { label: currentLang === 'es' ? 'Tipología' : 'Typology', value: getFormattedTypology(p, currentLang) },
-        { label: currentLang === 'es' ? 'Área' : 'Area', value: p.m2 ? (String(p.m2).includes('m') || String(p.m2).includes('sq') ? p.m2 : `${p.m2} m²`) : '' },
-        { label: currentLang === 'es' ? 'Equipo' : 'Team', value: p.team },
-        { label: currentLang === 'es' ? 'Programa' : 'Program', value: p.program },
-        { label: currentLang === 'es' ? 'Tutor' : 'Tutor', value: p.tutor },
-        { label: currentLang === 'es' ? 'Reconocimiento' : 'Distinction', value: p.distinction },
-        { label: currentLang === 'es' ? 'Cliente' : 'Client', value: p.client },
-        { label: currentLang === 'es' ? 'Fotografía' : 'Photography', value: p.photography }
+        { label: currentLang === 'es' ? 'año' : 'year', value: p.year },
+        { label: currentLang === 'es' ? 'ubicación' : 'location', value: p.location },
+        { label: currentLang === 'es' ? 'tipología' : 'typology', value: getTypology(p, currentLang) },
+        { label: currentLang === 'es' ? 'área' : 'area', value: p.m2 ? (String(p.m2).includes('m') || String(p.m2).includes('sq') ? p.m2 : p.m2 + ' m²') : '' },
+        { label: currentLang === 'es' ? 'equipo' : 'team', value: p.team },
+        { label: currentLang === 'es' ? 'programa' : 'program', value: p.program },
+        { label: currentLang === 'es' ? 'tutor' : 'tutor', value: p.tutor },
+        { label: currentLang === 'es' ? 'reconocimiento' : 'distinction', value: p.distinction },
+        { label: currentLang === 'es' ? 'cliente' : 'client', value: p.client },
+        { label: currentLang === 'es' ? 'fotografía' : 'photography', value: p.photography }
       ];
 
       metaContainer.innerHTML = metaItems
-        .filter(m => m.value !== undefined && m.value !== null && String(m.value).trim() !== '')
+        .filter(m => m.value && String(m.value).trim() !== '')
         .map(m => `
           <div class="meta-entry">
-            <span class="meta-entry-label">${escapeHtml(m.label)}</span>
-            <span class="meta-entry-value">${escapeHtml(String(m.value))}</span>
+            <span class="meta-entry-label">${m.label}</span>
+            <span class="meta-entry-value">${m.value}</span>
           </div>
         `).join('');
 
@@ -1436,8 +1596,8 @@
       const summaryText = getText(p.summary, currentLang);
       const fullText = getText(p.full, currentLang);
       narrativeContainer.innerHTML = `
-        ${summaryText ? `<p style="font-size: 17px; margin-bottom: 20px;">${escapeHtml(summaryText)}</p>` : ''}
-        ${fullText ? `<div>${fullText}</div>` : ''}
+        ${summaryText ? `<p style="font-size: 17px; margin-bottom: 20px;">${summaryText}</p>` : ''}
+        ${fullText || ''}
       `;
 
       const galleryContainer = document.getElementById('detail-gallery');
@@ -1448,7 +1608,7 @@
         if (typeof item === 'string') {
           htmlOutput.push(`
             <div class="image-stream-item">
-              <img src="${item}" alt="${escapeHtml(fullTitle)} [${idx + 1}]" loading="lazy" />
+              <img src="${item}" alt="${fullTitle} [${idx + 1}]" loading="lazy" />
             </div>
           `);
         } else if (item && (item._type === 'explanatoryText' || ('text_es' in item && !item.url))) {
@@ -1456,7 +1616,7 @@
           if (txt) {
             htmlOutput.push(`
               <div class="detail-description">
-                <p>${escapeHtml(txt)}</p>
+                <p>${txt}</p>
               </div>
             `);
           }
@@ -1464,8 +1624,8 @@
           const cap = (currentLang === 'es' ? (item.caption_es || item.caption_en) : (item.caption_en || item.caption_es)) || '';
           htmlOutput.push(`
             <div class="image-stream-item">
-              <img src="${item.url}" alt="${escapeHtml(fullTitle)} [${idx + 1}]" loading="lazy" />
-              ${cap ? `<div style="font-size: 13px; color: var(--muted); margin-top: 8px;">${escapeHtml(cap)}</div>` : ''}
+              <img src="${item.url}" alt="${fullTitle} [${idx + 1}]" loading="lazy" />
+              ${cap ? `<div style="font-size: 13px; color: var(--muted); margin-top: 8px;">${cap}</div>` : ''}
             </div>
           `);
         }
@@ -1476,33 +1636,32 @@
       handleScrollUpdates();
     }
 
-    /* 5. TALLER */
-    function renderTaller() {
-      const m1 = document.getElementById('taller-manifesto-1');
-      const m2 = document.getElementById('taller-manifesto-2');
-      const distTitle = document.getElementById('lbl-distinctions');
-      const distList = document.getElementById('taller-distinctions-list');
-
-      if (m1) m1.innerHTML = formatTallerParagraphs(getText(tallerData.manifesto_1, currentLang));
-      if (m2) m2.innerHTML = formatTallerParagraphs(getText(tallerData.manifesto_2, currentLang));
-
-      if (distTitle) {
-        const customTitle = getText(tallerData.distinctions_title, currentLang);
-        distTitle.innerText = customTitle || (currentLang === 'es' ? 'Concursos & Distinciones' : 'Competitions & Honors');
+    /* =========================================================
+       6. TALLER / INFO (+)
+       ========================================================= */
+    function renderInfoView() {
+      const m1 = formatTallerParagraphs(getText(tallerData.manifesto_1, currentLang));
+      const m2 = formatTallerParagraphs(getText(tallerData.manifesto_2, currentLang));
+      document.getElementById('info-bio-text').innerHTML = `${m1}<div style="height: 20px;"></div>${m2}`;
+      
+      const distList = document.getElementById('info-distinctions-list');
+      if (distList && tallerData.distinctions) {
+        distList.innerHTML = tallerData.distinctions.map(d => {
+          const t = typeof d === 'string' ? d : getText(d, currentLang);
+          return `<li style="margin-bottom: 8px;">${t}</li>`;
+        }).join('');
       }
 
-      if (distList) {
-        if (Array.isArray(tallerData.distinctions) && tallerData.distinctions.length > 0) {
-          distList.innerHTML = tallerData.distinctions.map(d => `<li style="margin-bottom: 8px;">${typeof d === 'string' ? d : getText(d, currentLang)}</li>`).join('');
-          if (distTitle) distTitle.style.display = 'block';
-        } else {
-          distList.innerHTML = '';
-          if (distTitle) distTitle.style.display = 'none';
-        }
+      const lblDist = document.getElementById('lbl-distinctions');
+      if (lblDist) {
+        const customTitle = getText(tallerData.distinctions_title, currentLang);
+        lblDist.innerText = customTitle || (currentLang === 'es' ? 'reconocimientos & concursos' : 'honors & competitions');
       }
     }
 
-    /* 6. CONTACTO */
+    /* =========================================================
+       7. CONTACTO
+       ========================================================= */
     function renderContact() {
       const intro = document.getElementById('contact-intro-text');
       const pLink = document.getElementById('link-contact-projects');
@@ -1526,45 +1685,61 @@
         }
       }
 
-      document.getElementById('lbl-proj-contact').innerText = currentLang === 'es' ? 'Proyectos' : 'Projects';
-      document.getElementById('lbl-press-contact').innerText = currentLang === 'es' ? 'Prensa & Publicaciones' : 'Press & Publications';
-      document.getElementById('lbl-careers-contact').innerText = currentLang === 'es' ? 'Vacantes' : 'Careers';
+      const lblProj = document.getElementById('lbl-proj-contact');
+      const lblPress = document.getElementById('lbl-press-contact');
+      const lblCar = document.getElementById('lbl-careers-contact');
+      if (lblProj) lblProj.innerText = currentLang === 'es' ? 'Proyectos' : 'Projects';
+      if (lblPress) lblPress.innerText = currentLang === 'es' ? 'Prensa & Publicaciones' : 'Press & Publications';
+      if (lblCar) lblCar.innerText = currentLang === 'es' ? 'Vacantes' : 'Careers';
     }
 
-    /* 7. ENRUTADOR */
+    /* =========================================================
+       8. ENRUTADOR, SCROLL Y CONTRASTE ADAPTATIVO
+       ========================================================= */
     function navigateTo(target, e) {
       if (e) e.preventDefault();
       hideHoverImage();
       currentView = target;
       window.location.hash = target;
 
-      const views = ['home', 'work', 'taller', 'contact', 'project'];
-      views.forEach(v => {
-        const el = document.getElementById(`view-${v}`);
-        if (el) el.style.display = 'none';
-      });
+      const vHome = document.getElementById('view-home');
+      const vWork = document.getElementById('view-work');
+      const vInfo = document.getElementById('view-info');
+      const vContact = document.getElementById('view-contact');
+      const vProj = document.getElementById('view-project');
+      const nBrand = document.getElementById('nav-brand');
+      const nWork = document.getElementById('nav-work');
+      const nInfo = document.getElementById('nav-info');
+      const nContact = document.getElementById('nav-contact');
 
-      const navIds = ['brand', 'work', 'taller', 'contact'];
-      navIds.forEach(id => {
-        const el = document.getElementById(`nav-${id}`);
-        if (el) el.classList.remove('active');
-      });
+      vHome.style.display = 'none';
+      vWork.style.display = 'none';
+      vInfo.style.display = 'none';
+      vContact.style.display = 'none';
+      vProj.style.display = 'none';
 
-      const currentEl = document.getElementById(`view-${target}`);
-      if (currentEl) currentEl.style.display = 'block';
+      nBrand.classList.remove('active');
+      nWork.classList.remove('active');
+      nInfo.classList.remove('active');
+      nContact.classList.remove('active');
 
-      if (target === 'work') {
-        document.getElementById('nav-work').classList.add('active');
-        renderProjectsList();
-      } else if (target === 'taller') {
-        document.getElementById('nav-taller').classList.add('active');
-        renderTaller();
-      } else if (target === 'contact') {
-        document.getElementById('nav-contact').classList.add('active');
-        renderContact();
-      } else if (target === 'home') {
-        document.getElementById('nav-brand').classList.add('active');
+      if (target === 'home') {
+        vHome.style.display = 'block';
+        nBrand.classList.add('active');
         renderHomeScatter();
+      } else if (target === 'work') {
+        vWork.style.display = 'block';
+        nWork.classList.add('active');
+        renderFilters();
+        renderWorkList();
+      } else if (target === 'info') {
+        vInfo.style.display = 'block';
+        nInfo.classList.add('active');
+        renderInfoView();
+      } else if (target === 'contact') {
+        vContact.style.display = 'block';
+        nContact.classList.add('active');
+        renderContact();
       }
 
       window.scrollTo({ top: 0, behavior: 'instant' });
@@ -1577,19 +1752,23 @@
       const btnEs = document.getElementById('btn-lang-es');
       const btnEn = document.getElementById('btn-lang-en');
       if (lang === 'es') {
-        btnEs.classList.add('active');
-        btnEn.classList.remove('active');
+        if (btnEs) btnEs.classList.add('active');
+        if (btnEn) btnEn.classList.remove('active');
       } else {
-        btnEn.classList.add('active');
-        btnEs.classList.remove('active');
+        if (btnEn) btnEn.classList.add('active');
+        if (btnEs) btnEs.classList.remove('active');
       }
 
-      document.getElementById('nav-work').innerText = lang === 'es' ? 'Work' : 'Work';
-      document.getElementById('nav-taller').innerText = lang === 'es' ? 'Taller' : 'Studio';
-      document.getElementById('nav-contact').innerText = lang === 'es' ? 'Contacto' : 'Contact';
+      const nWork = document.getElementById('nav-work');
+      const nInfo = document.getElementById('nav-info');
+      const nContact = document.getElementById('nav-contact');
+      if (nWork) nWork.innerText = lang === 'es' ? 'work' : 'work';
+      if (nInfo) nInfo.innerText = lang === 'es' ? '+ taller' : '+ office';
+      if (nContact) nContact.innerText = lang === 'es' ? 'contacto' : 'contact';
 
-      renderProjectsList();
-      renderTaller();
+      renderFilters();
+      renderWorkList();
+      renderInfoView();
       renderContact();
 
       if (currentView === 'home') {
@@ -1605,10 +1784,12 @@
       const ih = document.getElementById('icon-half');
       if (html.classList.contains('dark')) {
         html.classList.remove('dark');
+        html.classList.add('light');
         currentTheme = 'light';
         if (ic) ic.classList.remove('hidden');
         if (ih) ih.classList.add('hidden');
       } else {
+        html.classList.remove('light');
         html.classList.add('dark');
         currentTheme = 'dark';
         if (ic) ic.classList.add('hidden');
@@ -1617,13 +1798,16 @@
       handleScrollUpdates();
     }
 
-    /* SCROLL & CONTRASTE */
+    /* DETECCIÓN DE SCROLL: FADE OUT DE TEXTO Y CONTRASTE SOBRE IMÁGENES */
     function handleScrollUpdates() {
       const nav = document.getElementById('header-nav');
-      if (!nav || typeof nav.getBoundingClientRect !== 'function') return;
+      const bottomCtrl = document.getElementById('bottom-controls');
+      if (!nav) return;
 
       const navRect = nav.getBoundingClientRect();
+      const bottomRect = bottomCtrl ? bottomCtrl.getBoundingClientRect() : null;
 
+      // 1. Desvanecer el texto del proyecto al scrollear hacia las fotos
       const textSec = document.getElementById('detail-text-section');
       if (textSec && currentView === 'project' && typeof textSec.getBoundingClientRect === 'function') {
         const rect = textSec.getBoundingClientRect();
@@ -1640,23 +1824,36 @@
         }
       }
 
+      // 2. Detección de contraste: si el menú o los controles pasan sobre alguna imagen visible
       const images = document.querySelectorAll('img');
-      let isOverImage = false;
+      let isNavOverImage = false;
+      let isBottomOverImage = false;
+
       for (let i = 0; i < images.length; i++) {
         const img = images[i];
         if (img.id === 'hover-img-el') continue;
         if (!img.offsetParent) continue;
         const r = img.getBoundingClientRect();
         if (r.bottom > navRect.top + 4 && r.top < navRect.bottom - 4) {
-          isOverImage = true;
-          break;
+          isNavOverImage = true;
+        }
+        if (bottomRect && r.bottom > bottomRect.top + 4 && r.top < bottomRect.bottom - 4 && r.right > bottomRect.left + 4 && r.left < bottomRect.right - 4) {
+          isBottomOverImage = true;
         }
       }
 
-      if (isOverImage) {
+      if (isNavOverImage) {
         nav.classList.add('is-over-image');
       } else {
         nav.classList.remove('is-over-image');
+      }
+
+      if (bottomCtrl) {
+        if (isBottomOverImage) {
+          bottomCtrl.classList.add('is-over-image');
+        } else {
+          bottomCtrl.classList.remove('is-over-image');
+        }
       }
     }
 
@@ -1668,9 +1865,9 @@
         navigateTo('home');
       } else if (hash === 'work') {
         navigateTo('work');
-      } else if (hash === 'taller') {
-        navigateTo('taller');
-      } else if (hash === 'contact') {
+      } else if (hash === 'info' || hash === 'taller') {
+        navigateTo('info');
+      } else if (hash === 'contact' || hash === 'contacto') {
         navigateTo('contact');
       } else if (findProjectKey(hash)) {
         openProject(hash);
@@ -1684,15 +1881,15 @@
       handleScrollUpdates();
     });
 
-    /* SINCRONIZACIÓN SANITY CMS */
-    async function fetchSanityData() {
+    // Sincronización Sanity CMS
+    async function fetchSanity() {
       if (!SANITY_CONFIG.projectId) return;
-      const query = encodeURIComponent(`{
+      const q = encodeURIComponent(`{
         "projects": *[_type == "project"] | order(orderNumber asc, _createdAt desc) {
           _id, "id": _id,
           "slug": slug.current,
           selectedWork,
-          "categories": categories,
+          categories,
           "homeImage": homeImage.asset->url,
           "title": { "es": coalesce(title_es, title.es, title, orderNumber, "Sin título"), "en": coalesce(title_en, title.en, title, orderNumber, "Untitled") },
           "typology": { "es": coalesce(typology_es, typology.es, ""), "en": coalesce(typology_en, typology.en, "") },
@@ -1722,69 +1919,64 @@
         }
       }`);
 
-      const url = `https://${SANITY_CONFIG.projectId}.api.sanity.io/v${SANITY_CONFIG.apiVersion}/data/query/${SANITY_CONFIG.dataset}?query=${query}`;
-
       try {
-        const res = await fetch(url);
-        const json = await res.json();
-        if (json && json.result) {
-          if (json.result.projects && json.result.projects.length > 0) {
-            const newProjects = {};
-            json.result.projects.forEach((p, idx) => {
+        const res = await fetch(`https://${SANITY_CONFIG.projectId}.api.sanity.io/v${SANITY_CONFIG.apiVersion}/data/query/${SANITY_CONFIG.dataset}?query=${q}`);
+        const data = await res.json();
+        if (data && data.result) {
+          if (data.result.projects && data.result.projects.length) {
+            const map = {};
+            data.result.projects.forEach((p, idx) => {
               const rawTitle = (p.title && (p.title.es || p.title)) || '';
               const cleanSlug = p.slug || slugify(rawTitle) || p.id || p._id || `proj-${idx}`;
               p.slugKey = cleanSlug;
-              newProjects[cleanSlug] = p;
+              map[cleanSlug] = p;
             });
-            projectsData = newProjects;
-            projectKeys = Object.keys(projectsData);
+            projects = map;
           }
-          if (json.result.taller && (json.result.taller.manifesto_1 || json.result.taller.distinctions)) {
-            tallerData = json.result.taller;
+          if (data.result.taller && (data.result.taller.manifesto_1 || data.result.taller.distinctions)) {
+            tallerData = data.result.taller;
           }
-          if (json.result.contact && (json.result.contact.intro || json.result.contact.emails)) {
-            contactData = json.result.contact;
+          if (data.result.contact && (data.result.contact.intro || data.result.contact.emails)) {
+            contactData = data.result.contact;
           }
 
-          renderProjectsList();
-          renderTaller();
-          renderContact();
           if (currentView === 'home') renderHomeScatter();
-          if (currentView === 'project' && currentProjectId) {
+          renderFilters();
+          renderWorkList();
+          renderInfoView();
+          renderContact();
+          if (currentView === 'project' && currentProjectId && projects[currentProjectId]) {
             openProject(currentProjectId);
           }
         }
-      } catch (err) {
-        console.log('Sanity fallback local activo.');
+      } catch (e) {
+        console.log('Sanity fallback activo.');
       }
     }
 
-    /* INICIALIZACIÓN */
-    (async function init() {
-      renderProjectsList();
-      renderTaller();
-      renderContact();
+    // Inicialización
+    (function init() {
+      try { renderHomeScatter(); } catch(e) { console.error(e); }
+      try { renderFilters(); } catch(e) { console.error(e); }
+      try { renderWorkList(); } catch(e) { console.error(e); }
+      try { renderInfoView(); } catch(e) { console.error(e); }
+      try { renderContact(); } catch(e) { console.error(e); }
 
       const hash = window.location.hash.replace('#', '');
-      if (hash && hash !== 'home' && hash !== 'work' && hash !== 'taller' && hash !== 'contact' && findProjectKey(hash)) {
+      if (hash && hash !== 'home' && hash !== 'work' && hash !== 'info' && hash !== 'taller' && hash !== 'contact' && hash !== 'contacto' && findProjectKey(hash)) {
         openProject(hash);
       } else if (hash === 'work') {
         navigateTo('work');
-      } else if (hash === 'taller') {
-        navigateTo('taller');
-      } else if (hash === 'contact') {
+      } else if (hash === 'info' || hash === 'taller') {
+        navigateTo('info');
+      } else if (hash === 'contact' || hash === 'contacto') {
         navigateTo('contact');
       } else {
         navigateTo('home');
       }
       setTimeout(handleScrollUpdates, 50);
 
-      // Conexión Sanity asíncrona sin bloquear la renderización inmediata
-      try {
-        await fetchSanityData();
-      } catch (err) {
-        console.log('Sanity fallback activo');
-      }
+      fetchSanity();
     })();
   </script>
 </body>
