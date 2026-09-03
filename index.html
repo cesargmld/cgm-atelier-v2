@@ -544,6 +544,9 @@
       opacity: 0.88;
     }
 
+    .hidden { display: none !important; }
+    .block { display: block !important; }
+
     ::-webkit-scrollbar {
       display: none;
     }
@@ -569,12 +572,10 @@
         <button onclick="setLang('en')" id="btn-lang-en" class="lang-btn">EN</button>
       </div>
 
-      <!-- Icono Minimalista Light/Dark Mode -->
-      <button onclick="toggleTheme()" id="btn-theme-toggle" class="theme-icon-btn" title="Cambiar tema">
-        <svg id="icon-theme-circle" class="w-3.5 h-3.5 stroke-current fill-none" style="width: 14px; height: 14px;" viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="9" />
-          <path id="theme-half-disk" fill="#d97a47" class="hidden" d="M12 3a9 9 0 0 0 0 18V3z"/>
-        </svg>
+      <!-- Botón de Tema Original v1 -->
+      <button onclick="toggleTheme()" id="btn-theme" title="Cambiar tema" class="theme-icon-btn">
+        <svg id="icon-circle" class="w-3.5 h-3.5 stroke-current fill-none block" style="width: 13px; height: 13px;" viewBox="0 0 24 24" stroke-width="1.6"><circle cx="12" cy="12" r="9" /></svg>
+        <svg id="icon-half" class="w-3.5 h-3.5 stroke-current fill-none hidden" style="width: 13px; height: 13px;" viewBox="0 0 24 24" stroke-width="1.6"><circle cx="12" cy="12" r="9" /><path fill="currentColor" d="M12 3a9 9 0 0 0 0 18V3z" /></svg>
       </button>
     </div>
   </nav>
@@ -1600,18 +1601,18 @@
 
     function toggleTheme() {
       const html = document.documentElement;
-      const halfDisk = document.getElementById('theme-half-disk');
-
-      if (currentTheme === 'light') {
-        currentTheme = 'dark';
-        html.classList.remove('light');
-        html.classList.add('dark');
-        if (halfDisk) halfDisk.classList.remove('hidden');
-      } else {
-        currentTheme = 'light';
+      const ic = document.getElementById('icon-circle');
+      const ih = document.getElementById('icon-half');
+      if (html.classList.contains('dark')) {
         html.classList.remove('dark');
-        html.classList.add('light');
-        if (halfDisk) halfDisk.classList.add('hidden');
+        currentTheme = 'light';
+        if (ic) ic.classList.remove('hidden');
+        if (ih) ih.classList.add('hidden');
+      } else {
+        html.classList.add('dark');
+        currentTheme = 'dark';
+        if (ic) ic.classList.add('hidden');
+        if (ih) ih.classList.remove('hidden');
       }
       handleScrollUpdates();
     }
