@@ -3,425 +3,648 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>CGM ATELIER</title>
-  <meta name="description" content="Cgm Atelier — Práctica de arquitectura y territorio." />
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>CGM ATELIER — César González Maldonado</title>
+  <meta name="description" content="CGM Atelier — Práctica de arquitectura y territorio. Monterrey, México." />
+
+  <!-- Tipografía Geist (Google Fonts) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: { sans: ['"ABC Diatype"', '"Geist"', '"Diatype"', '"Suisse Intl"', '"Inter"', '-apple-system', 'sans-serif'] },
-          colors: {
-            page: 'var(--bg-page)', ink: 'var(--text-ink)', muted: 'var(--text-muted)',
-            faint: 'transparent', panel: 'var(--panel-bg)', accent: '#d97a47'
-          }
-        }
-      }
-    }
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    *, *::before, *::after, html, body, a, button, input, select, textarea, [onclick], .cursor-pointer {
-      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 22 22'%3E%3Cline x1='11' y1='0' x2='11' y2='8' stroke='%23808080' stroke-width='1'/%3E%3Cline x1='11' y1='14' x2='11' y2='22' stroke='%23808080' stroke-width='1'/%3E%3Cline x1='0' y1='11' x2='8' y2='11' stroke='%23808080' stroke-width='1'/%3E%3Cline x1='14' y1='11' x2='22' y2='11' stroke='%23808080' stroke-width='1'/%3E%3C/svg%3E") 11 11, crosshair !important;
+    @font-face {
+      font-family: 'ABC Diatype';
+      src: local('ABC Diatype Regular'), local('ABCDiatype-Regular'), local('Diatype Regular'),
+           url('./fonts/ABCDiatype-Regular.woff2') format('woff2'),
+           url('./fonts/ABCDiatype-Regular.woff') format('woff'),
+           url('./fonts/ABCDiatype-Regular.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
     }
 
-    :root { --bg-page: #ffffff; --text-ink: #111111; --text-muted: #787878; --border-faint: transparent; --panel-bg: #f7f7f7; --accent: #d97a47; }
-    html.dark { --bg-page: #0a0a0a; --text-ink: #f4f4f4; --text-muted: #767676; --border-faint: transparent; --panel-bg: #121212; --accent: #d97a47; }
+    @font-face {
+      font-family: 'ABC Diatype';
+      src: local('ABC Diatype Medium'), local('ABCDiatype-Medium'), local('Diatype Medium'),
+           url('./fonts/ABCDiatype-Medium.woff2') format('woff2'),
+           url('./fonts/ABCDiatype-Medium.woff') format('woff'),
+           url('./fonts/ABCDiatype-Medium.otf') format('opentype');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --bg: #f2f2f2;
+      --text: #000000;
+      --muted: #767676;
+      --accent: #d97a47;
+      --blue: #d97a47;
+      --font: "ABC Diatype", "Geist", "Suisse Intl", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --pad-x: 24px;
+      --pad-top: 22px;
+    }
+
+    html.dark {
+      --bg: #0c0c0c;
+      --text: #f4f4f4;
+      --muted: #888888;
+      --accent: #d97a47;
+      --blue: #d97a47;
+    }
+
+    @media (min-width: 768px) {
+      :root {
+        --pad-x: 44px;
+        --pad-top: 28px;
+      }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      border: 0;
+      outline: 0;
+    }
+
+    ::selection {
+      background-color: #d97a47;
+      color: #ffffff;
+    }
+
     body {
-      background-color: var(--bg-page); color: var(--text-ink);
-      font-family: 'ABC Diatype', 'Geist', 'Diatype', 'Suisse Intl', 'Inter', -apple-system, sans-serif;
-      font-size: 12px; letter-spacing: 0.02em; line-height: 1.5; -webkit-font-smoothing: antialiased;
-      overflow-x: hidden; transition: background-color 0.35s ease, color 0.35s ease;
-      padding-bottom: env(safe-area-inset-bottom);
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 15px;
+      line-height: 1.5;
+      letter-spacing: -0.015em;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
-    @media (min-width: 768px) { body { font-size: 11.5px; line-height: 1.45; } }
-    ::-webkit-scrollbar { display: none; }
-    * { -ms-overflow-style: none; scrollbar-width: none; }
 
-    #preloader { pointer-events: auto; z-index: 100; }
+    a, button {
+      color: inherit;
+      text-decoration: none;
+      background: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
+      transition: color 0.1s ease;
+    }
 
-    #main-header-logo {
-      color: var(--text-ink);
+    a:hover, button:hover {
+      color: #d97a47 !important;
+    }
+
+    .active, a.active, button.active {
+      color: #d97a47 !important;
+    }
+
+    /* CABECERA FIJA FLOTANTE TRANSPARENTE */
+    nav#header-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 500;
+      padding: var(--pad-top) var(--pad-x);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      background: transparent;
+      pointer-events: none;
       transition: color 0.15s ease;
     }
-    #main-header-logo.logo-inverted {
-      color: #ffffff !important;
-    }
 
-    .center-nav-bar {
-      position: fixed; top: 46px; left: 0; width: 100%; z-index: 65; pointer-events: none;
-      padding-top: 4px; padding-bottom: 4px;
-      transition: opacity 0.3s ease;
-    }
-    @media (min-width: 768px) {
-      .center-nav-bar {
-        top: 50%; transform: translateY(-50%); z-index: 66;
-        padding-top: 0; padding-bottom: 0;
-      }
-    }
-    .center-nav-bar * { pointer-events: auto; }
-    @media (max-width: 767px) {
-      .center-nav-bar.nav-hidden-mobile,
-      .mobile-footer-hidden {
-        opacity: 0 !important;
-        pointer-events: none !important;
-      }
-      .center-nav-bar.nav-hidden-mobile *,
-      .mobile-footer-hidden * {
-        pointer-events: none !important;
-      }
-    }
-
-    .projects-subnav {
-      position: fixed; top: 76px; left: 0; width: 100%; z-index: 50; pointer-events: none;
-    }
-    @media (min-width: 768px) {
-      .projects-subnav {
-        top: 72px; z-index: 61;
-      }
-    }
-    .projects-subnav * { pointer-events: auto; }
-    @media (max-width: 767px) {
-      #projects-toggle-container::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 77px;
-        background-color: var(--bg-page);
-        z-index: -1;
-        pointer-events: none;
-      }
-    }
-
-    .view-section { display: block; opacity: 1; }
-    .view-section.is-hidden { display: none !important; opacity: 0; }
-    .view-section:not(.is-hidden) { animation: viewFadeIn 0.36s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-    @keyframes viewFadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-
-    body.side-panel-open #view-home,
-    body.side-panel-open #view-projects,
-    body.side-panel-open #view-project-detail,
-    body.side-panel-open .projects-subnav {
-      filter: grayscale(100%) opacity(0.30);
-      pointer-events: none;
-      transition: filter 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    #view-home, #view-projects, #view-project-detail, .projects-subnav {
-      transition: filter 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .project-card {
-      opacity: 1; filter: grayscale(0%) contrast(100%); transform: scale(1);
-      transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), filter 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: transform, opacity, filter;
-    }
-    @media (max-width: 767px) {
-      .project-card {
-        transition: none !important;
-        transform: none !important;
-        will-change: auto !important;
-      }
-    }
-
-    .home-card-img {
-      transition: filter 0.35s ease, opacity 0.35s ease;
-      will-change: filter, opacity;
-    }
-    .group:hover .home-card-img {
-      filter: grayscale(100%) contrast(105%);
-      opacity: 0.85;
-    }
-
-    .project-list-row {
-      transition: opacity 0.2s ease, color 0.15s ease;
-    }
-    .list-is-hovered .project-list-row {
-      opacity: 0.35;
-    }
-    .list-is-hovered .project-list-row:hover,
-    .list-is-hovered .project-list-row.is-active {
-      opacity: 1 !important;
-    }
-    .project-list-row:hover .row-title,
-    .list-is-hovered .project-list-row.is-active .row-title {
-      font-weight: 500 !important;
-      color: #d97a47 !important;
-    }
-    .project-list-row:hover .row-meta,
-    .list-is-hovered .project-list-row.is-active .row-meta {
-      color: #d97a47 !important;
-    }
-
-    .grain-overlay {
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.65 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-      mix-blend-mode: overlay;
-      opacity: 0.65;
-      pointer-events: none;
-    }
-
-    #list-floating-preview {
-      position: fixed;
-      z-index: 0;
-      pointer-events: none;
-      will-change: top, left, opacity, transform;
-      transition: opacity 0.25s ease, transform 0.25s ease;
-    }
-
-    .filter-anim { animation: viewFadeIn 0.3s ease forwards; }
-
-    #panel-backdrop {
-      position: fixed;
-      inset: 0;
-      background-color: var(--bg-page);
-      opacity: 0;
-      pointer-events: none;
-      z-index: 45;
-      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    #panel-backdrop.is-active {
-      opacity: 0.90;
+    nav#header-nav * {
       pointer-events: auto;
+    }
+
+    nav#header-nav.is-over-image,
+    nav#header-nav.is-over-image a,
+    nav#header-nav.is-over-image button {
+      color: #ffffff !important;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
+    }
+
+    nav#header-nav.is-over-image a:hover,
+    nav#header-nav.is-over-image button:hover {
+      color: #d97a47 !important;
+    }
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-title:hover {
+      color: #d97a47 !important;
+    }
+
+    @media (min-width: 768px) {
+      .brand-title {
+        font-size: 22px;
+      }
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 15px;
+    }
+
+    @media (min-width: 768px) {
+      .nav-links {
+        gap: 26px;
+      }
+    }
+
+    /* Selector de idioma ES/EN */
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+
+    .lang-btn {
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .lang-btn.active {
+      color: var(--text) !important;
+      font-weight: 500;
+    }
+
+    .lang-btn:hover {
+      color: #d97a47 !important;
+    }
+
+    /* Botón de tema original v1 */
+    .theme-icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px;
+      color: var(--muted);
+    }
+
+    .theme-icon-btn:hover {
+      color: #d97a47 !important;
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    main#content {
+      padding-top: 130px;
+      padding-left: var(--pad-x);
+      padding-right: var(--pad-x);
+      padding-bottom: 120px;
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      main#content {
+        padding-top: 150px;
+      }
+    }
+
+    /* =========================================================
+       1. PORTADA DISPERSA EN ZONAS RANDOM (#VIEW-HOME)
+       ========================================================= */
+    #view-home {
+      cursor: pointer;
+      position: relative;
+      width: 100%;
+      min-height: 220vh;
+      margin-top: -30px;
+    }
+
+    .scatter-canvas {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 220vh;
+    }
+
+    .scatter-item {
+      position: absolute;
+      background-color: rgba(128, 128, 128, 0.15);
+      overflow: hidden;
+      display: block;
+      transition: opacity 0.15s ease;
+      cursor: pointer;
+    }
+
+    .scatter-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .scatter-item:hover {
+      opacity: 0.88;
+    }
+
+    /* =========================================================
+       2. LISTADO DE PROYECTOS (#VIEW-WORK) - CENTRADO, SIN FILTROS
+       ========================================================= */
+    #view-work {
+      max-width: 980px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .project-item {
+      display: block;
+      width: 100%;
+      margin-bottom: 16px;
+      cursor: pointer;
+    }
+
+    @media (min-width: 768px) {
+      .project-item {
+        margin-bottom: 20px;
+      }
+    }
+
+    .project-item a {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 100%;
+      color: var(--text);
+      transition: color 0.08s ease;
+    }
+
+    @media (min-width: 640px) {
+      .project-item a {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 32px;
+      }
+    }
+
+    .project-title {
+      font-size: 24px;
+      font-weight: 400;
+      letter-spacing: -0.025em;
+      line-height: 1.22;
+      transition: color 0.08s ease;
+    }
+
+    @media (min-width: 768px) {
+      .project-title {
+        font-size: 30px;
+        line-height: 1.2;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .project-title {
+        font-size: 34px;
+      }
+    }
+
+    .project-meta {
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0;
+      white-space: nowrap;
+      transition: color 0.08s ease;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 768px) {
+      .project-meta {
+        font-size: 14px;
+      }
+    }
+
+    .project-item:hover .project-title,
+    .project-item:hover .project-meta {
+      color: #d97a47 !important;
+    }
+
+    /* IMAGEN FLOTANTE EN HOVER */
+    #hover-floating-image {
+      position: fixed;
+      pointer-events: none;
+      z-index: 450;
+      display: none;
+      transition: none !important;
+      animation: none !important;
+    }
+
+    #hover-floating-image img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      background-color: rgba(128, 128, 128, 0.2);
+      transition: none !important;
+      animation: none !important;
+    }
+
+    /* =========================================================
+       3. EXPEDIENTE DE PROYECTO (#VIEW-PROJECT)
+       ========================================================= */
+    #view-project {
+      max-width: 1040px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    #detail-text-section {
+      transition: opacity 0.25s ease;
+      will-change: opacity;
+    }
+
+    .detail-hero-title {
+      font-size: 32px;
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    @media (min-width: 768px) {
+      .detail-hero-title {
+        font-size: 44px;
+      }
+    }
+
+    .detail-location-sub {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    .meta-layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px 48px;
+      margin-bottom: 40px;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .meta-entry {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .meta-entry-label {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 2px;
+    }
+
+    .meta-entry-value {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .detail-description {
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 820px;
+      margin-bottom: 56px;
+      color: var(--text);
+    }
+
+    .detail-description p {
+      margin-bottom: 16px;
+    }
+
+    .image-stream {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    @media (min-width: 768px) {
+      .image-stream {
+        gap: 64px;
+      }
+    }
+
+    .image-stream-item {
+      width: 100%;
+    }
+
+    .image-stream-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      background-color: rgba(128, 128, 128, 0.15);
+    }
+
+    /* =========================================================
+       4. TALLER (#VIEW-TALLER)
+       ========================================================= */
+    #view-taller {
+      max-width: 820px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .info-bio {
+      font-size: 18px;
+      line-height: 1.55;
+      margin-bottom: 44px;
+      color: var(--text);
+    }
+
+    @media (min-width: 768px) {
+      .info-bio {
+        font-size: 20px;
+        line-height: 1.5;
+        margin-bottom: 56px;
+      }
+    }
+
+    .info-bio p {
+      margin-bottom: 20px;
+    }
+
+    .info-section-title {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 14px;
+      letter-spacing: 0.02em;
+    }
+
+    .info-list {
+      list-style: none;
+      margin-bottom: 44px;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    /* =========================================================
+       5. CONTACTO (#VIEW-CONTACT)
+       ========================================================= */
+    #view-contact {
+      max-width: 820px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .contact-intro {
+      font-size: 18px;
+      line-height: 1.55;
+      margin-bottom: 36px;
+      color: var(--text);
+    }
+
+    .contact-channels {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      font-size: 16px;
+    }
+
+    .contact-channel-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .contact-channel-label {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    .contact-channel-item a {
+      color: var(--text);
+      font-size: 16px;
+    }
+
+    .contact-channel-item a:hover {
+      color: #d97a47 !important;
+    }
+
+    .hidden { display: none !important; }
+    .block { display: block !important; }
+
+    ::-webkit-scrollbar {
+      display: none;
     }
   </style>
 </head>
-<body class="bg-page text-ink selection:bg-[#d97a47] selection:text-white min-h-screen relative">
+<body>
 
-  <!-- 0. PRELOADER -->
-  <div id="preloader" class="fixed inset-0 flex items-center justify-center bg-page transition-opacity duration-700 ease-out">
-    <div class="relative flex items-center justify-center">
-      <svg viewBox="60 28 395 55" class="h-6 sm:h-7 md:h-8 w-auto fill-current text-ink" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" xmlns="http://www.w3.org/2000/svg">
-        <g id="loader-cgm" class="transition-all duration-700 ease-out opacity-0 -translate-y-1">
-          <path d="M109.1,63.7c-1,5-3.2,8.9-6.8,11.7c-3.5,2.8-7.9,4.1-13.1,4.1c-6.6,0-11.7-2.2-15.5-6.6s-5.6-10.2-5.6-17.4 c0-7.2,1.9-13,5.8-17.3s9.1-6.5,15.7-6.5c5,0,9.2,1.4,12.7,4.2c3.4,2.8,5.7,6.7,6.6,11.7h-7c-0.7-3-2.2-5.4-4.3-7.2 s-4.9-2.6-8.2-2.6c-4,0-7.3,1.6-9.9,4.7s-3.9,7.5-3.9,13.1c0,5.5,1.3,9.9,3.8,13.1c2.6,3.2,5.9,4.8,10,4.8c3.3,0,6.1-0.9,8.3-2.6 c2.2-1.7,3.7-4.1,4.4-7.2L109.1,63.7L109.1,63.7z"/>
-          <path d="M152.1,46.6h-7c-0.8-2.8-2.2-4.9-4.4-6.5c-2.1-1.5-4.9-2.3-8.2-2.3c-4.1,0-7.5,1.5-10.1,4.6s-3.9,7.5-3.9,13.1 c0,5.6,1.3,10,3.8,13.2s5.9,4.8,10.2,4.8c1.6,0,3.1-0.2,4.5-0.5c1.4-0.4,2.8-0.9,4.2-1.8s2.4-2,3.2-3.6c0.8-1.6,1.2-3.4,1.2-5.5 v-1h-12v-6.2h18.8v23.8h-5.7l-0.3-5.7c-2.8,4.3-7.6,6.5-14.3,6.5c-6.5,0-11.6-2.2-15.3-6.6s-5.6-10.2-5.6-17.4 c0-7.2,2-12.9,5.9-17.3c3.9-4.3,9.2-6.5,15.8-6.5c5,0,9.2,1.3,12.7,3.9C148.9,38.4,151.1,42,152.1,46.6z"/>
-          <path d="M178.1,78.7l-12.3-38.8v38.8h-7.1V32.6h11.6l11.5,37.6l11.5-37.6H205v46.1h-7.1V39.9l-12.3,38.8H178.1z"/>
-        </g>
-        <g id="loader-atelier" class="transition-all duration-700 ease-out opacity-0 translate-y-1">
-          <path d="M248.6,32.6h4.8l8,46.1h-4.3l-1.9-11.4h-22.4l-6.6,11.4h-4.6L248.6,32.6z M254.5,63.5l-4.5-26.3L235,63.5 C235,63.5,254.5,63.5,254.5,63.5z"/>
-          <path d="M278.2,36.4h-15.6l0.8-3.8H299l-0.8,3.8h-15.6l-9,42.3h-4.3L278.2,36.4z"/>
-          <path d="M302.5,32.6h29.9l-0.9,3.8H306l-3.5,16.5h24.1l-0.8,3.9h-24.1l-3.8,18h25.6l-0.8,3.8h-29.9L302.5,32.6z"/>
-          <path d="M338.3,32.6h4.3l-9,42.3h24.9l-0.8,3.8h-29.3L338.3,32.6z"/>
-          <path d="M371,32.6h4.3l-9.8,46.1h-4.3L371,32.6z"/>
-          <path d="M383.9,32.6h29.9l-0.9,3.8h-25.6l-3.5,16.5H408l-0.8,3.9H383l-3.8,18h25.6l-0.8,3.8h-29.9L383.9,32.6z"/>
-          <path d="M419.7,32.6h12.8c9.9,0,16.8,2.2,16.8,10.4c0,8.7-5.3,12.8-12.8,14.4l6.7,21.3h-4.6L432.3,58c-1.5,0.2-3,0.2-4.5,0.2 h-9.2l-4.3,20.5h-4.3L419.7,32.6z M423.2,36.4l-3.8,18.1h8.5c8.5,0,16.8-1.3,16.8-11c0-6.1-5.5-7.1-12.5-7.1 C432.2,36.4,423.2,36.4,423.2,36.4z"/>
-        </g>
-      </svg>
+  <!-- CABECERA FIJA SUPERIOR -->
+  <nav id="header-nav">
+    <div>
+      <a href="#home" onclick="navigateTo('home', event)" id="nav-brand" class="brand-title">CGM Atelier</a>
     </div>
-  </div>
 
-  <!-- 1. HEADER -->
-  <header class="fixed top-0 left-0 w-full z-[65] px-4 md:px-8 pt-6 pb-3 md:pt-7 md:pb-4 flex justify-center items-center pointer-events-none">
-    <div class="pointer-events-auto">
-      <a href="#home" onclick="navigate(event, 'home')" title="CGM ATELIER" id="main-header-logo" class="hover:text-[#d97a47] transition-all block">
-        <svg viewBox="60 28 395 55" class="h-[18px] sm:h-[20px] md:h-[22px] w-auto fill-current" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" xmlns="http://www.w3.org/2000/svg">
-          <path d="M109.1,63.7c-1,5-3.2,8.9-6.8,11.7c-3.5,2.8-7.9,4.1-13.1,4.1c-6.6,0-11.7-2.2-15.5-6.6s-5.6-10.2-5.6-17.4 c0-7.2,1.9-13,5.8-17.3s9.1-6.5,15.7-6.5c5,0,9.2,1.4,12.7,4.2c3.4,2.8,5.7,6.7,6.6,11.7h-7c-0.7-3-2.2-5.4-4.3-7.2 s-4.9-2.6-8.2-2.6c-4,0-7.3,1.6-9.9,4.7s-3.9,7.5-3.9,13.1c0,5.5,1.3,9.9,3.8,13.1c2.6,3.2,5.9,4.8,10,4.8c3.3,0,6.1-0.9,8.3-2.6 c2.2-1.7,3.7-4.1,4.4-7.2L109.1,63.7L109.1,63.7z"/>
-          <path d="M152.1,46.6h-7c-0.8-2.8-2.2-4.9-4.4-6.5c-2.1-1.5-4.9-2.3-8.2-2.3c-4.1,0-7.5,1.5-10.1,4.6s-3.9,7.5-3.9,13.1 c0,5.6,1.3,10,3.8,13.2s5.9,4.8,10.2,4.8c1.6,0,3.1-0.2,4.5-0.5c1.4-0.4,2.8-0.9,4.2-1.8s2.4-2,3.2-3.6c0.8-1.6,1.2-3.4,1.2-5.5 v-1h-12v-6.2h18.8v23.8h-5.7l-0.3-5.7c-2.8,4.3-7.6,6.5-14.3,6.5c-6.5,0-11.6-2.2-15.3-6.6s-5.6-10.2-5.6-17.4 c0-7.2,2-12.9,5.9-17.3c3.9-4.3,9.2-6.5,15.8-6.5c5,0,9.2,1.3,12.7,3.9C148.9,38.4,151.1,42,152.1,46.6z"/>
-          <path d="M178.1,78.7l-12.3-38.8v38.8h-7.1V32.6h11.6l11.5,37.6l11.5-37.6H205v46.1h-7.1V39.9l-12.3,38.8H178.1z"/>
-          <path d="M248.6,32.6h4.8l8,46.1h-4.3l-1.9-11.4h-22.4l-6.6,11.4h-4.6L248.6,32.6z M254.5,63.5l-4.5-26.3L235,63.5 C235,63.5,254.5,63.5,254.5,63.5z"/>
-          <path d="M278.2,36.4h-15.6l0.8-3.8H299l-0.8,3.8h-15.6l-9,42.3h-4.3L278.2,36.4z"/>
-          <path d="M302.5,32.6h29.9l-0.9,3.8H306l-3.5,16.5h24.1l-0.8,3.9h-24.1l-3.8,18h25.6l-0.8,3.8h-29.9L302.5,32.6z"/>
-          <path d="M338.3,32.6h4.3l-9,42.3h24.9l-0.8,3.8h-29.3L338.3,32.6z"/>
-          <path d="M371,32.6h4.3l-9.8,46.1h-4.3L371,32.6z"/>
-          <path d="M383.9,32.6h29.9l-0.9,3.8h-25.6l-3.5,16.5H408l-0.8,3.9H383l-3.8,18h25.6l-0.8,3.8h-29.9L383.9,32.6z"/>
-          <path d="M419.7,32.6h12.8c9.9,0,16.8,2.2,16.8,10.4c0,8.7-5.3,12.8-12.8,14.4l6.7,21.3h-4.6L432.3,58c-1.5,0.2-3,0.2-4.5,0.2 h-9.2l-4.3,20.5h-4.3L419.7,32.6z M423.2,36.4l-3.8,18.1h8.5c8.5,0,16.8-1.3,16.8-11c0-6.1-5.5-7.1-12.5-7.1 C432.2,36.4,423.2,36.4,423.2,36.4z"/>
-        </svg>
-      </a>
-    </div>
-  </header>
+    <div class="nav-links">
+      <a href="#work" onclick="navigateTo('work', event)" id="nav-work">Work</a>
+      <a href="#taller" onclick="navigateTo('taller', event)" id="nav-taller">Taller</a>
+      <a href="#contact" onclick="navigateTo('contact', event)" id="nav-contact">Contacto</a>
 
-  <!-- 2. MENÚ PRINCIPAL -->
-  <nav class="center-nav-bar px-4 md:px-8">
-    <div class="w-full flex justify-between items-center text-[11.5px] md:text-[12px]">
-      <div class="flex items-center space-x-5 md:space-x-8">
-        <div><a href="#home" onclick="navigate(event, 'home')" id="btn-home" class="text-[#d97a47] font-semibold inline-block py-1">[<span id="dot-home">•</span>] <span data-i18n="nav_home">Inicio</span></a></div>
-        <div><a href="#projects" onclick="navigate(event, 'projects')" id="btn-projects" class="text-muted hover:text-[#d97a47] inline-block py-1">[<span id="dot-projects">&nbsp;</span>] <span data-i18n="nav_projects">Proyectos</span></a></div>
+      <!-- Selector de Idioma ES / EN -->
+      <div class="lang-switcher">
+        <button onclick="setLang('es')" id="btn-lang-es" class="lang-btn active">ES</button>
+        <span style="color: var(--muted);">/</span>
+        <button onclick="setLang('en')" id="btn-lang-en" class="lang-btn">EN</button>
       </div>
-      <div class="flex-grow"></div>
-      <div class="flex items-center space-x-5 md:space-x-8">
-        <div><button type="button" onclick="toggleSidePanel('taller')" id="btn-taller" class="text-muted hover:text-[#d97a47] inline-block py-1">[<span id="dot-taller">&nbsp;</span>] <span data-i18n="nav_taller">Taller</span></button></div>
-        <div><button type="button" onclick="toggleSidePanel('contact')" id="btn-contact" class="text-muted hover:text-[#d97a47] inline-block py-1">[<span id="dot-contact">&nbsp;</span>] <span data-i18n="nav_contact">Contacto</span></button></div>
-      </div>
+
+      <!-- Botón de Tema Original v1 -->
+      <button onclick="toggleTheme()" id="btn-theme" title="Cambiar tema" class="theme-icon-btn">
+        <svg id="icon-circle" class="w-3.5 h-3.5 stroke-current fill-none block" style="width: 13px; height: 13px;" viewBox="0 0 24 24" stroke-width="1.6"><circle cx="12" cy="12" r="9" /></svg>
+        <svg id="icon-half" class="w-3.5 h-3.5 stroke-current fill-none hidden" style="width: 13px; height: 13px;" viewBox="0 0 24 24" stroke-width="1.6"><circle cx="12" cy="12" r="9" /><path fill="#d97a47" d="M12 3a9 9 0 0 0 0 18V3z" /></svg>
+      </button>
     </div>
   </nav>
 
-  <!-- 3. SUBNAV PROYECTOS & FILTROS -->
-  <div id="projects-toggle-container" class="projects-subnav px-4 md:px-8 hidden bg-page py-2">
-    <div class="w-full flex flex-col md:flex-row justify-between items-start md:items-center gap-2 md:gap-3 py-1.5 md:py-0">
-      <div class="flex items-center gap-3 md:gap-5 text-[11px] flex-shrink-0">
-        <div class="flex items-center space-x-3">
-          <button onclick="setProjectMode('overview')" id="btn-mode-overview" class="flex items-center gap-1 text-[#d97a47] font-semibold py-1">
-            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 16 16"><path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z"/></svg>
-            <span data-i18n="mode_overview">Panorama</span>
-          </button>
-          <button onclick="setProjectMode('list')" id="btn-mode-list" class="flex items-center gap-1 text-muted hover:text-[#d97a47] py-1">
-            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></svg>
-            <span data-i18n="mode_list">Lista</span>
-          </button>
-        </div>
-
-        <div class="flex items-center gap-1.5 text-[10.5px] text-muted">
-          <span>[</span>
-          <input type="text" id="project-search-input" oninput="searchProjects(this.value)" onkeydown="if(event.key==='Escape'){this.value='';searchProjects('');this.blur();}" data-i18n-placeholder="search_placeholder" placeholder="Buscar proyecto..." class="bg-transparent border-none outline-none text-ink placeholder-muted text-[10.5px] w-[110px] md:w-[130px] py-1" />
-          <span>]</span>
-        </div>
-      </div>
-
-      <div id="typology-filter-bar" class="flex items-center space-x-2 text-[10.5px] overflow-x-auto w-full md:w-auto pb-1 md:pb-0 whitespace-nowrap"></div>
-    </div>
-  </div>
-
-  <!-- 4. BOTÓN FLOTANTE VOLVER ARRIBA -->
-  <div id="back-to-top-container" class="fixed bottom-9 md:bottom-10 left-1/2 -translate-x-1/2 z-40 opacity-0 pointer-events-none transition-opacity duration-300">
-    <button onclick="scrollToTop()" id="btn-back-to-top" class="text-[10.5px] md:text-[11px] text-muted hover:text-[#d97a47] font-normal tracking-wide transition-colors py-0.5 px-2 select-none">
-      [↑ <span data-i18n="back_to_top">Volver arriba</span>]
-    </button>
-  </div>
-
-  <!-- ESQUINAS INFERIORES Y COPYRIGHT -->
-  <div id="footer-email-container" class="fixed bottom-3 left-4 md:left-8 z-[65] transition-opacity duration-300 flex items-center gap-2 text-[11px] text-muted">
-    <a href="mailto:info@cgmatelier.com" class="hover:text-[#d97a47] font-normal transition-colors">info@cgmatelier.com</a>
-  </div>
-
-  <div id="footer-copyright-container" class="fixed bottom-3 left-1/2 -translate-x-1/2 z-[65] text-[10.5px] md:text-[11px] text-muted select-none pointer-events-none whitespace-nowrap text-center transition-opacity duration-300">
-    © <span id="footer-year"></span> Cgm Atelier
-  </div>
-
-  <div id="footer-controls-container" class="fixed bottom-3 right-4 md:right-8 z-[65] flex items-center gap-2.5 text-[11px] text-muted select-none transition-opacity duration-300">
-    <!-- Botón de Tema Original v1 -->
-    <button onclick="toggleTheme()" id="btn-theme" title="Cambiar tema" class="hover:text-[#d97a47] text-muted flex items-center p-0.5 transition-colors">
-      <svg id="icon-circle" class="w-3 h-3 stroke-current fill-none block" viewBox="0 0 24 24" stroke-width="1.6"><circle cx="12" cy="12" r="9" /></svg>
-      <svg id="icon-half" class="w-3 h-3 stroke-current fill-none hidden" viewBox="0 0 24 24" stroke-width="1.6"><circle cx="12" cy="12" r="9" /><path fill="#d97a47" d="M12 3a9 9 0 0 0 0 18V3z" /></svg>
-    </button>
-    <div class="flex items-center gap-1.5 font-normal">
-      <button onclick="setLang('es')" id="btn-lang-es" class="text-ink font-normal hover:text-[#d97a47] transition-opacity">ES</button>
-      <button onclick="setLang('en')" id="btn-lang-en" class="text-muted hover:text-[#d97a47] transition-opacity">EN</button>
-    </div>
-  </div>
-
-  <!-- TELÓN DE FONDO OPACO PARA TALLER Y CONTACTO -->
-  <div id="panel-backdrop" onclick="closeAllSidePanels()"></div>
-
-  <!-- PANELES LATERALES EN INICIO -->
-  <div id="side-panel-taller" class="fixed bottom-[calc(50%+12px)] right-4 md:right-8 lg:right-12 z-50 w-[92vw] sm:w-[400px] md:w-[400px] lg:w-[430px] max-w-[430px] max-h-[calc(50vh-40px)] overflow-y-auto bg-page p-5 md:p-4 rounded-none transition-all duration-300 opacity-0 pointer-events-none translate-y-2 select-text">
-    <div id="home-taller-manifesto-1" class="text-left text-[11.5px] md:text-[11px] lg:text-[11.5px] leading-relaxed text-ink space-y-3"></div>
-  </div>
-
-  <div id="side-panel-taller-bottom" class="fixed top-[calc(50%+12px)] right-4 md:right-8 lg:right-12 z-50 w-[92vw] sm:w-[400px] md:w-[400px] lg:w-[430px] max-w-[430px] max-h-[calc(50vh-40px)] overflow-y-auto bg-page p-5 md:p-4 rounded-none transition-all duration-300 opacity-0 pointer-events-none translate-y-2 select-text">
-    <div class="space-y-3.5 text-left text-[11.5px] md:text-[11px] lg:text-[11.5px] leading-relaxed text-ink">
-      <div id="home-taller-manifesto-2" class="space-y-3"></div>
-      <div class="pt-4 md:pt-5 space-y-2">
-        <p id="home-taller-distinctions-title" class="text-[10px] uppercase tracking-wider text-muted font-medium text-left" data-i18n="taller_distinctions_title">Concursos & Distinciones</p>
-        <ul id="home-taller-distinctions-list" class="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1 text-[10.5px] md:text-[11px] text-muted"></ul>
-      </div>
-    </div>
-  </div>
-
-  <div id="side-panel-contact" class="fixed top-[calc(50%+12px)] right-4 md:right-8 lg:right-12 z-50 w-[92vw] sm:w-[400px] md:w-[400px] lg:w-[430px] max-w-[430px] max-h-[calc(50vh-40px)] overflow-y-auto bg-page p-5 md:p-4 rounded-none transition-all duration-300 opacity-0 pointer-events-none translate-y-2 select-text">
-    <div class="space-y-4 text-left text-[11.5px] md:text-[11px] lg:text-[11.5px] leading-relaxed text-ink">
-      <p id="home-contact-intro" class="text-ink font-normal"></p>
-      <div class="space-y-3 pt-1">
-        <div class="space-y-0.5">
-          <span class="text-[10px] uppercase tracking-wider text-muted block font-medium" data-i18n="contact_projects_label">Proyectos</span>
-          <a id="home-contact-email-projects" href="mailto:info@cgmatelier.com" class="text-ink hover:text-[#d97a47] text-[13px] md:text-[12.5px] font-normal block">info@cgmatelier.com</a>
-        </div>
-        <div class="space-y-0.5">
-          <span class="text-[10px] uppercase tracking-wider text-muted block font-medium" data-i18n="contact_press_label">Prensa & Publicaciones</span>
-          <a id="home-contact-email-press" href="mailto:press@cgmatelier.com" class="text-ink hover:text-[#d97a47] text-[13px] md:text-[12.5px] font-normal block">press@cgmatelier.com</a>
-        </div>
-        <div class="space-y-0.5">
-          <span class="text-[10px] uppercase tracking-wider text-muted block font-medium" data-i18n="contact_careers_label">Vacantes</span>
-          <a id="home-contact-email-careers" href="mailto:vacantes@cgmatelier.com" class="text-ink hover:text-[#d97a47] text-[13px] md:text-[12.5px] font-normal block">vacantes@cgmatelier.com</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PREVIEW FLOTANTE DETRÁS DEL TEXTO -->
-  <div id="list-floating-preview" class="opacity-0 scale-95 pointer-events-none hidden md:block select-none">
-    <div class="relative w-[460px] lg:w-[520px] h-[300px] lg:h-[340px] overflow-hidden">
-      <img id="floating-preview-img" src="" class="w-full h-full object-cover grayscale contrast-125 opacity-40 md:opacity-45" />
-      <div class="absolute inset-0 grain-overlay"></div>
-    </div>
-  </div>
-
-  <!-- 5. VISTAS PRINCIPALES -->
-  <main class="w-full min-h-screen">
+  <!-- CONTENIDO PRINCIPAL -->
+  <main id="content">
     
-    <!-- VISTA A: INICIO CON TARJETAS Y ANIMACIÓN SCRAMBLE -->
-    <section id="view-home" class="view-section pt-20 md:pt-24 pb-20 flex flex-col items-center space-y-16 md:space-y-24"></section>
+    <!-- VISTA 1: PORTADA DISPERSA EN ZONAS RANDOM (CLIC ENTRA A WORK) -->
+    <section id="view-home" onclick="navigateTo('work', event)">
+      <div class="scatter-canvas" id="scatter-canvas-el"></div>
+    </section>
 
-    <!-- VISTA B: PROYECTOS (PANORAMA + LISTA CENTRADA) -->
-    <section id="view-projects" class="view-section is-hidden min-h-screen">
-      <!-- B.1: Panorama -->
-      <div id="subview-overview" class="h-screen w-full overflow-x-auto overflow-y-hidden select-none pt-24 md:pt-0">
-        <div class="h-screen flex flex-col justify-between py-6 px-6 md:px-20 w-max min-w-full">
-          <div id="overview-band-top" class="h-[calc(50vh-40px)] flex items-end space-x-10 md:space-x-24 pb-4"></div>
-          <div class="h-[50px] md:h-[72px] flex-shrink-0 pointer-events-none"></div>
-          <div id="overview-band-bottom" class="h-[calc(50vh-40px)] flex items-start space-x-10 md:space-x-24 pt-4">
-            <div class="w-12 md:w-32 flex-shrink-0"></div>
-          </div>
-        </div>
+    <!-- VISTA 2: LISTADO DE PROYECTOS (WORK) - CENTRADO Y LIMPIO -->
+    <section id="view-work" style="display: none;">
+      <div id="projects-list-container"></div>
+    </section>
+
+    <!-- VISTA 3: EXPEDIENTE DE PROYECTO (PROJECT DETAIL) -->
+    <article id="view-project" style="display: none;">
+      <div id="detail-text-section">
+        <h1 id="detail-title" class="detail-hero-title"></h1>
+        <div id="detail-location" class="detail-location-sub"></div>
+        <div id="detail-meta" class="meta-layout"></div>
+        <div id="detail-narrative" class="detail-description"></div>
       </div>
+      <div id="detail-gallery" class="image-stream"></div>
+    </article>
 
-      <!-- B.2: Lista Centrada -->
-      <div id="subview-list" class="hidden min-h-[calc(100vh-100px)] pt-44 md:pt-36 pb-24 max-w-4xl mx-auto px-4 md:px-8 relative" onmousemove="moveListPreview(event)">
-        <div id="project-list-container" class="relative z-20 w-full text-left"></div>
+    <!-- VISTA 4: TALLER -->
+    <section id="view-taller" style="display: none;">
+      <div class="info-bio">
+        <div id="taller-manifesto-1"></div>
+        <div style="height: 18px;"></div>
+        <div id="taller-manifesto-2"></div>
+      </div>
+      <div>
+        <div class="info-section-title" id="lbl-distinctions">Concursos & Distinciones</div>
+        <ul id="taller-distinctions-list" class="info-list"></ul>
       </div>
     </section>
 
-    <!-- VISTA C: EXPEDIENTE DE PROYECTO -->
-    <section id="view-project-detail" class="view-section is-hidden pt-28 pb-28 md:pb-32 max-w-7xl mx-auto px-4 md:px-8">
-      <div class="flex justify-between items-center text-[11px] pb-6 mb-6 text-muted">
-        <a href="#projects" onclick="navigate(event, 'projects')" class="hover:text-[#d97a47] flex items-center gap-1 font-medium text-ink py-1">
-          <span>←</span> <span data-i18n="proj_back">Volver a Proyectos</span>
-        </a>
-        <div class="flex items-center gap-4">
-          <button onclick="prevProject()" class="hover:text-[#d97a47] py-1">[← <span data-i18n="proj_prev">Anterior</span>]</button>
-          <button onclick="nextProject()" class="hover:text-[#d97a47] py-1">[<span data-i18n="proj_next">Siguiente</span> →]</button>
+    <!-- VISTA 5: CONTACTO -->
+    <section id="view-contact" style="display: none;">
+      <p id="contact-intro-text" class="contact-intro"></p>
+      
+      <div class="contact-channels">
+        <div class="contact-channel-item">
+          <span class="contact-channel-label" id="lbl-proj-contact">Proyectos</span>
+          <a id="link-contact-projects" href="mailto:info@cgmatelier.com">info@cgmatelier.com</a>
         </div>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-14 items-start">
-        <div class="lg:col-span-4 lg:sticky lg:top-24 lg:max-h-[calc(100vh-120px)] lg:overflow-y-auto pr-3 space-y-8 md:space-y-10 text-[12px]">
-          <div class="mb-6 md:mb-14">
-            <h1 id="detail-title" class="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-ink leading-tight"></h1>
-          </div>
-          <div id="detail-mobile-hero" class="lg:hidden w-full overflow-hidden cursor-zoom-in -mt-2 mb-6"></div>
-          <div id="detail-meta-fields" class="space-y-3.5 text-[11.5px] py-1"></div>
-          <div class="space-y-3 text-[12px] md:text-[12.5px] leading-relaxed text-ink font-normal pt-8 md:pt-10">
-            <div id="detail-narrative-summary"></div>
-            <div id="detail-narrative-full" class="hidden space-y-2"></div>
-            <button onclick="toggleReadMore()" id="btn-read-more" class="text-muted hover:text-[#d97a47] underline text-[11.5px] pt-1"><span data-i18n="read_more">Ver más</span></button>
-          </div>
+        <div class="contact-channel-item">
+          <span class="contact-channel-label" id="lbl-press-contact">Prensa & Publicaciones</span>
+          <a id="link-contact-press" href="mailto:press@cgmatelier.com">press@cgmatelier.com</a>
         </div>
-        <div class="lg:col-span-8 space-y-3" id="detail-images-container"></div>
+        <div class="contact-channel-item">
+          <span class="contact-channel-label" id="lbl-careers-contact">Vacantes</span>
+          <a id="link-contact-careers" href="mailto:vacantes@cgmatelier.com">vacantes@cgmatelier.com</a>
+        </div>
+        <div style="color: var(--muted); margin-top: 14px; font-size: 14px;">Monterrey, México</div>
       </div>
     </section>
 
   </main>
 
-  <!-- 6. LIGHTBOX -->
-  <div id="lightbox-modal" class="fixed inset-0 z-[150] bg-black/95 backdrop-blur-md hidden items-center justify-center p-4 select-none" onclick="closeLightbox(event)">
-    <button onclick="closeLightbox()" class="absolute top-5 right-5 text-white/80 hover:text-white text-xl p-2 z-10 transition-opacity">✕</button>
-    <div class="relative max-w-[94vw] max-h-[90vh] flex flex-col items-center justify-center" onclick="event.stopPropagation()">
-      <img id="lightbox-img" src="" class="max-w-full max-h-[84vh] object-contain shadow-2xl" />
-      <div class="flex justify-between items-center w-full pt-3 text-[11px] text-white/70">
-        <span id="lightbox-caption"></span>
-        <div class="flex gap-4">
-          <button onclick="prevLightboxImage()" class="hover:text-white transition-colors">← Anterior</button>
-          <button onclick="nextLightboxImage()" class="hover:text-white transition-colors">Siguiente →</button>
-        </div>
-      </div>
-    </div>
+  <!-- IMAGEN FLOTANTE EN HOVER (EN SECO, RANDOM POS & RANDOM SIZE) -->
+  <div id="hover-floating-image">
+    <img id="hover-img-el" src="" alt="preview" />
   </div>
 
-  <!-- 7. SCRIPT & MOTOR DE DATOS (CON SANITY EXACTO DE V1) -->
   <script>
     const SANITY_CONFIG = {
       projectId: '5u1btna1',
@@ -449,21 +672,523 @@
       { id: 'editorial', es: 'Editorial', en: 'Editorial' }
     ];
 
-    function getCoordinatesOnly(p) {
-      if (!p || !p.location) return '';
-      const locStr = String(p.location);
-      if (locStr.includes('·')) {
-        const parts = locStr.split('·');
-        return parts.length > 1 ? parts.trim() : parts[0].trim();
+    const DEFAULT_PROJECTS = {
+      "atacama": {
+        "selectedWork": true,
+        "categories": [
+          "territorio",
+          "investigacion"
+        ],
+        "title": {
+          "es": "La Paradoja de la Electromovilidad",
+          "en": "The Paradox of Electromobility"
+        },
+        "location": "Salar de Atacama, Chile · 23°51′42″S 68°14′05″W",
+        "team": "Cesar Gonzalez",
+        "year": "2024",
+        "summary": {
+          "es": "Investigación territorial que cartografía la escala extractiva del litio en la cuenca del Salar de Atacama.",
+          "en": "Territorial research investigation interrogating the footprint of lithium extraction."
+        },
+        "full": {
+          "es": "<p>Dispositivos de sedimentación mineral y refugios tectónicos de piedra volcánica que registran la memoria del sitio.</p>",
+          "en": "<p>Mineral sedimentation devices and volcanic shelters recording site memory.</p>"
+        },
+        "images": [
+          "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1600&q=85",
+          "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=80",
+          "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80",
+          "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1000&q=80",
+          "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80",
+          "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1000&q=80"
+        ]
+      },
+      "fruto-mora": {
+        "selectedWork": true,
+        "categories": [
+          "paisaje"
+        ],
+        "title": {
+          "es": "Fruto de la Mora",
+          "en": "Fruto de la Mora"
+        },
+        "location": "Michoacán, México · 19°25′11″N 102°03′28″W",
+        "team": "Cesar Gonzalez",
+        "year": "2023",
+        "summary": {
+          "es": "Intervención de paisaje productivo e infraestructura agrícola para captación e infiltración pluvial.",
+          "en": "Productive landscape and agricultural infrastructure for rainwater harvesting."
+        },
+        "full": {
+          "es": "<p>Bancales de piedra basáltica extraída in situ y pérgolas para resguardo térmico de cuadrillas.</p>",
+          "en": "<p>Basalt stone retaining walls and local timber shade trellises.</p>"
+        },
+        "images": [
+          "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=85",
+          "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1000&q=80",
+          "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80"
+        ]
+      },
+      "intervencion-central": {
+        "selectedWork": false,
+        "categories": [
+          "infraestructura",
+          "urbanismo"
+        ],
+        "title": {
+          "es": "Intervención Central",
+          "en": "Central Suture"
+        },
+        "location": "General Escobedo, N.L. · 25°48′30″N 100°19′15″W",
+        "team": "Cesar Gonzalez",
+        "year": "2022",
+        "summary": {
+          "es": "Sutura metropolitana de bordes urbanos fracturados por barreras industriales.",
+          "en": "Metropolitan suture bridging urban edges severed by highway arteries."
+        },
+        "full": {
+          "es": "<p>Plataformas peatonales permeables, microbosques nativos y cubiertas modulares de concreto.</p>",
+          "en": "<p>Permeable pedestrian concourses and board-formed concrete canopy structures.</p>"
+        },
+        "images": [
+          "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1600&q=85",
+          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80",
+          "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80"
+        ]
+      },
+      "nodo-la-via": {
+        "selectedWork": false,
+        "categories": [
+          "arquitectura",
+          "urbanismo"
+        ],
+        "title": {
+          "es": "Nodo La Vía",
+          "en": "La Vía Transit Hub"
+        },
+        "location": "Monterrey, N.L. · 25°40′33″N 100°18′45″W",
+        "team": "Cesar Gonzalez",
+        "year": "2023",
+        "summary": {
+          "es": "Densificación vertical y permeabilidad peatonal a cota cero en diálogo con el tejido ferroviario.",
+          "en": "Vertical densification and ground-level civic porosity engaging railway matrix."
+        },
+        "full": {
+          "es": "<p>Pórticos profundos y patios de sombra que liberan el 60% de desplante a uso público.</p>",
+          "en": "<p>Monumental shaded porticos releasing 60% of ground footprint to public life.</p>"
+        },
+        "images": [
+          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=85",
+          "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80",
+          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80"
+        ]
+      },
+      "castell-santa-pau": {
+        "selectedWork": true,
+        "categories": [
+          "patrimonio"
+        ],
+        "title": {
+          "es": "Castell de Santa Pau",
+          "en": "Santa Pau Castle"
+        },
+        "location": "Santa Pau, Girona · 42°08′41″N 2°34′12″E",
+        "team": "Cesar Gonzalez",
+        "year": "2021",
+        "summary": {
+          "es": "Consolidación estructural y rehabilitación sensible de una ruina medieval en la Garrotxa.",
+          "en": "Structural consolidation and rehabilitation of a medieval castle ruin."
+        },
+        "full": {
+          "es": "<p>Adiciones contemporáneas de acero corten y madera laminada despegadas de la mampostería volcánica.</p>",
+          "en": "<p>Contemporary weathering steel insertions detached from historic volcanic walls.</p>"
+        },
+        "images": [
+          "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1600&q=85",
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80",
+          "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1000&q=80"
+        ]
+      },
+      "casa-injerto": {
+        "selectedWork": true,
+        "categories": [
+          "vivienda",
+          "interiores"
+        ],
+        "title": {
+          "es": "Casa Injerto",
+          "en": "Casa Injerto"
+        },
+        "location": "San Pedro Garza García · 25°39′20″N 100°21′35″W",
+        "team": "Cesar Gonzalez",
+        "year": "2024",
+        "summary": {
+          "es": "Residencia unifamiliar concebida como un refugio de penumbra y contención térmica.",
+          "en": "Single-family sanctuary of deep shadow and thermal mass in an extreme climate."
+        },
+        "full": {
+          "es": "<p>Masa de concreto pigmentado con arenas locales y patios íntimos con fuentes de agua calma.</p>",
+          "en": "<p>Pigmented concrete infused with regional aggregates and private tranquil courtyards.</p>"
+        },
+        "images": [
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85",
+          "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80",
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80"
+        ]
+      },
+      "torre-ixco": {
+        "categories": [
+          "vivienda",
+          "urbanismo"
+        ],
+        "title": {
+          "es": "Torre Ixco",
+          "en": "Torre Ixco"
+        },
+        "location": "Monterrey, N.L. · 25°39′50″N 100°20′40″W",
+        "team": "Cesar Gonzalez",
+        "year": "2025",
+        "summary": {
+          "es": "Edificio en altura corporativo y residencial estructurado con exoesqueleto de concreto.",
+          "en": "High-density tower structured around an expressive concrete exoskeleton."
+        },
+        "full": {
+          "es": "<p>Piel de celosías cerámicas extruidas que reduce la ganancia solar directa en un 42%.</p>",
+          "en": "<p>Extruded terracotta louvers diminishing direct solar heat gain by 42%.</p>"
+        },
+        "images": [
+          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=85",
+          "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80",
+          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80"
+        ]
+      },
+      "pabellon-mexico": {
+        "selectedWork": true,
+        "categories": [
+          "efimero",
+          "escenografia",
+          "patrimonio"
+        ],
+        "title": {
+          "es": "Pabellón de México — Bienal 2027",
+          "en": "Mexico Pavilion — Venice Biennale 2027"
+        },
+        "location": "Venecia, Italia · 45°25′45″N 12°21′30″E",
+        "team": "Cesar Gonzalez",
+        "year": "2026",
+        "summary": {
+          "es": "Manifiesto espacial para la Bienal de Venecia 2027 con bloques monolíticos de tezontle y pómez.",
+          "en": "Spatial manifesto for the Venice Biennale built from volcanic pumice blocks."
+        },
+        "full": {
+          "es": "<p>Atmósfera de silencio, penumbra y resonancia acústica que explora la gravedad geológica.</p>",
+          "en": "<p>Interior realm of silence, penumbra, and acoustic resonance exploring geological gravity.</p>"
+        },
+        "images": [
+          "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1600&q=85",
+          "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80",
+          "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1000&q=80"
+        ]
+      },
+      "casa-cantera": {
+        "categories": [
+          "vivienda",
+          "interiores"
+        ],
+        "title": {
+          "es": "Casa de Cantera y Sombra",
+          "en": "Quarry & Shadow House"
+        },
+        "location": "Santiago, N.L. · 25°25′40″N 100°09′10″W",
+        "team": "Cesar Gonzalez",
+        "year": "2024",
+        "summary": {
+          "es": "Inserción residencial en ladera boscosa construida con bloques macizos de cantera regional.",
+          "en": "Hillside residential insertion built with massive regional stone blocks."
+        },
+        "full": {
+          "es": "<p>Secuencia de patios que filtran el aire serrano y capturan la luz cenital a través de claraboyas profundas.</p>",
+          "en": "<p>Courtyard sequence filtering mountain breezes and capturing zenithal light.</p>"
+        },
+        "images": [
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85",
+          "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80"
+        ]
+      },
+      "mirador-cumbres": {
+        "categories": [
+          "paisaje",
+          "infraestructura"
+        ],
+        "title": {
+          "es": "Mirador del Cañón de la Huasteca",
+          "en": "Huasteca Canyon Lookout"
+        },
+        "location": "Santa Catarina, N.L. · 25°38′12″N 100°28′45″W",
+        "team": "Cesar Gonzalez",
+        "year": "2023",
+        "summary": {
+          "es": "Dispositivo topográfico volado que suspende la experiencia del visitante sobre el vacío calizo.",
+          "en": "Topographical cantilevered device suspending visitor experience over limestone cliffs."
+        },
+        "full": {
+          "es": "<p>Estructura híbrida de acero y roca del sitio que minimiza el anclaje físico en el ecosistema.</p>",
+          "en": "<p>Hybrid steel and local rock structure minimizing ecological footprint.</p>"
+        },
+        "images": [
+          "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=85",
+          "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80"
+        ]
+      },
+      "nave-fundidora": {
+        "selectedWork": true,
+        "categories": [
+          "patrimonio",
+          "arquitectura"
+        ],
+        "title": {
+          "es": "Rehabilitación Nave Maestranza",
+          "en": "Maestranza Industrial Rehabilitation"
+        },
+        "location": "Monterrey, N.L. · 25°40′48″N 100°17′20″W",
+        "team": "Cesar Gonzalez",
+        "year": "2022",
+        "summary": {
+          "es": "Recuperación de estructura siderúrgica de inicios del siglo XX como espacio de creación contemporánea.",
+          "en": "Recovery of early 20th century steelworks structure as contemporary art space."
+        },
+        "full": {
+          "es": "<p>Cajas de madera y vidrio suspendidas dentro de la monumental nave de cerchas remachadas.</p>",
+          "en": "<p>Timber and glass chambers suspended within the monumental riveted truss bay.</p>"
+        },
+        "images": [
+          "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1600&q=85",
+          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80"
+        ]
+      },
+      "claustro-obispado": {
+        "categories": [
+          "vivienda",
+          "urbanismo"
+        ],
+        "title": {
+          "es": "Claustro del Obispado",
+          "en": "Obispado Collective Housing"
+        },
+        "location": "Monterrey, N.L. · 25°40′15″N 100°20′30″W",
+        "team": "Cesar Gonzalez",
+        "year": "2024",
+        "summary": {
+          "es": "Conjunto residencial de media densidad articulado alrededor de un jardín de retención pluvial.",
+          "en": "Medium-density residential project organized around a sunken retention garden."
+        },
+        "full": {
+          "es": "<p>Fachada continua de tabique artesanal y galerías perimetrales que fomentan la vida de barrio.</p>",
+          "en": "<p>Continuous handcrafted brick facade and perimeter loggias fostering neighborhood interaction.</p>"
+        },
+        "images": [
+          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=85",
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80"
+        ]
+      },
+      "pabellon-sal": {
+        "selectedWork": true,
+        "categories": [
+          "efimero",
+          "investigacion"
+        ],
+        "title": {
+          "es": "Pabellón de Sal y Ceniza",
+          "en": "Salt & Ash Pavilion"
+        },
+        "location": "Olot, Girona · 42°11′02″N 2°29′18″E",
+        "team": "Cesar Gonzalez",
+        "year": "2026",
+        "summary": {
+          "es": "Dispositivo efímero construido con salmuera cristalizada y ceniza volcánica compactada.",
+          "en": "Ephemeral pavilion built from crystallized brine and compacted volcanic ash."
+        },
+        "full": {
+          "es": "<p>Estructura sensorial que se descompone gradualmente con la humedad del ambiente forestal.</p>",
+          "en": "<p>Sensory structure gradually dissolving with ambient forest humidity.</p>"
+        },
+        "images": [
+          "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1600&q=85",
+          "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80"
+        ]
+      },
+      "parque-topochico": {
+        "categories": [
+          "paisaje",
+          "urbanismo"
+        ],
+        "title": {
+          "es": "Parque Hídrico Topo Chico",
+          "en": "Topo Chico Hydrological Park"
+        },
+        "location": "San Nicolás de los Garza, N.L. · 25°45′10″N 100°17′30″W",
+        "team": "Cesar Gonzalez",
+        "year": "2023",
+        "summary": {
+          "es": "Transformación de un canal de concreto en un corredor biológico y parque inundable.",
+          "en": "Transformation of a concrete drainage canal into a public floodable wetland park."
+        },
+        "full": {
+          "es": "<p>Biofiltros vegetales y senderos de grava que regulan los picos de tormenta metropolitana.</p>",
+          "en": "<p>Vegetated bio-swales and gravel walkways mitigating urban storm surges.</p>"
+        },
+        "images": [
+          "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=85",
+          "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80"
+        ]
+      },
+      "galeria-estuario": {
+        "categories": [
+          "escenografia",
+          "arquitectura"
+        ],
+        "title": {
+          "es": "Galería del Estuario",
+          "en": "Estuary Gallery"
+        },
+        "location": "Baja California Sur · 23°25′10″N 110°13′40″W",
+        "team": "Cesar Gonzalez",
+        "year": "2025",
+        "summary": {
+          "es": "Pabellón escultórico de muros de tierra compactada frente al Océano Pacífico.",
+          "en": "Sculptural rammed-earth art pavilion overlooking the Pacific Ocean."
+        },
+        "full": {
+          "es": "<p>Salas abiertas que enmarcan la línea del horizonte marino y el juego de sombras del desierto.</p>",
+          "en": "<p>Open galleries framing the sea horizon and desert light modulation.</p>"
+        },
+        "images": [
+          "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1600&q=85",
+          "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1000&q=80"
+        ]
+      },
+      "refugio-altiplano": {
+        "categories": [
+          "territorio",
+          "vivienda"
+        ],
+        "title": {
+          "es": "Refugio Mineral del Altiplano",
+          "en": "Altiplano Mineral Shelter"
+        },
+        "location": "San Luis Potosí · 22°45′30″N 101°12′15″W",
+        "team": "Cesar Gonzalez",
+        "year": "2024",
+        "summary": {
+          "es": "Célula habitable autosuficiente construida en piedra caliza extraída a mano en el semidesierto.",
+          "en": "Self-sufficient living capsule built from hand-quarried limestone."
+        },
+        "full": {
+          "es": "<p>Muros de 60 cm de espesor que mantienen un clima interior constante sin climatización activa.</p>",
+          "en": "<p>60cm thick thermal mass walls sustaining interior comfort off-grid.</p>"
+        },
+        "images": [
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85",
+          "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80"
+        ]
+      },
+      "estudio-cgm": {
+        "categories": [
+          "interiores",
+          "arquitectura"
+        ],
+        "title": {
+          "es": "Estudio Taller CGM",
+          "en": "CGM Atelier Studio"
+        },
+        "location": "Monterrey, N.L. · 25°40′33″N 100°18′45″W",
+        "team": "Cesar Gonzalez",
+        "year": "2025",
+        "summary": {
+          "es": "Adecuación interior de taller arquitectónico con carpintería en roble blanco y acero negro.",
+          "en": "Interior design of architecture workshop with white oak millwork and blackened steel."
+        },
+        "full": {
+          "es": "<p>Mesa corrida de 8 metros para maquetas y estanterías modulares que organizan muestras de materiales.</p>",
+          "en": "<p>8-meter continuous model bench and modular steel material shelving.</p>"
+        },
+        "images": [
+          "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1600&q=85",
+          "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80"
+        ]
+      },
+      "atlas-agua": {
+        "categories": [
+          "investigacion",
+          "territorio"
+        ],
+        "title": {
+          "es": "Atlas del Agua Subterránea",
+          "en": "Metropolitan Groundwater Atlas"
+        },
+        "location": "Área Metropolitana de Monterrey · 25°40′N 100°18′W",
+        "team": "Cesar Gonzalez",
+        "year": "2024",
+        "summary": {
+          "es": "Estudio hidrológico y cartografía crítica sobre la vulnerabilidad de los acuíferos metropolitanos.",
+          "en": "Hydrological survey and critical cartography on metropolitan aquifer vulnerability."
+        },
+        "full": {
+          "es": "<p>Publicación de mapas analíticos y propuestas de acupuntura urbana para recarga de mantos freáticos.</p>",
+          "en": "<p>Analytical cartography publication proposing urban acupuncture recharge sites.</p>"
+        },
+        "images": [
+          "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1600&q=85",
+          "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80"
+        ]
       }
-      return locStr.trim();
-    }
+    };
+
+    const DEFAULT_TALLER = {
+      "manifesto_1": {
+        "es": "<strong class=\"font-semibold text-ink\">Cgm Atelier</strong> es una práctica y empresa de arquitectura, territorio y diseño fundada y dirigida por el arquitecto <strong class=\"font-semibold text-ink\">César González Maldonado</strong>. Con base en Monterrey, México, la oficina desarrolla proyectos de arquitectura de autor, equipamiento cívico, paisaje e intervención patrimonial.",
+        "en": "<strong class=\"font-semibold text-ink\">Cgm Atelier</strong> is an architectural, territorial, and design practice founded and directed by architect <strong class=\"font-semibold text-ink\">César González Maldonado</strong>. Based in Monterrey, Mexico, the office develops author architecture, civic infrastructure, landscape, and heritage interventions."
+      },
+      "manifesto_2": {
+        "es": "La práctica aborda la arquitectura como un proceso de lectura e intervención que desciende desde la comprensión geográfica y el análisis del contexto hasta la resolución precisa del detalle constructivo, la masa, la luz, el silencio y la memoria del sitio.",
+        "en": "The studio views architecture as a continuous process of reading and intervention descending from geographical comprehension and contextual inquiry to the precise resolution of construction details, mass, light, silence, and site memory."
+      },
+      "distinctions_title": {
+        "es": "Concursos & Distinciones",
+        "en": "Competitions & Honors"
+      },
+      "distinctions": [
+        "Pabellón de México — Bienal de Venecia 2027",
+        "Casa Injerto — Domesticidad Monomatérica",
+        "Castell de Santa Pau — Intervención Patrimonial"
+      ]
+    };
+
+    const DEFAULT_CONTACT = {
+      "intro": {
+        "es": "Para dialogar sobre nuevos proyectos, colaboraciones o publicaciones, puedes escribirnos a través del canal correspondiente:",
+        "en": "To discuss new projects, collaborations, or press inquiries, contact us through the dedicated channel:"
+      },
+      "emails": {
+        "projects": "info@cgmatelier.com",
+        "press": "press@cgmatelier.com",
+        "careers": "vacantes@cgmatelier.com"
+      }
+    };
+
+    let currentLang = 'es';
+    let currentTheme = 'light';
+    let currentView = 'home';
+    let currentProjectId = null;
+    let projectsData = DEFAULT_PROJECTS;
+    let tallerData = DEFAULT_TALLER;
+    let contactData = DEFAULT_CONTACT;
+    let projectKeys = Object.keys(projectsData);
 
     function getText(obj, lang) {
       if (!obj) return '';
       if (typeof obj === 'string') return obj;
-      if (typeof obj === 'object') return obj[lang] || obj['es'] || obj['en'] || '';
-      return '';
+      return obj[lang] || obj['es'] || obj['en'] || '';
     }
 
     function escapeHtml(str) {
@@ -476,6 +1201,37 @@
         .replace(/>/g, '&gt;');
     }
 
+    function slugify(text) {
+      if (!text) return '';
+      return text
+        .toString()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\\u0300-\\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)+/g, '');
+    }
+
+    function findProjectKey(id) {
+      if (!id) return null;
+      if (projectsData[id]) return id;
+      const found = Object.keys(projectsData).find(k => {
+        const p = projectsData[k];
+        return p._id === id || p.id === id || p.slug === id || p.slugKey === id;
+      });
+      return found || id;
+    }
+
+    function getCoordinatesOnly(p) {
+      if (!p || !p.location) return '';
+      const locStr = String(p.location);
+      if (locStr.includes('·')) {
+        const parts = locStr.split('·');
+        return parts.length > 1 ? parts.trim() : parts[0].trim();
+      }
+      return locStr.trim();
+    }
+
     function getFormattedTypology(p, lang) {
       if (!p) return '';
       const custom = getText(p.typology, lang);
@@ -485,386 +1241,452 @@
       if (cats.length === 0) return '';
 
       const titles = cats.map(cId => {
-        const found = ALL_TYPOLOGIES.find(t => t.id.toLowerCase() === cId.toLowerCase());
+        const found = ALL_TYPOLOGIES.find(t => t.id.toLowerCase() === String(cId).toLowerCase());
         return found ? found[lang] : cId;
       });
 
       return titles.join(' / ');
     }
 
-    const DEFAULT_PROJECTS = {
-      'atacama': {
-        selectedWork: true,
-        categories: ['territorio', 'investigacion'],
-        title: { es: 'La Paradoja de la Electromovilidad', en: 'The Paradox of Electromobility' },
-        location: 'Salar de Atacama, Chile · 23°51′42″S 68°14′05″W', team: 'Cesar Gonzalez', year: '2024',
-        summary: { es: 'Investigación territorial que cartografía la escala extractiva del litio en la cuenca del Salar de Atacama.', en: 'Territorial research investigation interrogating the footprint of lithium extraction.' },
-        full: { es: '<p>Dispositivos de sedimentación mineral y refugios tectónicos de piedra volcánica que registran la memoria del sitio.</p>', en: '<p>Mineral sedimentation devices and volcanic shelters recording site memory.</p>' },
-        images: [
-          'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1600&q=85',
-          'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=80',
-          'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80',
-          'https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1000&q=80',
-          'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80',
-          'https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1000&q=80'
-        ]
-      },
-      'fruto-mora': {
-        selectedWork: true,
-        categories: ['paisaje'],
-        title: { es: 'Fruto de la Mora', en: 'Fruto de la Mora' },
-        location: 'Michoacán, México · 19°25′11″N 102°03′28″W', team: 'Cesar Gonzalez', year: '2023',
-        summary: { es: 'Intervención de paisaje productivo e infraestructura agrícola para captación e infiltración pluvial.', en: 'Productive landscape and agricultural infrastructure for rainwater harvesting.' },
-        full: { es: '<p>Bancales de piedra basáltica extraída in situ y pérgolas para resguardo térmico de cuadrillas.</p>', en: '<p>Basalt stone retaining walls and local timber shade trellises.</p>' },
-        images: ['https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=85','https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80']
-      },
-      'intervencion-central': {
-        selectedWork: false,
-        categories: ['infraestructura', 'urbanismo'],
-        title: { es: 'Intervención Central', en: 'Central Suture' },
-        location: 'General Escobedo, N.L. · 25°48′30″N 100°19′15″W', team: 'Cesar Gonzalez', year: '2022',
-        summary: { es: 'Sutura metropolitana de bordes urbanos fracturados por barreras industriales.', en: 'Metropolitan suture bridging urban edges severed by highway arteries.' },
-        full: { es: '<p>Plataformas peatonales permeables, microbosques nativos y cubiertas modulares de concreto.</p>', en: '<p>Permeable pedestrian concourses and board-formed concrete canopy structures.</p>' },
-        images: ['https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1600&q=85','https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80']
-      },
-      'nodo-la-via': {
-        selectedWork: false,
-        categories: ['arquitectura', 'urbanismo'],
-        title: { es: 'Nodo La Vía', en: 'La Vía Transit Hub' },
-        location: 'Monterrey, N.L. · 25°40′33″N 100°18′45″W', team: 'Cesar Gonzalez', year: '2023',
-        summary: { es: 'Densificación vertical y permeabilidad peatonal a cota cero en diálogo con el tejido ferroviario.', en: 'Vertical densification and ground-level civic porosity engaging railway matrix.' },
-        full: { es: '<p>Pórticos profundos y patios de sombra que liberan el 60% de desplante a uso público.</p>', en: '<p>Monumental shaded porticos releasing 60% of ground footprint to public life.</p>' },
-        images: ['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=85','https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80']
-      },
-      'castell-santa-pau': {
-        selectedWork: true,
-        categories: ['patrimonio'],
-        title: { es: 'Castell de Santa Pau', en: 'Santa Pau Castle' },
-        location: 'Santa Pau, Girona · 42°08′41″N 2°34′12″E', team: 'Cesar Gonzalez', year: '2021',
-        summary: { es: 'Consolidación estructural y rehabilitación sensible de una ruina medieval en la Garrotxa.', en: 'Structural consolidation and rehabilitation of a medieval castle ruin.' },
-        full: { es: '<p>Adiciones contemporáneas de acero corten y madera laminada despegadas de la mampostería volcánica.</p>', en: '<p>Contemporary weathering steel insertions detached from historic volcanic walls.</p>' },
-        images: ['https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1600&q=85','https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1000&q=80']
-      },
-      'casa-injerto': {
-        selectedWork: true,
-        categories: ['vivienda', 'interiores'],
-        title: { es: 'Casa Injerto', en: 'Casa Injerto' },
-        location: 'San Pedro Garza García · 25°39′20″N 100°21′35″W', team: 'Cesar Gonzalez', year: '2024',
-        summary: { es: 'Residencia unifamiliar concebida como un refugio de penumbra y contención térmica.', en: 'Single-family sanctuary of deep shadow and thermal mass in an extreme climate.' },
-        full: { es: '<p>Masa de concreto pigmentado con arenas locales y patios íntimos con fuentes de agua calma.</p>', en: '<p>Pigmented concrete infused with regional aggregates and private tranquil courtyards.</p>' },
-        images: ['https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85','https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80']
-      },
-      'torre-ixco': {
-        categories: ['vivienda', 'urbanismo'],
-        title: { es: 'Torre Ixco', en: 'Torre Ixco' },
-        location: 'Monterrey, N.L. · 25°39′50″N 100°20′40″W', team: 'Cesar Gonzalez', year: '2025',
-        summary: { es: 'Edificio en altura corporativo y residencial estructurado con exoesqueleto de concreto.', en: 'High-density tower structured around an expressive concrete exoskeleton.' },
-        full: { es: '<p>Piel de celosías cerámicas extruidas que reduce la ganancia solar directa en un 42%.</p>', en: '<p>Extruded terracotta louvers diminishing direct solar heat gain by 42%.</p>' },
-        images: ['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=85','https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80']
-      },
-      'pabellon-mexico': {
-        selectedWork: true,
-        categories: ['efimero', 'escenografia', 'patrimonio'],
-        title: { es: 'Pabellón de México — Bienal 2027', en: 'Mexico Pavilion — Venice Biennale 2027' },
-        location: 'Venecia, Italia · 45°25′45″N 12°21′30″E', team: 'Cesar Gonzalez', year: '2026',
-        summary: { es: 'Manifiesto espacial para la Bienal de Venecia 2027 con bloques monolíticos de tezontle y pómez.', en: 'Spatial manifesto for the Venice Biennale built from volcanic pumice blocks.' },
-        full: { es: '<p>Atmósfera de silencio, penumbra y resonancia acústica que explora la gravedad geológica.</p>', en: '<p>Interior realm of silence, penumbra, and acoustic resonance exploring geological gravity.</p>' },
-        images: ['https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1600&q=85','https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1000&q=80']
-      },
-      'casa-cantera': {
-        categories: ['vivienda', 'interiores'],
-        title: { es: 'Casa de Cantera y Sombra', en: 'Quarry & Shadow House' },
-        location: 'Santiago, N.L. · 25°25′40″N 100°09′10″W', team: 'Cesar Gonzalez', year: '2024',
-        summary: { es: 'Inserción residencial en ladera boscosa construida con bloques macizos de cantera regional.', en: 'Hillside residential insertion built with massive regional stone blocks.' },
-        full: { es: '<p>Secuencia de patios que filtran el aire serrano y capturan la luz cenital a través de claraboyas profundas.</p>', en: '<p>Courtyard sequence filtering mountain breezes and capturing zenithal light.</p>' },
-        images: ['https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85','https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80']
-      },
-      'mirador-cumbres': {
-        categories: ['paisaje', 'infraestructura'],
-        title: { es: 'Mirador del Cañón de la Huasteca', en: 'Huasteca Canyon Lookout' },
-        location: 'Santa Catarina, N.L. · 25°38′12″N 100°28′45″W', team: 'Cesar Gonzalez', year: '2023',
-        summary: { es: 'Dispositivo topográfico volado que suspende la experiencia del visitante sobre el vacío calizo.', en: 'Topographical cantilevered device suspending visitor experience over limestone cliffs.' },
-        full: { es: '<p>Estructura híbrida de acero y roca del sitio que minimiza el anclaje físico en el ecosistema.</p>', en: '<p>Hybrid steel and local rock structure minimizing ecological footprint.</p>' },
-        images: ['https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=85','https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80']
-      },
-      'nave-fundidora': {
-        selectedWork: true,
-        categories: ['patrimonio', 'arquitectura'],
-        title: { es: 'Rehabilitación Nave Maestranza', en: 'Maestranza Industrial Rehabilitation' },
-        location: 'Monterrey, N.L. · 25°40′48″N 100°17′20″W', team: 'Cesar Gonzalez', year: '2022',
-        summary: { es: 'Recuperación de estructura siderúrgica de inicios del siglo XX como espacio de creación contemporánea.', en: 'Recovery of early 20th century steelworks structure as contemporary art space.' },
-        full: { es: '<p>Cajas de madera y vidrio suspendidas dentro de la monumental nave de cerchas remachadas.</p>', en: '<p>Timber and glass chambers suspended within the monumental riveted truss bay.</p>' },
-        images: ['https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1600&q=85','https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80']
-      },
-      'claustro-obispado': {
-        categories: ['vivienda', 'urbanismo'],
-        title: { es: 'Claustro del Obispado', en: 'Obispado Collective Housing' },
-        location: 'Monterrey, N.L. · 25°40′15″N 100°20′30″W', team: 'Cesar Gonzalez', year: '2024',
-        summary: { es: 'Conjunto residencial de media densidad articulado alrededor de un jardín de retención pluvial.', en: 'Medium-density residential project organized around a sunken retention garden.' },
-        full: { es: '<p>Fachada continua de tabique artesanal y galerías perimetrales que fomentan la vida de barrio.</p>', en: '<p>Continuous handcrafted brick facade and perimeter loggias fostering neighborhood interaction.</p>' },
-        images: ['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=85','https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80']
-      },
-      'pabellon-sal': {
-        selectedWork: true,
-        categories: ['efimero', 'investigacion'],
-        title: { es: 'Pabellón de Sal y Ceniza', en: 'Salt & Ash Pavilion' },
-        location: 'Olot, Girona · 42°11′02″N 2°29′18″E', team: 'Cesar Gonzalez', year: '2026',
-        summary: { es: 'Dispositivo efímero construido con salmuera cristalizada y ceniza volcánica compactada.', en: 'Ephemeral pavilion built from crystallized brine and compacted volcanic ash.' },
-        full: { es: '<p>Estructura sensorial que se descompone gradualmente con la humedad del ambiente forestal.</p>', en: '<p>Sensory structure gradually dissolving with ambient forest humidity.</p>' },
-        images: ['https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1600&q=85','https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80']
-      },
-      'parque-topochico': {
-        categories: ['paisaje', 'urbanismo'],
-        title: { es: 'Parque Hídrico Topo Chico', en: 'Topo Chico Hydrological Park' },
-        location: 'San Nicolás de los Garza, N.L. · 25°45′10″N 100°17′30″W', team: 'Cesar Gonzalez', year: '2023',
-        summary: { es: 'Transformación de un canal de concreto en un corredor biológico y parque inundable.', en: 'Transformation of a concrete drainage canal into a public floodable wetland park.' },
-        full: { es: '<p>Biofiltros vegetales y senderos de grava que regulan los picos de tormenta metropolitana.</p>', en: '<p>Vegetated bio-swales and gravel walkways mitigating urban storm surges.</p>' },
-        images: ['https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=85','https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80']
-      },
-      'galeria-estuario': {
-        categories: ['escenografia', 'arquitectura'],
-        title: { es: 'Galería del Estuario', en: 'Estuary Gallery' },
-        location: 'Baja California Sur · 23°25′10″N 110°13′40″W', team: 'Cesar Gonzalez', year: '2025',
-        summary: { es: 'Pabellón escultórico de muros de tierra compactada frente al Océano Pacífico.', en: 'Sculptural rammed-earth art pavilion overlooking the Pacific Ocean.' },
-        full: { es: '<p>Salas abiertas que enmarcan la línea del horizonte marino y el juego de sombras del desierto.</p>', en: '<p>Open galleries framing the sea horizon and desert light modulation.</p>' },
-        images: ['https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1600&q=85','https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1000&q=80']
-      },
-      'refugio-altiplano': {
-        categories: ['territorio', 'vivienda'],
-        title: { es: 'Refugio Mineral del Altiplano', en: 'Altiplano Mineral Shelter' },
-        location: 'San Luis Potosí · 22°45′30″N 101°12′15″W', team: 'Cesar Gonzalez', year: '2024',
-        summary: { es: 'Célula habitable autosuficiente construida en piedra caliza extraída a mano en el semidesierto.', en: 'Self-sufficient living capsule built from hand-quarried limestone.' },
-        full: { es: '<p>Muros de 60 cm de espesor que mantienen un clima interior constante sin climatización activa.</p>', en: '<p>60cm thick thermal mass walls sustaining interior comfort off-grid.</p>' },
-        images: ['https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85','https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80']
-      },
-      'estudio-cgm': {
-        categories: ['interiores', 'arquitectura'],
-        title: { es: 'Estudio Taller CGM', en: 'CGM Atelier Studio' },
-        location: 'Monterrey, N.L. · 25°40′33″N 100°18′45″W', team: 'Cesar Gonzalez', year: '2025',
-        summary: { es: 'Adecuación interior de taller arquitectónico con carpintería en roble blanco y acero negro.', en: 'Interior design of architecture workshop with white oak millwork and blackened steel.' },
-        full: { es: '<p>Mesa corrida de 8 metros para maquetas y estanterías modulares que organizan muestras de materiales.</p>', en: '<p>8-meter continuous model bench and modular steel material shelving.</p>' },
-        images: ['https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1600&q=85','https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80']
-      },
-      'atlas-agua': {
-        categories: ['investigacion', 'territorio'],
-        title: { es: 'Atlas del Agua Subterránea', en: 'Metropolitan Groundwater Atlas' },
-        location: 'Área Metropolitana de Monterrey · 25°40′N 100°18′W', team: 'Cesar Gonzalez', year: '2024',
-        summary: { es: 'Estudio hidrológico y cartografía crítica sobre la vulnerabilidad de los acuíferos metropolitanos.', en: 'Hydrological survey and critical cartography on metropolitan aquifer vulnerability.' },
-        full: { es: '<p>Publicación de mapas analíticos y propuestas de acupuntura urbana para recarga de mantos freáticos.</p>', en: '<p>Analytical cartography publication proposing urban acupuncture recharge sites.</p>' },
-        images: ['https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1600&q=85','https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80']
-      }
-    };
-
-    const DEFAULT_TALLER = {
-      manifesto_1: {
-        es: '<strong class="font-semibold text-ink">Cgm Atelier</strong> es una práctica y empresa de arquitectura, territorio y diseño fundada y dirigida por el arquitecto <strong class="font-semibold text-ink">César González Maldonado</strong>. Con base en Monterrey, México, la oficina desarrolla proyectos de arquitectura de autor, equipamiento cívico, paisaje e intervención patrimonial.',
-        en: '<strong class="font-semibold text-ink">Cgm Atelier</strong> is an architectural, territorial, and design practice founded and directed by architect <strong class="font-semibold text-ink">César González Maldonado</strong>. Based in Monterrey, Mexico, the office develops author architecture, civic infrastructure, landscape, and heritage interventions.'
-      },
-      manifesto_2: {
-        es: 'La práctica aborda la arquitectura como un proceso de lectura e intervención que desciende desde la comprensión geográfica y el análisis del contexto hasta la resolución precisa del detalle constructivo, la masa, la luz, el silencio y la memoria del sitio.',
-        en: 'The studio views architecture as a continuous process of reading and intervention descending from geographical comprehension and contextual inquiry to the precise resolution of construction details, mass, light, silence, and site memory.'
-      },
-      distinctions_title: { es: 'Concursos & Distinciones', en: 'Competitions & Honors' },
-      distinctions: [
-        'Pabellón de México — Bienal de Venecia 2027',
-        'Casa Injerto — Domesticidad Monomatérica',
-        'Castell de Santa Pau — Intervención Patrimonial'
-      ]
-    };
-
-    const DEFAULT_CONTACT = {
-      intro: {
-        es: 'Para dialogar sobre nuevos proyectos, colaboraciones o publicaciones, puedes escribirnos a través del canal correspondiente:',
-        en: 'To discuss new projects, collaborations, or press inquiries, contact us through the dedicated channel:'
-      },
-      emails: { projects: 'info@cgmatelier.com', press: 'press@cgmatelier.com', careers: 'vacantes@cgmatelier.com' }
-    };
-
-    let projectsData = DEFAULT_PROJECTS;
-    let tallerData = DEFAULT_TALLER;
-    let contactData = DEFAULT_CONTACT;
-    let projectKeys = Object.keys(projectsData);
-    let currentActiveProject = null;
-    let currentLang = 'es';
-    let currentFilter = 'all';
-    let currentSearch = '';
-    let currentLightboxImages = [];
-    let currentLightboxIndex = 0;
-    let currentLightboxTitle = '';
-
-    let isTallerOpen = false;
-    let isContactOpen = false;
-
-    const translations = {
-      es: {
-        nav_home: 'Inicio', nav_projects: 'Proyectos', nav_taller: 'Taller', nav_contact: 'Contacto',
-        mode_overview: 'Panorama', mode_list: 'Lista', filter_all: 'Todos',
-        taller_distinctions_title: 'Concursos & Distinciones',
-        contact_projects_label: 'Proyectos',
-        contact_press_label: 'Prensa & Publicaciones',
-        contact_careers_label: 'Vacantes',
-        meta_typology_label: 'Tipología:', meta_location_label: 'Ubicación:', meta_team_label: 'Equipo:', meta_year_label: 'Año:',
-        meta_m2_label: 'M²:', meta_program_label: 'Programa:', meta_tutor_label: 'Tutor:', meta_distinction_label: 'Reconocimiento:',
-        meta_client_label: 'Cliente:', meta_photography_label: 'Fotografía:',
-        search_placeholder: 'Buscar proyecto...',
-        proj_back: 'Volver a Proyectos', proj_prev: 'Anterior', proj_next: 'Siguiente',
-        read_more: 'Ver más', read_less: 'Ver menos',
-        back_to_top: 'Volver arriba'
-      },
-      en: {
-        nav_home: 'Home', nav_projects: 'Works', nav_taller: 'Office', nav_contact: 'Contact',
-        mode_overview: 'Overview', mode_list: 'List', filter_all: 'All',
-        taller_distinctions_title: 'Competitions & Honors',
-        contact_projects_label: 'Projects',
-        contact_press_label: 'Press & Publications',
-        contact_careers_label: 'Careers',
-        meta_typology_label: 'Typology:', meta_location_label: 'Location:', meta_team_label: 'Team:', meta_year_label: 'Year:',
-        meta_m2_label: 'Area:', meta_program_label: 'Program:', meta_tutor_label: 'Tutor:', meta_distinction_label: 'Distinction:',
-        meta_client_label: 'Client:', meta_photography_label: 'Photography:',
-        search_placeholder: 'Search projects...',
-        proj_back: 'Back to Works', proj_prev: 'Previous', proj_next: 'Next',
-        read_more: 'Read more', read_less: 'Read less',
-        back_to_top: 'Back to top'
-      }
-    };
-
-    const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_#/*-+';
-    const activeScrambleIntervals = new WeakMap();
-
-    function scrambleText(element, finalFormattedText, duration = 500) {
-      if (!element) return;
-      if (activeScrambleIntervals.has(element)) {
-        clearInterval(activeScrambleIntervals.get(element));
-      }
-
-      const length = finalFormattedText.length;
-      const startTime = Date.now();
-
-      const interval = setInterval(() => {
-        const elapsed = Date.now() - startTime;
-        const progress = Math.min(1, elapsed / duration);
-        const revealedChars = Math.floor(progress * length);
-
-        let output = '';
-        for (let i = 0; i < length; i++) {
-          const char = finalFormattedText[i];
-          if (char === ' ' || char === '\n' || char === '·' || char === '/' || char === '[' || char === ']' || char === ':' || char === '-' || char === '→' || char === '←' || char === '″' || char === '′' || char === '°') {
-            output += char;
-          } else if (i < revealedChars) {
-            output += char;
-          } else {
-            output += SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
-          }
-        }
-
-        element.innerText = output;
-
-        if (progress >= 1) {
-          clearInterval(interval);
-          element.innerText = finalFormattedText;
-          activeScrambleIntervals.delete(element);
-        }
-      }, 24);
-
-      activeScrambleIntervals.set(element, interval);
+    function formatTallerParagraphs(rawText) {
+      if (!rawText) return '';
+      if (rawText.includes('<p>') || rawText.includes('<div>')) return rawText;
+      return rawText
+        .split(new RegExp('\\\\n\\\\s*\\\\n'))
+        .map(p => p.trim())
+        .filter(p => p.length > 0)
+        .map(p => '<p>' + p + '</p>')
+        .join('');
     }
 
-    function onHomeCardHover(cardEl) {
-      const texts = cardEl.querySelectorAll('[data-scramble-text]');
-      texts.forEach(tEl => {
-        const text = tEl.getAttribute('data-scramble-text') || '';
-        scrambleText(tEl, text, 500);
+    /* 1. PORTADA DISPERSA (#VIEW-HOME) */
+    function renderHomeScatter() {
+      const container = document.getElementById('scatter-canvas-el');
+      if (!container) return;
+
+      const keys = projectKeys.slice();
+      const isMobile = window.innerWidth < 768;
+      const count = isMobile ? 8 : 14;
+
+      const totalHeight = isMobile ? 2000 : 2800;
+      container.style.height = totalHeight + 'px';
+
+      const stepY = totalHeight / count;
+      let html = '';
+
+      for (let i = 0; i < count; i++) {
+        const k = keys[i % keys.length];
+        const p = projectsData[k];
+        if (!p) continue;
+        const img = p.homeImage || (p.images && p.images[0] ? p.images[0] : '');
+        if (!img) continue;
+
+        const width = isMobile
+          ? Math.floor(160 + Math.random() * 140)
+          : Math.floor(220 + Math.random() * 260);
+
+        const maxLeft = isMobile ? (window.innerWidth - width - 30) : (container.clientWidth - width - 60);
+        const left = Math.max(10, Math.floor(10 + Math.random() * Math.max(20, maxLeft)));
+        const top = Math.floor(i * stepY + (Math.random() * (stepY * 0.45)));
+
+        const aspectRatios = ['3/4', '4/3', '16/10', '1/1', '14/9'];
+        const aspect = aspectRatios[Math.floor(Math.random() * aspectRatios.length)];
+
+        html += `
+          <div class="scatter-item" style="top: ${top}px; left: ${left}px; width: ${width}px; aspect-ratio: ${aspect};">
+            <img src="${img}" alt="${getText(p.title, currentLang)}" loading="lazy" />
+          </div>
+        `;
+      }
+
+      container.innerHTML = html;
+    }
+
+    /* 2. LISTADO DE PROYECTOS (#VIEW-WORK) - CENTRADO, TÍTULO + AÑO + COORDENADAS */
+    function renderProjectsList() {
+      const container = document.getElementById('projects-list-container');
+      if (!container) return;
+
+      const keys = projectKeys.slice().sort((a, b) => {
+        const pA = projectsData[a] || {};
+        const pB = projectsData[b] || {};
+        return parseInt(pB.year || '0', 10) - parseInt(pA.year || '0', 10);
       });
+
+      container.innerHTML = keys.map(k => {
+        const p = projectsData[k];
+        if (!p) return '';
+        const title = getText(p.title, currentLang);
+        const year = p.year || '';
+        const coords = getCoordinatesOnly(p);
+
+        return `
+          <div class="project-item" onmouseenter="showHoverImage('${k}', event)" onmouseleave="hideHoverImage()">
+            <a href="#${k}" onclick="openProject('${k}', event)">
+              <span class="project-title">${title}</span>
+              <span class="project-meta">${year}${coords ? ` · ${coords}` : ''}</span>
+            </a>
+          </div>
+        `;
+      }).join('');
     }
 
-    function updateHeaderLogoContrast() {
-      const logo = document.getElementById('main-header-logo');
-      if (!logo) return;
-      const logoRect = logo.getBoundingClientRect();
-      const logoCenterX = logoRect.left + logoRect.width / 2;
-      const logoCenterY = logoRect.top + logoRect.height / 2;
+    /* 3. HOVER FLOTANTE EN SECO (RANDOM POS & SIZE) */
+    function showHoverImage(key, e) {
+      const resolvedKey = findProjectKey(key);
+      const p = projectsData[resolvedKey];
+      if (!p) return;
 
+      let imgUrl = p.homeImage || '';
+      if (!imgUrl && p.gallery && p.gallery.length > 0) {
+        const first = p.gallery.find(item => typeof item === 'string' || (item && item.url));
+        if (first) imgUrl = typeof first === 'string' ? first : first.url;
+      }
+      if (!imgUrl && p.images && p.images.length > 0) {
+        imgUrl = p.images[0];
+      }
+      if (!imgUrl) return;
+
+      const hoverBox = document.getElementById('hover-floating-image');
+      const hoverImg = document.getElementById('hover-img-el');
+      if (!hoverBox || !hoverImg) return;
+
+      const randomWidth = Math.floor(280 + Math.random() * 240);
+      const pad = 40;
+      const maxLeft = Math.max(pad, window.innerWidth - randomWidth - pad);
+      const maxTop = Math.max(pad, window.innerHeight - (randomWidth * 0.75) - pad);
+
+      const randomLeft = Math.floor(pad + Math.random() * (maxLeft - pad));
+      const randomTop = Math.floor(pad + Math.random() * (maxTop - pad));
+
+      hoverImg.src = imgUrl;
+      hoverBox.style.width = randomWidth + 'px';
+      hoverBox.style.left = randomLeft + 'px';
+      hoverBox.style.top = randomTop + 'px';
+      hoverBox.style.display = 'block';
+    }
+
+    function hideHoverImage() {
+      const hoverBox = document.getElementById('hover-floating-image');
+      if (hoverBox) {
+        hoverBox.style.display = 'none';
+      }
+    }
+
+    /* 4. EXPEDIENTE DE PROYECTO */
+    function openProject(key, e) {
+      if (e) e.preventDefault();
+      hideHoverImage();
+      const resolvedKey = findProjectKey(key);
+      const p = projectsData[resolvedKey];
+      if (!p) return;
+
+      currentProjectId = resolvedKey;
+      currentView = 'project';
+      window.location.hash = resolvedKey;
+
+      const views = ['home', 'work', 'taller', 'contact'];
+      views.forEach(v => {
+        const el = document.getElementById(`view-${v}`);
+        if (el) el.style.display = 'none';
+      });
+
+      const projView = document.getElementById('view-project');
+      projView.style.display = 'block';
+
+      const textSec = document.getElementById('detail-text-section');
+      if (textSec && typeof textSec.getBoundingClientRect === 'function') {
+        textSec.style.opacity = '1';
+        textSec.style.pointerEvents = 'auto';
+      }
+
+      document.getElementById('nav-brand').classList.remove('active');
+      document.getElementById('nav-work').classList.add('active');
+      document.getElementById('nav-taller').classList.remove('active');
+      document.getElementById('nav-contact').classList.remove('active');
+
+      const fullTitle = getText(p.title, currentLang);
+      document.getElementById('detail-title').innerText = fullTitle;
+      document.getElementById('detail-location').innerText = p.location || '';
+
+      const metaContainer = document.getElementById('detail-meta');
+      const metaItems = [
+        { label: currentLang === 'es' ? 'Año' : 'Year', value: p.year },
+        { label: currentLang === 'es' ? 'Ubicación' : 'Location', value: p.location },
+        { label: currentLang === 'es' ? 'Tipología' : 'Typology', value: getFormattedTypology(p, currentLang) },
+        { label: currentLang === 'es' ? 'Área' : 'Area', value: p.m2 ? (String(p.m2).includes('m') || String(p.m2).includes('sq') ? p.m2 : `${p.m2} m²`) : '' },
+        { label: currentLang === 'es' ? 'Equipo' : 'Team', value: p.team },
+        { label: currentLang === 'es' ? 'Programa' : 'Program', value: p.program },
+        { label: currentLang === 'es' ? 'Tutor' : 'Tutor', value: p.tutor },
+        { label: currentLang === 'es' ? 'Reconocimiento' : 'Distinction', value: p.distinction },
+        { label: currentLang === 'es' ? 'Cliente' : 'Client', value: p.client },
+        { label: currentLang === 'es' ? 'Fotografía' : 'Photography', value: p.photography }
+      ];
+
+      metaContainer.innerHTML = metaItems
+        .filter(m => m.value !== undefined && m.value !== null && String(m.value).trim() !== '')
+        .map(m => `
+          <div class="meta-entry">
+            <span class="meta-entry-label">${escapeHtml(m.label)}</span>
+            <span class="meta-entry-value">${escapeHtml(String(m.value))}</span>
+          </div>
+        `).join('');
+
+      const narrativeContainer = document.getElementById('detail-narrative');
+      const summaryText = getText(p.summary, currentLang);
+      const fullText = getText(p.full, currentLang);
+      narrativeContainer.innerHTML = `
+        ${summaryText ? `<p style="font-size: 17px; margin-bottom: 20px;">${escapeHtml(summaryText)}</p>` : ''}
+        ${fullText ? `<div>${fullText}</div>` : ''}
+      `;
+
+      const galleryContainer = document.getElementById('detail-gallery');
+      const rawGallery = (p.gallery && p.gallery.length > 0) ? p.gallery : (p.images || []);
+      
+      let htmlOutput = [];
+      rawGallery.forEach((item, idx) => {
+        if (typeof item === 'string') {
+          htmlOutput.push(`
+            <div class="image-stream-item">
+              <img src="${item}" alt="${escapeHtml(fullTitle)} [${idx + 1}]" loading="lazy" />
+            </div>
+          `);
+        } else if (item && (item._type === 'explanatoryText' || ('text_es' in item && !item.url))) {
+          const txt = (currentLang === 'es' ? (item.text_es || item.text_en) : (item.text_en || item.text_es)) || '';
+          if (txt) {
+            htmlOutput.push(`
+              <div class="detail-description">
+                <p>${escapeHtml(txt)}</p>
+              </div>
+            `);
+          }
+        } else if (item && item.url) {
+          const cap = (currentLang === 'es' ? (item.caption_es || item.caption_en) : (item.caption_en || item.caption_es)) || '';
+          htmlOutput.push(`
+            <div class="image-stream-item">
+              <img src="${item.url}" alt="${escapeHtml(fullTitle)} [${idx + 1}]" loading="lazy" />
+              ${cap ? `<div style="font-size: 13px; color: var(--muted); margin-top: 8px;">${escapeHtml(cap)}</div>` : ''}
+            </div>
+          `);
+        }
+      });
+
+      galleryContainer.innerHTML = htmlOutput.join('');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      handleScrollUpdates();
+    }
+
+    /* 5. TALLER */
+    function renderTaller() {
+      const m1 = document.getElementById('taller-manifesto-1');
+      const m2 = document.getElementById('taller-manifesto-2');
+      const distTitle = document.getElementById('lbl-distinctions');
+      const distList = document.getElementById('taller-distinctions-list');
+
+      if (m1) m1.innerHTML = formatTallerParagraphs(getText(tallerData.manifesto_1, currentLang));
+      if (m2) m2.innerHTML = formatTallerParagraphs(getText(tallerData.manifesto_2, currentLang));
+
+      if (distTitle) {
+        const customTitle = getText(tallerData.distinctions_title, currentLang);
+        distTitle.innerText = customTitle || (currentLang === 'es' ? 'Concursos & Distinciones' : 'Competitions & Honors');
+      }
+
+      if (distList) {
+        if (Array.isArray(tallerData.distinctions) && tallerData.distinctions.length > 0) {
+          distList.innerHTML = tallerData.distinctions.map(d => `<li style="margin-bottom: 8px;">${typeof d === 'string' ? d : getText(d, currentLang)}</li>`).join('');
+          if (distTitle) distTitle.style.display = 'block';
+        } else {
+          distList.innerHTML = '';
+          if (distTitle) distTitle.style.display = 'none';
+        }
+      }
+    }
+
+    /* 6. CONTACTO */
+    function renderContact() {
+      const intro = document.getElementById('contact-intro-text');
+      const pLink = document.getElementById('link-contact-projects');
+      const prLink = document.getElementById('link-contact-press');
+      const cLink = document.getElementById('link-contact-careers');
+
+      if (intro) intro.innerText = getText(contactData.intro, currentLang);
+
+      if (contactData && contactData.emails) {
+        if (pLink && contactData.emails.projects) {
+          pLink.href = `mailto:${contactData.emails.projects}`;
+          pLink.innerText = contactData.emails.projects;
+        }
+        if (prLink && contactData.emails.press) {
+          prLink.href = `mailto:${contactData.emails.press}`;
+          prLink.innerText = contactData.emails.press;
+        }
+        if (cLink && contactData.emails.careers) {
+          cLink.href = `mailto:${contactData.emails.careers}`;
+          cLink.innerText = contactData.emails.careers;
+        }
+      }
+
+      document.getElementById('lbl-proj-contact').innerText = currentLang === 'es' ? 'Proyectos' : 'Projects';
+      document.getElementById('lbl-press-contact').innerText = currentLang === 'es' ? 'Prensa & Publicaciones' : 'Press & Publications';
+      document.getElementById('lbl-careers-contact').innerText = currentLang === 'es' ? 'Vacantes' : 'Careers';
+    }
+
+    /* 7. ENRUTADOR */
+    function navigateTo(target, e) {
+      if (e) e.preventDefault();
+      hideHoverImage();
+      currentView = target;
+      window.location.hash = target;
+
+      const views = ['home', 'work', 'taller', 'contact', 'project'];
+      views.forEach(v => {
+        const el = document.getElementById(`view-${v}`);
+        if (el) el.style.display = 'none';
+      });
+
+      const navIds = ['brand', 'work', 'taller', 'contact'];
+      navIds.forEach(id => {
+        const el = document.getElementById(`nav-${id}`);
+        if (el) el.classList.remove('active');
+      });
+
+      const currentEl = document.getElementById(`view-${target}`);
+      if (currentEl) currentEl.style.display = 'block';
+
+      if (target === 'work') {
+        document.getElementById('nav-work').classList.add('active');
+        renderProjectsList();
+      } else if (target === 'taller') {
+        document.getElementById('nav-taller').classList.add('active');
+        renderTaller();
+      } else if (target === 'contact') {
+        document.getElementById('nav-contact').classList.add('active');
+        renderContact();
+      } else if (target === 'home') {
+        document.getElementById('nav-brand').classList.add('active');
+        renderHomeScatter();
+      }
+
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      handleScrollUpdates();
+    }
+
+    function setLang(lang) {
+      currentLang = lang;
+      
+      const btnEs = document.getElementById('btn-lang-es');
+      const btnEn = document.getElementById('btn-lang-en');
+      if (lang === 'es') {
+        btnEs.classList.add('active');
+        btnEn.classList.remove('active');
+      } else {
+        btnEn.classList.add('active');
+        btnEs.classList.remove('active');
+      }
+
+      document.getElementById('nav-work').innerText = lang === 'es' ? 'Work' : 'Work';
+      document.getElementById('nav-taller').innerText = lang === 'es' ? 'Taller' : 'Studio';
+      document.getElementById('nav-contact').innerText = lang === 'es' ? 'Contacto' : 'Contact';
+
+      renderProjectsList();
+      renderTaller();
+      renderContact();
+
+      if (currentView === 'home') {
+        renderHomeScatter();
+      } else if (currentView === 'project' && currentProjectId) {
+        openProject(currentProjectId);
+      }
+    }
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const ic = document.getElementById('icon-circle');
+      const ih = document.getElementById('icon-half');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        currentTheme = 'light';
+        if (ic) ic.classList.remove('hidden');
+        if (ih) ih.classList.add('hidden');
+      } else {
+        html.classList.add('dark');
+        currentTheme = 'dark';
+        if (ic) ic.classList.add('hidden');
+        if (ih) ih.classList.remove('hidden');
+      }
+      handleScrollUpdates();
+    }
+
+    /* SCROLL & CONTRASTE */
+    function handleScrollUpdates() {
+      const nav = document.getElementById('header-nav');
+      if (!nav || typeof nav.getBoundingClientRect !== 'function') return;
+
+      const navRect = nav.getBoundingClientRect();
+
+      const textSec = document.getElementById('detail-text-section');
+      if (textSec && currentView === 'project' && typeof textSec.getBoundingClientRect === 'function') {
+        const rect = textSec.getBoundingClientRect();
+        if (rect.bottom < 140) {
+          textSec.style.opacity = '0';
+          textSec.style.pointerEvents = 'none';
+        } else if (rect.top < 60) {
+          const factor = Math.max(0, Math.min(1, (rect.bottom - 100) / 180));
+          textSec.style.opacity = factor.toFixed(2);
+          textSec.style.pointerEvents = factor < 0.1 ? 'none' : 'auto';
+        } else {
+          textSec.style.opacity = '1';
+          textSec.style.pointerEvents = 'auto';
+        }
+      }
+
+      const images = document.querySelectorAll('img');
       let isOverImage = false;
-      const images = document.querySelectorAll('#view-home img, #view-project-detail img, #subview-overview img');
       for (let i = 0; i < images.length; i++) {
-        const rect = images[i].getBoundingClientRect();
-        if (
-          logoCenterX >= rect.left &&
-          logoCenterX <= rect.right &&
-          logoCenterY >= rect.top &&
-          logoCenterY <= rect.bottom
-        ) {
+        const img = images[i];
+        if (img.id === 'hover-img-el') continue;
+        if (!img.offsetParent) continue;
+        const r = img.getBoundingClientRect();
+        if (r.bottom > navRect.top + 4 && r.top < navRect.bottom - 4) {
           isOverImage = true;
           break;
         }
       }
 
       if (isOverImage) {
-        logo.classList.add('logo-inverted');
+        nav.classList.add('is-over-image');
       } else {
-        logo.classList.remove('logo-inverted');
+        nav.classList.remove('is-over-image');
       }
     }
-    window.addEventListener('scroll', updateHeaderLogoContrast, { passive: true });
-    window.addEventListener('resize', updateHeaderLogoContrast, { passive: true });
 
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    window.addEventListener('scroll', handleScrollUpdates, { passive: true });
 
-    function updateBackToTopVisibility() {
-      const btnContainer = document.getElementById('back-to-top-container');
-      if (!btnContainer) return;
-      if (window.scrollY > 300) {
-        btnContainer.classList.remove('opacity-0', 'pointer-events-none');
-        btnContainer.classList.add('opacity-100', 'pointer-events-auto');
-      } else {
-        btnContainer.classList.remove('opacity-100', 'pointer-events-auto');
-        btnContainer.classList.add('opacity-0', 'pointer-events-none');
-      }
-    }
-    window.addEventListener('scroll', updateBackToTopVisibility, { passive: true });
-
-    document.addEventListener('click', (e) => {
-      if (!isTallerOpen && !isContactOpen) return;
-      const panelTaller = document.getElementById('side-panel-taller');
-      const panelContact = document.getElementById('side-panel-contact');
-      const btnTaller = document.getElementById('btn-taller');
-      const btnContact = document.getElementById('btn-contact');
-
-      const isInsideTaller = panelTaller && panelTaller.contains(e.target);
-      const isInsideContact = panelContact && panelContact.contains(e.target);
-      const isOnBtnTaller = btnTaller && btnTaller.contains(e.target);
-      const isOnBtnContact = btnContact && btnContact.contains(e.target);
-
-      if (!isInsideTaller && !isInsideContact && !isOnBtnTaller && !isOnBtnContact) {
-        closeAllSidePanels();
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash.replace('#', '');
+      if (!hash || hash === 'home') {
+        navigateTo('home');
+      } else if (hash === 'work') {
+        navigateTo('work');
+      } else if (hash === 'taller') {
+        navigateTo('taller');
+      } else if (hash === 'contact') {
+        navigateTo('contact');
+      } else if (findProjectKey(hash)) {
+        openProject(hash);
       }
     });
 
-    function slugify(text) {
-      if (!text) return '';
-      return text
-        .toString()
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)+/g, '');
-    }
+    window.addEventListener('resize', () => {
+      if (currentView === 'home') {
+        renderHomeScatter();
+      }
+      handleScrollUpdates();
+    });
 
-    function findProjectKey(id) {
-      if (projectsData[id]) return id;
-      const found = Object.keys(projectsData).find(k => {
-        const p = projectsData[k];
-        return p._id === id || p.id === id || p.slug === id || p.slugKey === id;
-      });
-      return found || id;
-    }
-
+    /* SINCRONIZACIÓN SANITY CMS */
     async function fetchSanityData() {
       if (!SANITY_CONFIG.projectId) return;
-
       const query = encodeURIComponent(`{
         "projects": *[_type == "project"] | order(orderNumber asc, _createdAt desc) {
           _id, "id": _id,
@@ -910,896 +1732,54 @@
             const newProjects = {};
             json.result.projects.forEach((p, idx) => {
               const rawTitle = (p.title && (p.title.es || p.title)) || '';
-              const cleanSlug = p.slug || slugify(rawTitle) || p.id || `proj-${idx}`;
+              const cleanSlug = p.slug || slugify(rawTitle) || p.id || p._id || `proj-${idx}`;
               p.slugKey = cleanSlug;
               newProjects[cleanSlug] = p;
             });
             projectsData = newProjects;
             projectKeys = Object.keys(projectsData);
           }
-          if (json.result.taller && json.result.taller.manifesto_1) {
+          if (json.result.taller && (json.result.taller.manifesto_1 || json.result.taller.distinctions)) {
             tallerData = json.result.taller;
           }
-          if (json.result.contact && json.result.contact.emails) {
+          if (json.result.contact && (json.result.contact.intro || json.result.contact.emails)) {
             contactData = json.result.contact;
           }
-          renderAllDynamicContent();
+
+          renderProjectsList();
+          renderTaller();
+          renderContact();
+          if (currentView === 'home') renderHomeScatter();
+          if (currentView === 'project' && currentProjectId) {
+            openProject(currentProjectId);
+          }
         }
       } catch (err) {
-        console.log('Sanity fallback activo');
+        console.log('Sanity fallback local activo.');
       }
     }
 
-    function handleHomeCardClick(k, event) {
-      if (isTallerOpen || isContactOpen) {
-        if (event) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-        closeAllSidePanels();
-        return;
-      }
-      openProjectDossier(k);
-    }
-
-    function renderHome() {
-      const el = document.getElementById('view-home');
-      if (!el) return;
-
-      let selectedKeys = projectKeys.filter(k => projectsData[k].selectedWork === true);
-      if (selectedKeys.length === 0) selectedKeys = projectKeys.slice(0, 7);
-
-      el.innerHTML = selectedKeys.map((k) => {
-        const p = projectsData[k];
-        const img = p.homeImage || (p.images && p.images[0] ? p.images[0] : '');
-        const rawTitle = getText(p.title, currentLang).toUpperCase();
-        const rawTypology = getFormattedTypology(p, currentLang).toUpperCase();
-        const rawLoc = (p.location || '').toUpperCase();
-        const rawYear = p.year || '';
-        const rawCta = currentLang === 'es' ? 'VER PROYECTO →' : 'VIEW PROJECT →';
-        const rawBottomRight = `${rawYear} · ${rawCta}`;
-        const rawBottomLeft = `[ ${rawTypology} ]`;
-
-        const escTitle = escapeHtml(rawTitle);
-        const escLoc = escapeHtml(rawLoc);
-        const escBottomLeft = escapeHtml(rawBottomLeft);
-        const escBottomRight = escapeHtml(rawBottomRight);
-
-        return `
-          <div class="project-card w-[92vw] sm:w-[70vw] md:w-[48vw] max-w-[720px] flex flex-col justify-center select-none"
-               onmouseenter="onHomeCardHover(this)">
-            <div class="relative w-full h-[calc(100vh-110px)] max-h-[820px] overflow-hidden cursor-pointer group bg-black/5 dark:bg-white/5" onclick="handleHomeCardClick('${k}', event)">
-              <img src="${img}" alt="${escTitle}" class="home-card-img w-full h-full object-cover" />
-              <div class="absolute inset-0 grain-overlay opacity-0 group-hover:opacity-60 transition-opacity duration-300 pointer-events-none"></div>
-
-              <div class="absolute inset-0 p-6 md:p-8 flex flex-col justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none text-white z-10 font-sans">
-                <div class="w-full flex justify-center items-center text-center px-2">
-                  <span class="text-[10px] md:text-[10.5px] uppercase tracking-wider text-white/90 leading-tight break-words max-w-full" data-scramble-text="${escLoc}">${escLoc}</span>
-                </div>
-
-                <div class="flex items-center justify-center text-center px-4">
-                  <h2 class="text-white text-[13.5px] sm:text-[14.5px] md:text-[15.5px] font-medium tracking-wide leading-snug drop-shadow-sm max-w-[80%]" data-scramble-text="${escTitle}">
-                    ${escTitle}
-                  </h2>
-                </div>
-
-                <div class="flex justify-between items-end text-[10px] md:text-[10.5px] uppercase tracking-wider text-white/80 gap-3">
-                  <span class="text-white/80 max-w-[55%] leading-tight text-left" data-scramble-text="${escBottomLeft}">${escBottomLeft}</span>
-                  <span class="text-right flex-shrink-0 text-white font-medium" data-scramble-text="${escBottomRight}">${escBottomRight}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
-
-      updateHomeScrollEffects();
-      updateHeaderLogoContrast();
-    }
-
-    function renderProjectsViews() {
-      const topBand = document.getElementById('overview-band-top');
-      const bottomBand = document.getElementById('overview-band-bottom');
-      const listContainer = document.getElementById('project-list-container');
-      if (!topBand || !bottomBand || !listContainer) return;
-
-      let topHtml = '', bottomHtml = '<div class="w-12 md:w-32 flex-shrink-0"></div>', listHtml = '';
-      projectKeys.forEach((k, idx) => {
-        const p = projectsData[k];
-        const img = p.images && p.images[0] ? p.images[0] : '';
-        const title = getText(p.title, currentLang);
-        const year = p.year || '';
-        const coords = getCoordinatesOnly(p);
-
-        if (idx % 2 === 0) {
-          topHtml += `
-            <div data-project-id="${k}" class="flex-shrink-0 flex items-end space-x-2.5 md:space-x-3 group cursor-pointer" onclick="openProjectDossier('${k}')">
-              <span class="text-[9.5px] md:text-[10px] text-muted rotate-180 [writing-mode:vertical-lr] tracking-wide group-hover:text-[#d97a47] transition-colors mb-1">${title}</span>
-              <img src="${img}" class="h-[22vh] md:h-[32vh] max-h-[310px] w-auto object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500" />
-            </div>`;
-        } else {
-          bottomHtml += `
-            <div data-project-id="${k}" class="flex-shrink-0 flex items-start space-x-2.5 md:space-x-3 group cursor-pointer" onclick="openProjectDossier('${k}')">
-              <span class="text-[9.5px] md:text-[10px] text-muted rotate-180 [writing-mode:vertical-lr] tracking-wide group-hover:text-[#d97a47] transition-colors mt-1">${title}</span>
-              <img src="${img}" class="h-[22vh] md:h-[32vh] max-h-[310px] w-auto object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500" />
-            </div>`;
-        }
-
-        listHtml += `
-          <div data-project-id="${k}" class="project-list-row flex flex-col sm:flex-row sm:justify-between sm:items-baseline cursor-pointer py-2 md:py-2.5 transition-all group gap-0.5 sm:gap-6"
-               onmouseenter="showListPreview('${k}', this, event)" onmouseleave="hideListPreview(this)" onclick="openProjectDossier('${k}')">
-            <span class="row-title font-normal transition-all text-[13px] md:text-[13.5px] text-left leading-snug group-hover:text-[#d97a47]">${title}</span>
-            <span class="row-meta text-muted text-[11px] md:text-[11.5px] font-normal transition-all sm:whitespace-nowrap sm:text-right flex-shrink-0 group-hover:text-[#d97a47]">${year}${coords ? ` · ${coords}` : ''}</span>
-          </div>`;
-      });
-
-      topBand.innerHTML = topHtml;
-      bottomBand.innerHTML = bottomHtml;
-      listContainer.innerHTML = listHtml;
-    }
-
-    function renderTypologyFilters() {
-      const container = document.getElementById('typology-filter-bar');
-      if (!container) return;
-
-      const activeCategories = new Set();
-      Object.values(projectsData).forEach(p => {
-        if (Array.isArray(p.categories)) p.categories.forEach(c => activeCategories.add(c.toLowerCase()));
-        else if (p.category) activeCategories.add(p.category.toLowerCase());
-      });
-
-      let html = `
-        <button onclick="filterByTypology('all')" data-filter="all" class="filter-btn ${currentFilter === 'all' ? 'text-[#d97a47] font-semibold' : 'text-muted hover:text-[#d97a47]'} py-1 px-1 transition-colors">
-          [<span class="filter-dot">${currentFilter === 'all' ? '•' : '&nbsp;'}</span>] <span data-i18n="filter_all">${translations[currentLang].filter_all}</span>
-        </button>
-      `;
-
-      ALL_TYPOLOGIES.forEach(t => {
-        if (activeCategories.has(t.id)) {
-          const isActive = currentFilter === t.id;
-          html += `
-            <button onclick="filterByTypology('${t.id}')" data-filter="${t.id}" class="filter-btn ${isActive ? 'text-[#d97a47] font-semibold' : 'text-muted hover:text-[#d97a47]'} py-1 px-1 transition-colors">
-              [<span class="filter-dot">${isActive ? '•' : '&nbsp;'}</span>] <span>${t[currentLang]}</span>
-            </button>
-          `;
-        }
-      });
-
-      container.innerHTML = html;
-    }
-
-    function renderSidePanels() {
-      function formatTallerParagraphs(rawText) {
-        if (!rawText) return '';
-        if (rawText.includes('<p>') || rawText.includes('<div>')) return rawText;
-        return rawText
-          .split(/\n\s*\n/)
-          .map(p => p.trim())
-          .filter(p => p.length > 0)
-          .map(p => `<p class="leading-relaxed">${p}</p>`)
-          .join('');
-      }
-
-      const m1 = document.getElementById('home-taller-manifesto-1');
-      const m2 = document.getElementById('home-taller-manifesto-2');
-      const distTitle = document.getElementById('home-taller-distinctions-title');
-      const distList = document.getElementById('home-taller-distinctions-list');
-
-      if (m1) m1.innerHTML = formatTallerParagraphs(getText(tallerData.manifesto_1, currentLang));
-      if (m2) m2.innerHTML = formatTallerParagraphs(getText(tallerData.manifesto_2, currentLang));
-
-      if (distTitle) {
-        const customTitle = getText(tallerData.distinctions_title, currentLang);
-        distTitle.innerText = customTitle || translations[currentLang].taller_distinctions_title;
-      }
-
-      if (distList) {
-        if (Array.isArray(tallerData.distinctions) && tallerData.distinctions.length > 0) {
-          distList.innerHTML = tallerData.distinctions.map(d => `<li class="hover:text-[#d97a47] transition-colors cursor-default py-0.5">${typeof d === 'string' ? d : getText(d, currentLang)}</li>`).join('');
-          if (distTitle) distTitle.classList.remove('hidden');
-        } else {
-          distList.innerHTML = '';
-          if (distTitle) distTitle.classList.add('hidden');
-        }
-      }
-
-      const intro = document.getElementById('home-contact-intro');
-      const pEmail = document.getElementById('home-contact-email-projects');
-      const prEmail = document.getElementById('home-contact-email-press');
-      const cEmail = document.getElementById('home-contact-email-careers');
-
-      if (intro) intro.innerText = getText(contactData.intro, currentLang);
-      if (pEmail && contactData.emails) { pEmail.href = `mailto:${contactData.emails.projects}`; pEmail.innerText = contactData.emails.projects; }
-      if (prEmail && contactData.emails) { prEmail.href = `mailto:${contactData.emails.press}`; prEmail.innerText = contactData.emails.press; }
-      if (cEmail && contactData.emails) { cEmail.href = `mailto:${contactData.emails.careers}`; cEmail.innerText = contactData.emails.careers; }
-    }
-
-    function toggleSidePanel(name) {
-      if (name === 'taller') {
-        if (isContactOpen) { isContactOpen = false; updatePanelUI('contact', false); }
-        isTallerOpen = !isTallerOpen;
-        updatePanelUI('taller', isTallerOpen);
-      } else if (name === 'contact') {
-        if (isTallerOpen) { isTallerOpen = false; updatePanelUI('taller', false); }
-        isContactOpen = !isContactOpen;
-        updatePanelUI('contact', isContactOpen);
-      }
-
-      const backdrop = document.getElementById('panel-backdrop');
-      if (backdrop) {
-        if (isTallerOpen || isContactOpen) backdrop.classList.add('is-active');
-        else backdrop.classList.remove('is-active');
-      }
-      updateNavIndicators();
-    }
-
-    function updatePanelUI(name, isOpen) {
-      const panels = (name === 'taller')
-        ? [document.getElementById('side-panel-taller'), document.getElementById('side-panel-taller-bottom')]
-        : [document.getElementById('side-panel-contact')];
-
-      panels.forEach(panel => {
-        if (!panel) return;
-        if (isOpen) {
-          panel.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-2');
-          panel.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
-        } else {
-          panel.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
-          panel.classList.add('opacity-0', 'pointer-events-none', 'translate-y-2');
-        }
-      });
-    }
-
-    function closeAllSidePanels() {
-      isTallerOpen = false;
-      isContactOpen = false;
-      updatePanelUI('taller', false);
-      updatePanelUI('contact', false);
-      const backdrop = document.getElementById('panel-backdrop');
-      if (backdrop) backdrop.classList.remove('is-active');
-      updateNavIndicators();
-    }
-
-    function updateNavIndicators() {
-      const hash = window.location.hash.replace('#', '') || 'home';
-      const isHome = (hash === 'home' || !hash.startsWith('project-') && hash !== 'projects');
-      const isProjects = (hash === 'projects');
-
-      if (isTallerOpen || isContactOpen) {
-        document.body.classList.add('side-panel-open');
-      } else {
-        document.body.classList.remove('side-panel-open');
-      }
-
-      const footerEmail = document.getElementById('footer-email-container');
-      if (footerEmail) {
-        if (isContactOpen) {
-          footerEmail.classList.add('opacity-0', 'pointer-events-none');
-        } else {
-          footerEmail.classList.remove('opacity-0', 'pointer-events-none');
-        }
-      }
-
-      const btnHome = document.getElementById('btn-home'), dotHome = document.getElementById('dot-home');
-      if (isHome) {
-        btnHome.classList.remove('text-muted'); btnHome.classList.add('text-[#d97a47]', 'font-semibold');
-        if (dotHome) dotHome.innerHTML = '•';
-      } else {
-        btnHome.classList.add('text-muted'); btnHome.classList.remove('text-[#d97a47]', 'font-semibold');
-        if (dotHome) dotHome.innerHTML = '&nbsp;';
-      }
-
-      const btnProjects = document.getElementById('btn-projects'), dotProjects = document.getElementById('dot-projects');
-      if (isProjects) {
-        btnProjects.classList.remove('text-muted'); btnProjects.classList.add('text-[#d97a47]', 'font-semibold');
-        if (dotProjects) dotProjects.innerHTML = '•';
-      } else {
-        btnProjects.classList.add('text-muted'); btnProjects.classList.remove('text-[#d97a47]', 'font-semibold');
-        if (dotProjects) dotProjects.innerHTML = '&nbsp;';
-      }
-
-      const btnTaller = document.getElementById('btn-taller'), dotTaller = document.getElementById('dot-taller');
-      if (isTallerOpen) {
-        btnTaller.classList.remove('text-muted'); btnTaller.classList.add('text-[#d97a47]', 'font-semibold');
-        if (dotTaller) dotTaller.innerHTML = '•';
-      } else {
-        btnTaller.classList.add('text-muted'); btnTaller.classList.remove('text-[#d97a47]', 'font-semibold');
-        if (dotTaller) dotTaller.innerHTML = '&nbsp;';
-      }
-
-      const btnContact = document.getElementById('btn-contact'), dotContact = document.getElementById('dot-contact');
-      if (isContactOpen) {
-        btnContact.classList.remove('text-muted'); btnContact.classList.add('text-[#d97a47]', 'font-semibold');
-        if (dotContact) dotContact.innerHTML = '•';
-      } else {
-        btnContact.classList.add('text-muted'); btnContact.classList.remove('text-[#d97a47]', 'font-semibold');
-        if (dotContact) dotContact.innerHTML = '&nbsp;';
-      }
-    }
-
-    function renderAllDynamicContent() {
-      renderHome();
-      renderProjectsViews();
-      renderTypologyFilters();
-      renderSidePanels();
-      if (currentActiveProject) renderDossierContent(currentActiveProject);
-      filterByTypology(currentFilter);
-      updateHeaderLogoContrast();
-    }
-
-    function runPreloader() {
-      const preloader = document.getElementById('preloader');
-      const cgm = document.getElementById('loader-cgm');
-      const atelier = document.getElementById('loader-atelier');
-      if (!preloader || !cgm || !atelier) return;
-
-      setTimeout(() => { cgm.classList.remove('opacity-0', '-translate-y-1'); cgm.classList.add('opacity-100', 'translate-y-0'); }, 150);
-      setTimeout(() => { atelier.classList.remove('opacity-0', 'translate-y-1'); atelier.classList.add('opacity-100', 'translate-y-0'); }, 550);
-      setTimeout(() => { preloader.classList.add('opacity-0', 'pointer-events-none'); setTimeout(() => { preloader.style.display = 'none'; }, 700); }, 1500);
-    }
-
-    function setLang(lang) {
-      currentLang = lang;
-      const dict = translations[lang];
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (dict[key]) el.innerText = dict[key];
-      });
-      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-        const key = el.getAttribute('data-i18n-placeholder');
-        if (dict[key]) el.placeholder = dict[key];
-      });
-
-      const btnEs = document.getElementById('btn-lang-es');
-      const btnEn = document.getElementById('btn-lang-en');
-      if (lang === 'es') {
-        btnEs.classList.add('text-ink', 'font-normal'); btnEs.classList.remove('text-muted');
-        btnEn.classList.add('text-muted'); btnEn.classList.remove('text-ink', 'font-normal');
-      } else {
-        btnEn.classList.add('text-ink', 'font-normal'); btnEn.classList.remove('text-muted');
-        btnEs.classList.add('text-muted'); btnEs.classList.remove('text-ink', 'font-normal');
-      }
-      renderAllDynamicContent();
-    }
-
-    const tabs = ['home', 'projects', 'project-detail'];
-    function navigate(e, target) {
-      if (e) e.preventDefault();
-      if (target === 'home') {
-        closeAllSidePanels();
-      }
-      window.location.hash = target;
-      showTab(target);
-    }
-
-    function showTab(target) {
-      if (!tabs.includes(target) && !target.startsWith('project-')) target = 'home';
-      tabs.forEach(t => {
-        const el = document.getElementById(`view-${t}`);
-        if (el) el.classList.add('is-hidden');
-      });
-
-      const currentView = document.getElementById(`view-${target}`);
-      if (currentView) currentView.classList.remove('is-hidden');
-
-      const toggle = document.getElementById('projects-toggle-container');
-      if (target === 'projects') toggle.classList.remove('hidden'); else toggle.classList.add('hidden');
-
-      if (target === 'projects' || target.startsWith('project-')) {
-        closeAllSidePanels();
-      }
-
-      window.scrollTo({ top: 0, behavior: 'instant' });
-      updateNavIndicators();
-      setTimeout(updateHeaderLogoContrast, 50);
-    }
-
-    window.addEventListener('hashchange', () => {
-      const hash = window.location.hash.replace('#', '');
-      if (hash.startsWith('project-')) openProjectDossier(hash.replace('project-', ''), false);
-      else if (hash) showTab(hash);
-    });
-
-    function setProjectMode(mode) {
-      const subO = document.getElementById('subview-overview'), subL = document.getElementById('subview-list');
-      const btnO = document.getElementById('btn-mode-overview'), btnL = document.getElementById('btn-mode-list');
-
-      if (mode === 'overview') {
-        subO.classList.remove('hidden'); subL.classList.add('hidden');
-        btnO.classList.remove('text-muted'); btnO.classList.add('text-[#d97a47]', 'font-semibold');
-        btnL.classList.add('text-muted'); btnL.classList.remove('text-[#d97a47]', 'font-semibold');
-        subO.classList.add('filter-anim');
-      } else {
-        subO.classList.add('hidden'); subL.classList.remove('hidden');
-        btnL.classList.remove('text-muted'); btnL.classList.add('text-[#d97a47]', 'font-semibold');
-        btnO.classList.add('text-muted'); btnO.classList.remove('text-[#d97a47]', 'font-semibold');
-        subL.classList.add('filter-anim');
-      }
-      setTimeout(updateHeaderLogoContrast, 50);
-    }
-
-    function filterByTypology(cat) {
-      currentFilter = cat;
-      renderTypologyFilters();
-      applyProjectFilters();
-    }
-
-    function searchProjects(value) {
-      currentSearch = (value || '').trim().toLowerCase();
-      applyProjectFilters();
-    }
-
-    function applyProjectFilters() {
-      document.querySelectorAll('#subview-overview [data-project-id], #project-list-container [data-project-id]').forEach(el => {
-        const p = projectsData[el.getAttribute('data-project-id')];
-        if (!p) return;
-        const matchesCategory = (currentFilter === 'all') || (Array.isArray(p.categories) && p.categories.includes(currentFilter)) || (p.category === currentFilter);
-        const titleText = getText(p.title, currentLang).toLowerCase();
-        const matchesSearch = !currentSearch || titleText.includes(currentSearch);
-        const matches = matchesCategory && matchesSearch;
-        if (matches) {
-          el.classList.remove('hidden');
-          el.classList.add('filter-anim');
-        } else {
-          el.classList.add('hidden');
-          el.classList.remove('filter-anim');
-        }
-      });
-      setTimeout(updateHeaderLogoContrast, 50);
-    }
-
-    function updateHomeScrollEffects() {
-      const home = document.getElementById('view-home');
-      if (home && home.classList.contains('is-hidden')) return;
-      if (window.innerWidth < 768) {
-        document.querySelectorAll('.project-card').forEach(card => {
-          card.style.opacity = '';
-          card.style.filter = '';
-          card.style.transform = '';
-        });
-        return;
-      }
-      const screenCenter = window.innerHeight / 2;
-      const maxDistance = window.innerHeight * 0.65;
-
-      document.querySelectorAll('.project-card').forEach(card => {
-        const rect = card.getBoundingClientRect();
-        const cardCenter = rect.top + rect.height / 2;
-        const distance = Math.abs(cardCenter - screenCenter);
-
-        if (distance < window.innerHeight * 0.16) {
-          card.style.opacity = '1';
-          card.style.filter = 'grayscale(0%) contrast(100%)';
-          card.style.transform = 'scale(1.03)';
-        } else {
-          const factor = Math.min(1, Math.max(0, (distance - window.innerHeight * 0.16) / maxDistance));
-          const scale = 1.03 - (factor * 0.15);
-          const opacity = 1 - (factor * 0.55);
-          const grayscale = factor * 100;
-
-          card.style.opacity = opacity.toFixed(2);
-          card.style.filter = `grayscale(${grayscale.toFixed(0)}%) contrast(${(100 + factor * 10).toFixed(0)}%)`;
-          card.style.transform = `scale(${scale.toFixed(3)})`;
-        }
-      });
-    }
-    window.addEventListener('scroll', updateHomeScrollEffects, { passive: true });
-    window.addEventListener('resize', updateHomeScrollEffects, { passive: true });
-
-    function updateMobileProjectNav() {
-      const navBar = document.querySelector('.center-nav-bar');
-      const footerEmail = document.getElementById('footer-email-container');
-      const footerCopy = document.getElementById('footer-copyright-container');
-      const footerControls = document.getElementById('footer-controls-container');
-      const footerEls = [footerEmail, footerCopy, footerControls];
-
-      if (window.innerWidth >= 768) {
-        if (navBar) navBar.classList.remove('nav-hidden-mobile');
-        footerEls.forEach(el => el && el.classList.remove('mobile-footer-hidden'));
-        return;
-      }
-
-      const detailView = document.getElementById('view-project-detail');
-      if (!detailView || detailView.classList.contains('is-hidden')) {
-        if (navBar) navBar.classList.remove('nav-hidden-mobile');
-        footerEls.forEach(el => el && el.classList.remove('mobile-footer-hidden'));
-        return;
-      }
-
-      const imgContainer = document.getElementById('detail-images-container');
-      if (!imgContainer) return;
-
-      const imgTop = imgContainer.getBoundingClientRect().top;
-      const isInTextSection = imgTop > 100;
-
-      if (isInTextSection) {
-        if (navBar) navBar.classList.add('nav-hidden-mobile');
-        footerEls.forEach(el => el && el.classList.add('mobile-footer-hidden'));
-      } else {
-        if (navBar) navBar.classList.remove('nav-hidden-mobile');
-        footerEls.forEach(el => el && el.classList.remove('mobile-footer-hidden'));
-      }
-    }
-    window.addEventListener('scroll', updateMobileProjectNav, { passive: true });
-    window.addEventListener('resize', updateMobileProjectNav, { passive: true });
-
-    function moveListPreview(e) {
-      const f = document.getElementById('list-floating-preview');
-      if (!f || f.classList.contains('opacity-0') || window.innerWidth < 768) return;
-      const topPos = Math.max(80, Math.min(window.innerHeight - 360, e.clientY - 160));
-      const leftPos = Math.min(window.innerWidth - 520, Math.max(40, e.clientX - 240));
-      f.style.top = `${topPos}px`;
-      f.style.left = `${leftPos}px`;
-    }
-
-    function showListPreview(id, row, e) {
-      if (window.innerWidth < 768) return;
-      const p = projectsData[id]; if (!p) return;
-      const c = document.getElementById('project-list-container');
-      const img = document.getElementById('floating-preview-img');
-      const f = document.getElementById('list-floating-preview');
-
-      c.classList.add('list-is-hovered');
-      if (row) row.classList.add('is-active');
-
-      img.src = p.images && p.images[0] ? p.images[0] : (p.homeImage || '');
-      if (e) moveListPreview(e);
-      f.classList.remove('opacity-0', 'scale-95');
-      f.classList.add('opacity-100', 'scale-100');
-    }
-
-    function hideListPreview(row) {
-      const c = document.getElementById('project-list-container');
-      const f = document.getElementById('list-floating-preview');
-
-      c.classList.remove('list-is-hovered');
-      if (row) row.classList.remove('is-active');
-
-      f.classList.remove('opacity-100', 'scale-100');
-      f.classList.add('opacity-0', 'scale-95');
-    }
-
-    let targetOverviewScroll = 0;
-    let currentOverviewScroll = 0;
-    let isOverviewLerping = false;
-
-    function initOverviewSmoothScroll() {
-      const ov = document.getElementById('subview-overview');
-      if (!ov) return;
-
-      targetOverviewScroll = ov.scrollLeft;
-      currentOverviewScroll = ov.scrollLeft;
-
-      ov.addEventListener('wheel', (e) => {
-        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-          e.preventDefault();
-          targetOverviewScroll += e.deltaY * 1.35;
-          const maxScroll = ov.scrollWidth - ov.clientWidth;
-          targetOverviewScroll = Math.max(0, Math.min(maxScroll, targetOverviewScroll));
-
-          if (!isOverviewLerping) {
-            isOverviewLerping = true;
-            requestAnimationFrame(renderOverviewScroll);
-          }
-        }
-      }, { passive: false });
-
-      function renderOverviewScroll() {
-        currentOverviewScroll += (targetOverviewScroll - currentOverviewScroll) * 0.12;
-        ov.scrollLeft = currentOverviewScroll;
-
-        if (Math.abs(targetOverviewScroll - currentOverviewScroll) > 0.5) {
-          requestAnimationFrame(renderOverviewScroll);
-        } else {
-          ov.scrollLeft = targetOverviewScroll;
-          currentOverviewScroll = targetOverviewScroll;
-          isOverviewLerping = false;
-        }
-      }
-    }
-
-    function openProjectDossier(id, updateHash = true) {
-      const key = findProjectKey(id);
-      currentActiveProject = key;
-      renderDossierContent(key);
-      if (updateHash) window.location.hash = `project-${key}`;
-      showTab('project-detail');
-    }
-
-    function renderDossierContent(id) {
-      const p = projectsData[id]; if (!p) return;
-      document.getElementById('detail-title').innerText = getText(p.title, currentLang);
-
-      const t = translations[currentLang];
-      let areaText = '';
-      if (p.m2) {
-        areaText = currentLang === 'en'
-          ? `${Math.round(p.m2 * 10.7639).toLocaleString('en-US')} sq ft`
-          : `${p.m2} m²`;
-      }
-      const metaFields = [
-        [t.meta_typology_label, getFormattedTypology(p, currentLang)],
-        [t.meta_location_label, p.location],
-        [t.meta_m2_label, areaText],
-        [t.meta_client_label, p.client],
-        [t.meta_team_label, p.team],
-        [t.meta_program_label, p.program],
-        [t.meta_tutor_label, p.tutor],
-        [t.meta_distinction_label, p.distinction],
-        [t.meta_photography_label, p.photography],
-        [t.meta_year_label, p.year]
-      ];
-      document.getElementById('detail-meta-fields').innerHTML = metaFields
-        .filter(([label, value]) => value !== undefined && value !== null && String(value).trim() !== '')
-        .map(([label, value]) => `<div><span class="text-muted block text-[10px] uppercase">${escapeHtml(label)}</span><span class="text-ink font-normal text-[12px]">${escapeHtml(String(value))}</span></div>`)
-        .join('');
-
-      document.getElementById('detail-narrative-summary').innerText = getText(p.summary, currentLang);
-      document.getElementById('detail-narrative-full').innerHTML = getText(p.full, currentLang);
-      document.getElementById('detail-narrative-full').classList.add('hidden');
-      document.getElementById('btn-read-more').innerText = translations[currentLang].read_more;
-
-      const rawGallery = (p.gallery && p.gallery.length > 0) ? p.gallery : (p.images || []);
-      currentLightboxImages = [];
-      currentLightboxTitle = getText(p.title, currentLang);
-
-      const imgContainer = document.getElementById('detail-images-container');
-      const mobileHero = document.getElementById('detail-mobile-hero');
-      if (!imgContainer) return;
-
-      let firstImgHandled = false;
-      const firstImgItem = rawGallery.find(item => typeof item === 'string' || (item && item.url));
-      if (mobileHero) {
-        if (firstImgItem) {
-          const heroUrl = typeof firstImgItem === 'string' ? firstImgItem : firstImgItem.url;
-          const heroCap = typeof firstImgItem === 'object' ? ((currentLang === 'es' ? (firstImgItem.caption_es || firstImgItem.caption_en) : (firstImgItem.caption_en || firstImgItem.caption_es)) || '') : '';
-          mobileHero.innerHTML = `
-            <div class="w-full space-y-1.5" onclick="openLightbox(0)">
-              <div class="w-full h-[calc(100vh-230px)] min-h-[440px] max-h-[740px] bg-panel overflow-hidden">
-                <img src="${heroUrl}" class="w-full h-full object-cover block" />
-              </div>
-              ${heroCap ? `<p class="text-[10.5px] text-muted leading-tight pt-0.5">${escapeHtml(heroCap)}</p>` : ''}
-            </div>
-          `;
-          mobileHero.classList.remove('hidden');
-        } else {
-          mobileHero.innerHTML = '';
-          mobileHero.classList.add('hidden');
-        }
-      }
-
-      let htmlOutput = [];
-      let i = 0;
-
-      while (i < rawGallery.length) {
-        const item = rawGallery[i];
-
-        if (typeof item === 'string') {
-          currentLightboxImages.push(item);
-          const lbIdx = currentLightboxImages.length - 1;
-          const hideOnMobileClass = (!firstImgHandled) ? 'hidden lg:block' : '';
-          if (!firstImgHandled) firstImgHandled = true;
-          htmlOutput.push(`
-            <div class="w-full bg-panel overflow-hidden cursor-zoom-in group ${hideOnMobileClass}" onclick="openLightbox(${lbIdx})">
-              <img src="${item}" class="w-full h-auto object-contain block" />
-            </div>
-          `);
-          i++;
-          continue;
-        }
-
-        if (item && (item._type === 'explanatoryText' || ('text_es' in item && !item.url))) {
-          const txt = (currentLang === 'es' ? (item.text_es || item.text_en) : (item.text_en || item.text_es)) || '';
-          if (txt) {
-            htmlOutput.push(`
-              <div class="py-3 text-[12px] md:text-[12.5px] leading-relaxed text-ink font-normal select-text">
-                <p>${escapeHtml(txt)}</p>
-              </div>
-            `);
-          }
-          i++;
-          continue;
-        }
-
-        const layout = (item && item.layout) || 'full';
-        const url = (item && item.url) || '';
-        const cap = (item && (currentLang === 'es' ? (item.caption_es || item.caption_en) : (item.caption_en || item.caption_es))) || '';
-
-        if (layout === 'half') {
-          const halfGroup = [item];
-          if (i + 1 < rawGallery.length) {
-            const nextItem = rawGallery[i + 1];
-            if (nextItem && typeof nextItem === 'object' && nextItem.layout === 'half') {
-              halfGroup.push(nextItem);
-            }
-          }
-
-          const isFirstGroup = !firstImgHandled;
-          if (isFirstGroup) firstImgHandled = true;
-          const groupMobileClass = isFirstGroup ? 'hidden lg:grid' : '';
-
-          let gridHtml = [`<div class="grid grid-cols-1 md:grid-cols-2 gap-3 w-full ${groupMobileClass}">`];
-          halfGroup.forEach(hItem => {
-            const hUrl = hItem.url || '';
-            const hCap = (currentLang === 'es' ? (hItem.caption_es || hItem.caption_en) : (hItem.caption_en || hItem.caption_es)) || '';
-            if (hUrl) {
-              currentLightboxImages.push(hUrl);
-              const lbIdx = currentLightboxImages.length - 1;
-              gridHtml.push(`
-                <div class="w-full space-y-1.5">
-                  <div class="w-full bg-panel overflow-hidden cursor-zoom-in group" onclick="openLightbox(${lbIdx})">
-                    <img src="${hUrl}" class="w-full h-auto object-contain block" />
-                  </div>
-                  ${hCap ? `<p class="text-[10.5px] text-muted leading-tight pt-0.5">${escapeHtml(hCap)}</p>` : ''}
-                </div>
-              `);
-            }
-          });
-          gridHtml.push('</div>');
-          htmlOutput.push(gridHtml.join(''));
-          i += halfGroup.length;
-        } else if (layout === 'third') {
-          const thirdGroup = [item];
-          let j = i + 1;
-          while (j < rawGallery.length && thirdGroup.length < 3) {
-            const nextItem = rawGallery[j];
-            if (nextItem && typeof nextItem === 'object' && nextItem.layout === 'third') {
-              thirdGroup.push(nextItem);
-              j++;
-            } else {
-              break;
-            }
-          }
-
-          const isFirstGroup = !firstImgHandled;
-          if (isFirstGroup) firstImgHandled = true;
-          const groupMobileClass = isFirstGroup ? 'hidden lg:grid' : '';
-
-          let gridHtml = [`<div class="grid grid-cols-1 md:grid-cols-3 gap-3 w-full ${groupMobileClass}">`];
-          thirdGroup.forEach(tItem => {
-            const tUrl = tItem.url || '';
-            const tCap = (currentLang === 'es' ? (tItem.caption_es || tItem.caption_en) : (tItem.caption_en || tItem.caption_es)) || '';
-            if (tUrl) {
-              currentLightboxImages.push(tUrl);
-              const lbIdx = currentLightboxImages.length - 1;
-              gridHtml.push(`
-                <div class="w-full space-y-1.5">
-                  <div class="w-full bg-panel overflow-hidden cursor-zoom-in group" onclick="openLightbox(${lbIdx})">
-                    <img src="${tUrl}" class="w-full h-auto object-contain block" />
-                  </div>
-                  ${tCap ? `<p class="text-[10.5px] text-muted leading-tight pt-0.5">${escapeHtml(tCap)}</p>` : ''}
-                </div>
-              `);
-            }
-          });
-          gridHtml.push('</div>');
-          htmlOutput.push(gridHtml.join(''));
-          i += thirdGroup.length;
-        } else {
-          if (url) {
-            currentLightboxImages.push(url);
-            const lbIdx = currentLightboxImages.length - 1;
-            const hideOnMobileClass = (!firstImgHandled) ? 'hidden lg:block' : '';
-            if (!firstImgHandled) firstImgHandled = true;
-            htmlOutput.push(`
-              <div class="w-full space-y-1.5 ${hideOnMobileClass}">
-                <div class="w-full bg-panel overflow-hidden cursor-zoom-in group" onclick="openLightbox(${lbIdx})">
-                  <img src="${url}" class="w-full h-auto object-contain block" />
-                </div>
-                ${cap ? `<p class="text-[10.5px] text-muted leading-tight pt-0.5">${escapeHtml(cap)}</p>` : ''}
-              </div>
-            `);
-          }
-          i++;
-        }
-      }
-
-      imgContainer.innerHTML = htmlOutput.join('');
-      setTimeout(updateHeaderLogoContrast, 50);
-    }
-
-    function toggleReadMore() {
-      const full = document.getElementById('detail-narrative-full'), btn = document.getElementById('btn-read-more');
-      if (full.classList.contains('hidden')) { full.classList.remove('hidden'); btn.innerText = translations[currentLang].read_less; }
-      else { full.classList.add('hidden'); btn.innerText = translations[currentLang].read_more; }
-    }
-
-    function prevProject() {
-      const idx = projectKeys.indexOf(currentActiveProject);
-      openProjectDossier(projectKeys[(idx - 1 + projectKeys.length) % projectKeys.length]);
-    }
-    function nextProject() {
-      const idx = projectKeys.indexOf(currentActiveProject);
-      openProjectDossier(projectKeys[(idx + 1) % projectKeys.length]);
-    }
-
-    function openLightbox(index) {
-      if (!currentLightboxImages.length) return;
-      currentLightboxIndex = index % currentLightboxImages.length;
-      showLightboxModal();
-    }
-
-    function showLightboxModal() {
-      const modal = document.getElementById('lightbox-modal');
-      const img = document.getElementById('lightbox-img');
-      const cap = document.getElementById('lightbox-caption');
-
-      img.src = currentLightboxImages[currentLightboxIndex];
-      cap.innerText = `${currentLightboxTitle} — (${currentLightboxIndex + 1} / ${currentLightboxImages.length})`;
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
-
-    function closeLightbox(e) {
-      if (e && e.target && e.target.id !== 'lightbox-modal' && e.target.tagName !== 'BUTTON') return;
-      const modal = document.getElementById('lightbox-modal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
-
-    function prevLightboxImage() {
-      currentLightboxIndex = (currentLightboxIndex - 1 + currentLightboxImages.length) % currentLightboxImages.length;
-      showLightboxModal();
-    }
-
-    function nextLightboxImage() {
-      currentLightboxIndex = (currentLightboxIndex + 1) % currentLightboxImages.length;
-      showLightboxModal();
-    }
-
-    window.addEventListener('keydown', (e) => {
-      const modal = document.getElementById('lightbox-modal');
-      if (!modal.classList.contains('hidden')) {
-        if (e.key === 'Escape') closeLightbox();
-        if (e.key === 'ArrowLeft') prevLightboxImage();
-        if (e.key === 'ArrowRight') nextLightboxImage();
-      }
-      if (e.key === 'Escape' && (isTallerOpen || isContactOpen)) {
-        closeAllSidePanels();
-      }
-      if (e.key === 'Escape') {
-        const searchInput = document.getElementById('project-search-input');
-        if (searchInput && searchInput.value) {
-          searchInput.value = '';
-          searchProjects('');
-          searchInput.blur();
-        }
-      }
-    });
-
-    function setTheme(theme) {
-      const html = document.documentElement, ic = document.getElementById('icon-circle'), ih = document.getElementById('icon-half');
-      if (theme === 'dark') {
-        html.classList.add('dark'); ic.classList.add('hidden'); ih.classList.remove('hidden');
-      } else {
-        html.classList.remove('dark'); ic.classList.remove('hidden'); ih.classList.add('hidden');
-      }
-      setTimeout(updateHeaderLogoContrast, 50);
-    }
-
-    function toggleTheme() {
-      const html = document.documentElement;
-      setTheme(html.classList.contains('dark') ? 'light' : 'dark');
-    }
-
+    /* INICIALIZACIÓN */
     (async function init() {
-      const footerYearEl = document.getElementById('footer-year');
-      if (footerYearEl) footerYearEl.innerText = new Date().getFullYear();
-
-      setTheme('light');
-      setProjectMode('list');
-      setLang('es');
-      runPreloader();
-      renderAllDynamicContent();
-      initOverviewSmoothScroll();
+      renderProjectsList();
+      renderTaller();
+      renderContact();
 
       await fetchSanityData();
 
       const hash = window.location.hash.replace('#', '');
-      if (hash.startsWith('project-')) openProjectDossier(hash.replace('project-', ''), false);
-      else showTab(hash || 'home');
-      
-      updateHeaderLogoContrast();
+      if (hash && hash !== 'home' && hash !== 'work' && hash !== 'taller' && hash !== 'contact' && findProjectKey(hash)) {
+        openProject(hash);
+      } else if (hash === 'work') {
+        navigateTo('work');
+      } else if (hash === 'taller') {
+        navigateTo('taller');
+      } else if (hash === 'contact') {
+        navigateTo('contact');
+      } else {
+        navigateTo('home');
+      }
+      setTimeout(handleScrollUpdates, 50);
     })();
   </script>
 </body>
