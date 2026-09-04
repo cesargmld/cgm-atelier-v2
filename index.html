@@ -13,7 +13,7 @@
 
   <style>
 
-   /* INTRO OVERLAY TIPOGRÁFICA CON AUTO-DESVANECIMIENTO */
+ /* INTRO TIPOGRÁFICA ARQUITECTÓNICA (CGM -> CGM ATELIER) */
     .intro-overlay {
       position: fixed;
       inset: 0;
@@ -22,13 +22,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.55s ease, visibility 0.55s ease;
-      animation: autoDismissIntro 2.2s ease forwards;
-    }
-
-    @keyframes autoDismissIntro {
-      0%, 75% { opacity: 1; visibility: visible; }
-      100% { opacity: 0; visibility: hidden; pointer-events: none; }
+      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.65s ease;
     }
 
     .intro-overlay.fade-out {
@@ -37,19 +31,38 @@
       pointer-events: none;
     }
 
-    .intro-brand {
+    .intro-logo-lockup {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.3em;
       font-family: var(--font);
-      font-size: 26px;
-      font-weight: 500;
+      font-size: clamp(26px, 3.8vw, 40px);
+      font-weight: 700;
       letter-spacing: -0.025em;
       color: var(--text);
-      white-space: nowrap;
+      text-transform: uppercase;
+      user-select: none;
     }
 
-    @media (min-width: 768px) {
-      .intro-brand {
-        font-size: 30px;
-      }
+    .intro-cgm {
+      display: inline-block;
+    }
+
+    .intro-atelier {
+      display: inline-flex;
+      align-items: baseline;
+    }
+
+    .intro-letter {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .intro-letter.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     
     @font-face {
