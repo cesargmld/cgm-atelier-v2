@@ -13,7 +13,7 @@
 
   <style>
 
-    /* INTRO OVERLAY TIPOGRÁFICA */
+   /* INTRO OVERLAY TIPOGRÁFICA CON AUTO-DESVANECIMIENTO */
     .intro-overlay {
       position: fixed;
       inset: 0;
@@ -23,6 +23,12 @@
       align-items: center;
       justify-content: center;
       transition: opacity 0.55s ease, visibility 0.55s ease;
+      animation: autoDismissIntro 2.2s ease forwards;
+    }
+
+    @keyframes autoDismissIntro {
+      0%, 75% { opacity: 1; visibility: visible; }
+      100% { opacity: 0; visibility: hidden; pointer-events: none; }
     }
 
     .intro-overlay.fade-out {
