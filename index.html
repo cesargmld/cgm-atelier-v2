@@ -625,17 +625,15 @@
 <!-- VISTA 2: LISTADO DE PROYECTOS (WORK) -->
     <section id="view-work" style="display: none;">
       
-      <!-- Botón sutil de filtro y contenedor desplegable -->
+      <!-- Botón sutil de filtro desplegable -->
       <div class="subtle-filter-wrapper">
         <button onclick="toggleFilterDropdown()" id="btn-filter-toggle" class="filter-toggle-btn">
           <span id="filter-icon">+</span> <span id="filter-label">filtro</span>
         </button>
-        <div id="filter-dropdown-menu" class="filter-dropdown hidden">
-          <!-- Inyectado dinámicamente con las categorías activas -->
-        </div>
+        <div id="filter-dropdown-menu" class="filter-dropdown hidden"></div>
       </div>
 
-      <!-- Contenedor del listado y bio editorial -->
+      <!-- Contenedor del listado y bio editorial lateral -->
       <div id="projects-list-container"></div>
       <div class="side-studio-bio" id="work-side-bio"></div>
     </section>
