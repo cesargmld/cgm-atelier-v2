@@ -2018,6 +2018,40 @@ function setLang(lang) {
     }
 
     // Inicialización
+    /* INTRO ANIMADA DEL LOGO (CGM -> CGM Atelier) */
+    function playLogoIntro() {
+      const overlay = document.getElementById('intro-overlay');
+      const textEl = document.getElementById('intro-text');
+      if (!overlay || !textEl) return;
+
+      if (sessionStorage.getItem('cgm_intro_played')) {
+        overlay.style.display = 'none';
+        return;
+      }
+
+      textEl.innerText = 'CGM';
+      setTimeout(() => {
+        const target = ' Atelier';
+        let curr = 'CGM';
+        let idx = 0;
+        const typer = setInterval(() => {
+          if (idx < target.length) {
+            curr += target[idx];
+            textEl.innerText = curr;
+            idx++;
+          } else {
+            clearInterval(typer);
+            setTimeout(() => {
+              overlay.classList.add('fade-out');
+              sessionStorage.setItem('cgm_intro_played', '1');
+              setTimeout(() => {
+                overlay.style.display = 'none';
+              }, 600);
+            }, 550);
+          }
+        }, 60);
+      }, 350);
+    }
     (function init() {
       try { renderHomeScatter(); } catch(e) { console.error(e); }
       try { renderFilters(); } catch(e) { console.error(e); }
