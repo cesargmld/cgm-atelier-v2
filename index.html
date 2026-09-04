@@ -824,15 +824,22 @@
 
 <!-- VISTA 2: LISTADO DE PROYECTOS (WORK) -->
     <section id="view-work" style="display: none;">
-      <div class="subtle-filter-wrapper">
-        <button onclick="toggleFilterDropdown()" id="btn-filter-toggle" class="filter-toggle-btn">
-          <span id="filter-icon">+</span> <span id="filter-label">filtro</span>
-        </button>
-        <div id="filter-dropdown-menu" class="filter-dropdown hidden"></div>
+      <!-- COLUMNA IZQUIERDA: FILTRO + LISTADO DE PROYECTOS -->
+      <div class="work-left-col">
+        <div class="subtle-filter-wrapper">
+          <button onclick="toggleFilterDropdown()" id="btn-filter-toggle" class="filter-toggle-btn">
+            <span id="filter-icon">+</span> <span id="filter-label">filtro</span>
+          </button>
+          <div id="filter-dropdown-menu" class="filter-dropdown hidden"></div>
+        </div>
+
+        <div id="projects-list-container"></div>
       </div>
 
-      <div id="projects-list-container"></div>
-      <div class="side-studio-bio" id="work-side-bio"></div>
+      <!-- COLUMNA DERECHA: BIO EDITORIAL LATERAL -->
+      <div class="work-right-col">
+        <div class="side-studio-bio" id="work-side-bio"></div>
+      </div>
     </section>
 
     <!-- VISTA 5: CONTACTO -->
