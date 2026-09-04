@@ -622,21 +622,22 @@
       <div class="scatter-canvas" id="scatter-canvas-el"></div>
     </section>
 
-    <!-- VISTA 2: LISTADO DE PROYECTOS (WORK) -->
+<!-- VISTA 2: LISTADO DE PROYECTOS (WORK) -->
     <section id="view-work" style="display: none;">
       
-      <!-- Barra minimalista de búsqueda y filtros -->
-      <div class="filter-search-bar">
-        <div class="search-input-wrapper">
-          <input type="text" id="project-search-input" oninput="handleSearchInput(this.value)" placeholder="buscar proyecto..." autocomplete="off" />
-        </div>
-        <div class="typology-filter-group" id="typology-filter-container">
-          <!-- Inyectado dinámicamente -->
+      <!-- Botón sutil de filtro y contenedor desplegable -->
+      <div class="subtle-filter-wrapper">
+        <button onclick="toggleFilterDropdown()" id="btn-filter-toggle" class="filter-toggle-btn">
+          <span id="filter-icon">+</span> <span id="filter-label">filtro</span>
+        </button>
+        <div id="filter-dropdown-menu" class="filter-dropdown hidden">
+          <!-- Inyectado dinámicamente con las categorías activas -->
         </div>
       </div>
 
-      <!-- Contenedor del listado -->
+      <!-- Contenedor del listado y bio editorial -->
       <div id="projects-list-container"></div>
+      <div class="side-studio-bio" id="work-side-bio"></div>
     </section>
 
     <!-- VISTA 3: EXPEDIENTE DE PROYECTO (PROJECT DETAIL) -->
