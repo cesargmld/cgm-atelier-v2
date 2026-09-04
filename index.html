@@ -1727,33 +1727,34 @@ function navigateTo(target, e) {
       const nInfo = document.getElementById('nav-info');
       const nContact = document.getElementById('nav-contact');
 
-      vHome.style.display = 'none';
-      vWork.style.display = 'none';
-      vInfo.style.display = 'none';
-      vContact.style.display = 'none';
-      vProj.style.display = 'none';
+      // Oculta con comprobación 'if' para evitar que se congele si alguna vista no existe en el DOM
+      if (vHome) vHome.style.display = 'none';
+      if (vWork) vWork.style.display = 'none';
+      if (vInfo) vInfo.style.display = 'none';
+      if (vContact) vContact.style.display = 'none';
+      if (vProj) vProj.style.display = 'none';
 
-      nBrand.classList.remove('active');
-      nWork.classList.remove('active');
-      nInfo.classList.remove('active');
-      nContact.classList.remove('active');
+      if (nBrand) nBrand.classList.remove('active');
+      if (nWork) nWork.classList.remove('active');
+      if (nInfo) nInfo.classList.remove('active');
+      if (nContact) nContact.classList.remove('active');
 
       if (target === 'home') {
-        vHome.style.display = 'block';
-        nBrand.classList.add('active');
+        if (vHome) vHome.style.display = 'block';
+        if (nBrand) nBrand.classList.add('active');
         renderHomeScatter();
       } else if (target === 'work') {
-        vWork.style.display = 'block';
-        nWork.classList.add('active');
+        if (vWork) vWork.style.display = 'block';
+        if (nWork) nWork.classList.add('active');
         renderFilters();
         renderWorkList();
       } else if (target === 'info') {
-        vInfo.style.display = 'block';
-        nInfo.classList.add('active');
+        if (vInfo) vInfo.style.display = 'block';
+        if (nInfo) nInfo.classList.add('active');
         renderInfoView();
       } else if (target === 'contact') {
-        vContact.style.display = 'block';
-        nContact.classList.add('active');
+        if (vContact) vContact.style.display = 'block';
+        if (nContact) nContact.classList.add('active');
         renderContact();
       }
 
