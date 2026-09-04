@@ -1277,12 +1277,21 @@
       return obj[lang] || obj['es'] || obj['en'] || '';
     }
 
-    function getCoordinatesOnly(p) {
+function getCoordinatesOnly(p) {
       if (!p || !p.location) return '';
       const locStr = typeof p.location === 'object' ? (p.location[currentLang] || p.location.es || p.location.en || '') : String(p.location);
+      // Corta cualquier nombre de ciudad o país y deja solo las coordenadas numéricas con grados
+      const degreeIdx = locStr.indexOf('°');
+      if (degreeIdx !== -1) {
+        let start = degreeIdx;
+        while (start > 0 && locStr[start - 1] !== ' ' && locStr[start - 1] !== '.' && locStr[start - 1] !== ',') {
+          start--;
+        }
+        return locStr.substring(start).trim();
+      }
       if (locStr.includes('·')) {
         const parts = locStr.split('·');
-        return parts.length > 1 ? parts[1].trim() : parts[0].trim();
+        return parts[parts.length - 1].trim();
       }
       return locStr.trim();
     }
