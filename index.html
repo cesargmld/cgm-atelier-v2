@@ -290,74 +290,139 @@
     }
 
 /* =========================================================
-       2. LISTADO DE PROYECTOS (WORK) + FILTROS & BUSCADOR
+       2. LISTADO DE PROYECTOS (ESTILO EDITORIAL: 2 COLUMNAS)
        ========================================================= */
     #view-work {
-      max-width: 1180px;
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: end;
     }
 
-    /* BARRA MINIMALISTA DE FILTROS Y BÚSQUEDA */
-    .filter-search-bar {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-bottom: 40px;
-    }
-
-    @media (min-width: 768px) {
-      .filter-search-bar {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: baseline;
-        margin-bottom: 52px;
+    @media (min-width: 1024px) {
+      #view-work {
+        grid-template-columns: 1.65fr 1fr;
+        gap: 64px;
       }
     }
 
-    /* Buscador limpio sin bordes */
-    .search-input-wrapper {
-      position: relative;
+    /* FILTRO SUTIL DESPLEGABLE */
+    .subtle-filter-wrapper {
+      grid-column: 1 / -1;
+      margin-bottom: 24px;
+      font-size: 13px;
+    }
+
+    .filter-toggle-btn {
+      color: var(--muted);
+      font-size: 13px;
       display: inline-flex;
       align-items: baseline;
-    }
-
-    #project-search-input {
-      background: transparent;
-      border: 0;
-      outline: 0;
-      font-family: inherit;
-      font-size: 14px;
-      color: var(--text);
+      gap: 6px;
       padding: 2px 0;
-      width: 180px;
-      letter-spacing: -0.01em;
+      transition: color 0.1s ease;
     }
 
-    #project-search-input::placeholder {
-      color: var(--muted);
-      opacity: 0.8;
+    .filter-toggle-btn:hover {
+      color: var(--accent) !important;
     }
 
-    /* Filtros tipográficos en línea */
-    .typology-filter-group {
+    .filter-dropdown {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px 20px;
-      font-size: 13.5px;
+      gap: 12px 18px;
+      padding-top: 14px;
+      font-size: 13px;
       color: var(--muted);
     }
 
-    .typology-filter-group button {
-      transition: color 0.1s ease;
-      text-transform: lowercase;
+    .filter-dropdown.hidden {
+      display: none !important;
     }
 
-    .typology-filter-group button.active {
+    .filter-dropdown button {
+      transition: color 0.1s ease;
+    }
+
+    .filter-dropdown button.active {
       color: var(--text) !important;
       font-weight: 500;
     }
 
-    .typology-filter-group button:hover {
+    .filter-dropdown button:hover {
       color: var(--accent) !important;
+    }
+
+    /* TABLA DE 3 COLUMNAS: COORDENADAS — NOMBRE — TIPOLOGÍA */
+    .project-item {
+      display: block;
+      width: 100%;
+      cursor: pointer;
+      line-height: 1.45;
+    }
+
+    .project-item a {
+      display: grid;
+      grid-template-columns: 160px 1fr auto;
+      align-items: baseline;
+      gap: 20px;
+      width: 100%;
+      padding: 3px 0;
+      color: var(--text);
+      font-size: 14.5px;
+      transition: color 0.1s ease;
+    }
+
+    @media (max-width: 768px) {
+      .project-item a {
+        grid-template-columns: 1fr;
+        gap: 2px;
+        padding: 8px 0;
+      }
+    }
+
+    .project-coords {
+      font-size: 13px;
+      color: var(--muted);
+      white-space: nowrap;
+      letter-spacing: -0.01em;
+    }
+
+    .project-title {
+      font-size: 14.5px;
+      font-weight: 400;
+      letter-spacing: -0.015em;
+    }
+
+    .project-typology {
+      font-size: 13px;
+      color: var(--muted);
+      text-align: right;
+      white-space: nowrap;
+      letter-spacing: -0.01em;
+    }
+
+    .project-item:hover a,
+    .project-item:hover .project-title,
+    .project-item:hover .project-coords,
+    .project-item:hover .project-typology {
+      color: var(--accent) !important;
+    }
+
+    /* COLUMNA DERECHA: TEXTO EDITORIAL DEL ESTUDIO / BIO */
+    .side-studio-bio {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text);
+      max-width: 440px;
+      padding-bottom: 6px;
+    }
+
+    .side-studio-bio p {
+      margin-bottom: 14px;
     }
 
     /* FILA DE PROYECTO (TÍTULO GRANDE + AÑO Y COORDENADAS) */
